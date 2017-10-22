@@ -55,10 +55,12 @@ void MX_LTDC_Init(void)
   LTDC_LayerCfgTypeDef pLayerCfg1;
 
   hltdc.Instance = LTDC;
-  hltdc.Init.HSPolarity = LTDC_HSPOLARITY_AL;
+	/*配置极性*/
+  hltdc.Init.HSPolarity = LTDC_HSPOLARITY_AL;/* HSYNC 低电平有效*/
   hltdc.Init.VSPolarity = LTDC_VSPOLARITY_AL;
   hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AL;
   hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
+	/*配置同步时序*/
   hltdc.Init.HorizontalSync = 7;
   hltdc.Init.VerticalSync = 3;
   hltdc.Init.AccumulatedHBP = 14;
@@ -239,7 +241,7 @@ void HAL_LTDC_MspInit(LTDC_HandleTypeDef* ltdcHandle)
     HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
   /* USER CODE BEGIN LTDC_MspInit 1 */
-
+	//PD13背光
   /* USER CODE END LTDC_MspInit 1 */
   }
 }

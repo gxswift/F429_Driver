@@ -170,12 +170,12 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
-            <DriverSelection>-1</DriverSelection>
+            <Capability>1</Capability>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -365,7 +365,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F429xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable</IncludePath>
+              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable;..\Fatfs</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -458,10 +458,57 @@
               <FileType>1</FileType>
               <FilePath>..\User\Src\usart.c</FilePath>
             </File>
+            <File>
+              <FileName>dma2d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\dma2d.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_driver_sd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\bsp_driver_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fatfs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\fatfs.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Fatfs</GroupName>
+          <Files>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Fatfs\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Fatfs\ff.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff_gen_drv.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Fatfs\ff_gen_drv.c</FilePath>
+            </File>
+            <File>
+              <FileName>sd_diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Fatfs\sd_diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>cc936.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Fatfs\option\cc936.c</FilePath>
+            </File>
+            <File>
+              <FileName>syscall.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Fatfs\option\syscall.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Lib</GroupName>
@@ -655,11 +702,6 @@
               <FileName>stm32f4xx_hal_mmc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Lib\Src\stm32f4xx_hal_mmc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_hal_msp_template.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Lib\Src\stm32f4xx_hal_msp_template.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_nand.c</FileName>

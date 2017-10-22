@@ -1,0 +1,15 @@
+.\objects\cc936.o: ..\Fatfs\option\cc936.c
+.\objects\cc936.o: ..\Fatfs\option\../ff.h
+.\objects\cc936.o: ..\Fatfs\option\../integer.h
+.\objects\cc936.o: ..\Fatfs\option\../ffconf.h
+.\objects\cc936.o: ..\FreeRTOS\include\FreeRTOS.h
+.\objects\cc936.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\cc936.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\cc936.o: ..\User\Inc\FreeRTOSConfig.h
+.\objects\cc936.o: ..\FreeRTOS\include\projdefs.h
+.\objects\cc936.o: ..\FreeRTOS\include\portable.h
+.\objects\cc936.o: ..\FreeRTOS\include\deprecated_definitions.h
+.\objects\cc936.o: ..\FreeRTOS\portable\portmacro.h
+.\objects\cc936.o: ..\FreeRTOS\include\mpu_wrappers.h
+.\objects\cc936.o: ..\FreeRTOS\include\semphr.h
+.\objects\cc936.o: ..\FreeRTOS\include\queue.h

@@ -38,6 +38,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
+#include "dma2d.h"
 #include "ltdc.h"
 #include "sdio.h"
 #include "spi.h"
@@ -45,8 +46,12 @@
 #include "gpio.h"
 #include "fmc.h"
 
+#include "fatfs.h"
 /* USER CODE BEGIN Includes */
-
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "croutine.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -61,11 +66,83 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
+static TaskHandle_t xHandleTaskLed = NULL;
+static TaskHandle_t xHandleTaskMsgPro = NULL;
+static TaskHandle_t xHandleTaskSD = NULL;
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+void HAL_Delay(__IO uint32_t Delay)
+{
+	vTaskDelay(Delay);
+}
+static void vTaskLed(void *pvParameters)
+{
+	while(1)
+	{
+		HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_12);
+//		HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
+				vTaskDelay(250);
+	}
+}
 
+static void vTaskMsgPro(void *pvParameters)
+{
+	while(1)
+	{
+		HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
+				vTaskDelay(500);
+	}
+}
+
+	FATFS fs;
+	FIL fil;
+uint8_t look = 0;
+static void vSD_Task(void *pvParameters)
+{
+	look = f_mount(&fs,"0:/",1);
+//	scan_files("0:/");
+	look = f_open (&fil,"0:/中文文件名测试.txt",FA_OPEN_ALWAYS|FA_WRITE);
+	look = f_puts("fatfs test 文件系统测试",&fil);
+	look = f_close(&fil);
+	
+	look = f_open (&fil,"0:/file2.txt",FA_OPEN_ALWAYS|FA_WRITE);
+	look = f_puts("fatfs test1",&fil);
+	look = f_puts("fatfs test2",&fil);
+	look = f_printf(&fil,"fatfs test3");
+		look = f_printf(&fil,"1234");
+	look = f_close(&fil);
+	while(1)
+	{
+		vTaskDelay(1000);
+	}
+}
+static void AppTaskCreate (void)
+{
+
+	xTaskCreate(vTaskLed,
+							"vTaskLed",
+							512,
+							NULL,
+							2,
+							&xHandleTaskLed);
+	
+	xTaskCreate(vTaskMsgPro,
+							"vTaskMsgPro",
+							512,
+							NULL,
+							3,
+							&xHandleTaskMsgPro);
+	
+	xTaskCreate(vSD_Task,
+							"SD_Task",
+							1024,
+							NULL,
+							1,
+							&xHandleTaskSD
+							);
+							
+}
 /* USER CODE END 0 */
 
 int main(void)
@@ -79,7 +156,7 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-
+			__set_PRIMASK(1);
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
@@ -98,9 +175,13 @@ int main(void)
   MX_SDIO_SD_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
-
+	MX_DMA2D_Init();
+	
+	MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
+AppTaskCreate();
+vTaskStartScheduler();
   /* USER CODE END 2 */
 
   /* Infinite loop */
