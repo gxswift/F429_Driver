@@ -365,7 +365,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F429xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable;..\Fatfs</IncludePath>
+              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable;..\Fatfs;..\STemWin\inc;..\STemWin\Config</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -472,6 +472,11 @@
               <FileName>fatfs.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Src\fatfs.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\spi_flash.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -992,6 +997,31 @@
               <FileName>port.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\FreeRTOS\portable\port.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>STemWin</GroupName>
+          <Files>
+            <File>
+              <FileName>STemWin532_CM4_OS_Keil_ot.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\STemWin\Lib\STemWin532_CM4_OS_Keil_ot.lib</FilePath>
+            </File>
+            <File>
+              <FileName>GUIConf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STemWin\Config\GUIConf.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCDConf_Lin_Template.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STemWin\Config\LCDConf_Lin_Template.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUI_X_FreeRTOS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STemWin\OS\GUI_X_FreeRTOS.c</FilePath>
             </File>
           </Files>
         </Group>

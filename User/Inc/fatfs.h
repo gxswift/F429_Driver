@@ -56,7 +56,7 @@
 #include "ff.h"
 #include "ff_gen_drv.h"
 #include "sd_diskio.h" /* defines SD_Driver as external */
-
+#include "user_diskio.h"
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */

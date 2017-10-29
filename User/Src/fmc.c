@@ -364,6 +364,7 @@ void FMC_SDRAM_ReadBuffer(uint8_t *pBuffer,uint32_t ReadAddr,uint32_t n)
 		*pBuffer++=*(volatile uint8_t*)(Bank5_SDRAM_ADDR+ReadAddr);
 		ReadAddr++;
 	}
+	
 }
 
 /**

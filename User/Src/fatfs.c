@@ -51,6 +51,8 @@
 uint8_t retSD;    /* Return value for SD */
 char SD_Path[4];  /* SD logical drive path */
 
+uint8_t retUSER;    /* Return value for USER */
+char USER_Path[4];  /* USER logical drive path */
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */    
@@ -59,7 +61,8 @@ void MX_FATFS_Init(void)
 {
   /*## FatFS: Link the SD driver ###########################*/
   retSD = FATFS_LinkDriver(&SD_Driver, SD_Path);
-
+  /*## FatFS: Link the USER driver ###########################*/
+  retUSER = FATFS_LinkDriver(&USER_Driver, USER_Path);
   /* USER CODE BEGIN Init */
   /* additional user code for init */     
   /* USER CODE END Init */
