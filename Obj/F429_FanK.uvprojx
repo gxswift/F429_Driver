@@ -513,6 +513,11 @@
               <FileType>1</FileType>
               <FilePath>..\Fatfs\option\syscall.c</FilePath>
             </File>
+            <File>
+              <FileName>user_diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Fatfs\user_diskio.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

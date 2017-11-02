@@ -60,6 +60,7 @@
 .\objects\main.o: ..\Fatfs\ff_gen_drv.h
 .\objects\main.o: ..\Fatfs\diskio.h
 .\objects\main.o: ..\Fatfs\sd_diskio.h
+.\objects\main.o: ..\User\Inc\user_diskio.h
 .\objects\main.o: ..\FreeRTOS\include\task.h
 .\objects\main.o: ..\FreeRTOS\include\list.h
 .\objects\main.o: ..\FreeRTOS\include\croutine.h

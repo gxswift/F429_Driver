@@ -53,3 +53,4 @@
 .\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_spi.h
 .\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_uart.h
 .\objects\fatfs.o: ..\Fatfs\sd_diskio.h
+.\objects\fatfs.o: ..\User\Inc\user_diskio.h

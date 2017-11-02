@@ -100,18 +100,48 @@ static void vTaskMsgPro(void *pvParameters)
 uint8_t look = 0;
 static void vSD_Task(void *pvParameters)
 {
+	uint8_t res;
+	UINT brw;
+	uint8_t ReadBuff[50];
 	look = f_mount(&fs,"0:/",1);
 //	scan_files("0:/");
-	look = f_open (&fil,"0:/中文文件名测试.txt",FA_OPEN_ALWAYS|FA_WRITE);
+	look = f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE);
 	look = f_puts("fatfs test 文件系统测试",&fil);
 	look = f_close(&fil);
 	
-	look = f_open (&fil,"0:/file2.txt",FA_OPEN_ALWAYS|FA_WRITE);
+	look = f_open (&fil,"0:/file0.txt",FA_OPEN_ALWAYS|FA_WRITE);
 	look = f_puts("fatfs test1",&fil);
 	look = f_puts("fatfs test2",&fil);
 	look = f_printf(&fil,"fatfs test3");
 		look = f_printf(&fil,"1234");
 	look = f_close(&fil);
+ 	memset(ReadBuff,0,50);
+	f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
+	while(1)
+ {
+ res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
+ if(res||brw==0) break;
+ }
+ 	f_close(&fil);
+ printf("SD:%s\r\n",ReadBuff);	
+ 
+	f_mount(&fs,"1:/",1);
+	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE);
+	f_puts("fatfs test 文件系统测试",&fil);
+	f_close(&fil);
+
+	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
+	memset(ReadBuff,0,50);
+	while(1)
+ {
+ res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
+ if(res||brw==0) break;
+ }
+ 	f_close(&fil);
+ printf("spi_flash:%s\r\n",ReadBuff);
+ 
+
+ 
 	while(1)
 	{
 		vTaskDelay(1000);
