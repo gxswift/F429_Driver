@@ -26,7 +26,7 @@
 /   3: f_lseek() function is removed in addition to 2. */
 
 
-#define	_USE_STRFUNC	1
+#define	_USE_STRFUNC	2
 /* This option switches string functions, f_gets(), f_putc(), f_puts() and
 /  f_printf().
 /
@@ -135,7 +135,7 @@
 /  This option has no effect when _LFN_UNICODE == 0. */
 
 
-#define _FS_RPATH	1
+#define _FS_RPATH	2
 /* This option configures support of relative path.
 /
 /   0: Disable relative path and remove related functions.
@@ -148,7 +148,7 @@
 / Drive/Volume Configurations
 /---------------------------------------------------------------------------*/
 
-#define _VOLUMES	1
+#define _VOLUMES	2
 /* Number of volumes (logical drives) to be used. (1-10) */
 
 
@@ -171,7 +171,7 @@
 
 
 #define	_MIN_SS		512
-#define	_MAX_SS		512
+#define	_MAX_SS		4096
 /* These options configure the range of sector size to be supported. (512, 1024,
 /  2048 or 4096) Always set both 512 for most systems, generic memory card and
 /  harddisk. But a larger value may be required for on-board flash memory and some
@@ -219,7 +219,7 @@
 #define _FS_NORTC	0
 #define _NORTC_MON	1
 #define _NORTC_MDAY	1
-#define _NORTC_YEAR	2016
+#define _NORTC_YEAR	2017
 /* The option _FS_NORTC switches timestamp functiton. If the system does not have
 /  any RTC function or valid timestamp is not needed, set _FS_NORTC = 1 to disable
 /  the timestamp function. All objects modified by FatFs will have a fixed timestamp
@@ -230,7 +230,7 @@
 /  These options have no effect at read-only configuration (_FS_READONLY = 1). */
 
 
-#define	_FS_LOCK	0
+#define	_FS_LOCK	1
 /* The option _FS_LOCK switches file lock function to control duplicated file open
 /  and illegal operation to open objects. This option must be 0 when _FS_READONLY
 /  is 1.
@@ -242,7 +242,7 @@
 /      lock control is independent of re-entrancy. */
 
 
-#define _FS_REENTRANT	0
+#define _FS_REENTRANT	1
 #define _FS_TIMEOUT		1000
 #define	_SYNC_t			SemaphoreHandle_t
 /* The option _FS_REENTRANT switches the re-entrancy (thread safe) of the FatFs
