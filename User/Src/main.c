@@ -52,6 +52,7 @@
 #include "task.h"
 #include "queue.h"
 #include "croutine.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -72,6 +73,15 @@ static TaskHandle_t xHandleTaskSD = NULL;
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+int fputc(int ch, FILE *f)
+{
+  /* write a character to the uart1 and Loop until the end of transmission */
+		HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,10);
+ // HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 10); 
+
+  return ch;
+}
+
 void HAL_Delay(__IO uint32_t Delay)
 {
 	vTaskDelay(Delay);
@@ -95,7 +105,7 @@ static void vTaskMsgPro(void *pvParameters)
 	}
 }
 
-	FATFS fs;
+	FATFS fs[2];
 	FIL fil;
 uint8_t look = 0;
 static void vSD_Task(void *pvParameters)
@@ -103,31 +113,28 @@ static void vSD_Task(void *pvParameters)
 	uint8_t res;
 	UINT brw;
 	uint8_t ReadBuff[50];
-	look = f_mount(&fs,"0:/",1);
+	vTaskDelay(1000);
+		printf("SD fatfs test\r\n");
+	look = f_mount(&fs[0],"0:/",0);
 //	scan_files("0:/");
-	look = f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE);
-	look = f_puts("fatfs test 文件系统测试",&fil);
+	look =f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE);
+	f_puts("fatfs test \r\n\r\n文件系统测试",&fil);
 	look = f_close(&fil);
 	
-	look = f_open (&fil,"0:/file0.txt",FA_OPEN_ALWAYS|FA_WRITE);
-	look = f_puts("fatfs test1",&fil);
-	look = f_puts("fatfs test2",&fil);
-	look = f_printf(&fil,"fatfs test3");
-		look = f_printf(&fil,"1234");
-	look = f_close(&fil);
  	memset(ReadBuff,0,50);
-	f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
+	look = f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
 	while(1)
- {
- res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
- if(res||brw==0) break;
- }
- 	f_close(&fil);
- printf("SD:%s\r\n",ReadBuff);	
- 
-	f_mount(&fs,"1:/",1);
+	 {
+	 res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
+	 if(res||brw==0) break;
+	 }
+		look = f_close(&fil);
+	 printf("SD:%s\r\n",ReadBuff);	
+ //----------------------------------------------------------
+	printf("spi flash fatfs test\r\n");
+	f_mount(&fs[1],"1:/",0);
 	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE);
-	f_puts("fatfs test 文件系统测试",&fil);
+	f_puts("fatfs test!\r\n文件系统测试",&fil);
 	f_close(&fil);
 
 	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
@@ -137,8 +144,8 @@ static void vSD_Task(void *pvParameters)
  res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
  if(res||brw==0) break;
  }
- 	f_close(&fil);
- printf("spi_flash:%s\r\n",ReadBuff);
+ f_close(&fil);
+ printf("文件内容:%s\r\n",ReadBuff);
  
 
  
