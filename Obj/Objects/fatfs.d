@@ -38,6 +38,7 @@
 .\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_dma.h
 .\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_dma_ex.h
 .\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_cortex.h
+.\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_crc.h
 .\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_dma2d.h
 .\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_flash.h
 .\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_flash_ex.h
@@ -52,5 +53,8 @@
 .\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_ll_sdmmc.h
 .\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_spi.h
 .\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_uart.h
+.\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_pcd.h
+.\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_ll_usb.h
+.\objects\fatfs.o: ..\Lib\Inc\stm32f4xx_hal_pcd_ex.h
 .\objects\fatfs.o: ..\Fatfs\sd_diskio.h
 .\objects\fatfs.o: ..\User\Inc\user_diskio.h

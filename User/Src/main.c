@@ -39,14 +39,16 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "dma2d.h"
+#include "dma.h"
 #include "ltdc.h"
 #include "sdio.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
 #include "fmc.h"
-
+#include "crc.h"
 #include "fatfs.h"
+#include "usb_device.h"
 /* USER CODE BEGIN Includes */
 #include "FreeRTOS.h"
 #include "task.h"
@@ -125,7 +127,7 @@ static void vSD_Task(void *pvParameters)
 		printf ("open OK!\r\n");
 	else printf("open :%d\r\n",look);
 	
-	f_puts("fatfs test \r\n\r\n文件系统测试",&fil);
+	f_puts("fatfs test \r\n文件系统测试",&fil);
 	look = f_close(&fil);
 	if (look == FR_OK)
 		printf ("close OK!\r\n");
@@ -150,7 +152,7 @@ static void vSD_Task(void *pvParameters)
 	printf("spi flash fatfs test\r\n");
 	f_mount(&fs[1],"1:/",0);
 	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE);
-	f_puts("fatfs test!\r\n文件系统测试",&fil);
+	f_puts("spiflash fatfs test!\r\n文件系统测试",&fil);
 	f_close(&fil);
 
 	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
@@ -164,7 +166,6 @@ static void vSD_Task(void *pvParameters)
  printf("文件内容:%s\r\n",ReadBuff);
  
 
- 
 	while(1)
 	{
 		vTaskDelay(1000);
@@ -229,10 +230,11 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
 	MX_DMA2D_Init();
-	
+  MX_CRC_Init();
+  MX_DMA_Init();	
 	MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
-
+	 MX_USB_DEVICE_Init();
 AppTaskCreate();
 vTaskStartScheduler();
   /* USER CODE END 2 */
@@ -319,7 +321,7 @@ void SystemClock_Config(void)
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
   /* SysTick_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+  HAL_NVIC_SetPriority(SysTick_IRQn, 15, 0);
 }
 
 /* USER CODE BEGIN 4 */

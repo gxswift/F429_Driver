@@ -37,6 +37,7 @@
 .\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_hal_dma.h
 .\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_hal_dma_ex.h
 .\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_hal_cortex.h
+.\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_hal_crc.h
 .\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_hal_dma2d.h
 .\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_hal_flash.h
 .\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_hal_flash_ex.h
@@ -51,3 +52,6 @@
 .\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_ll_sdmmc.h
 .\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_hal_spi.h
 .\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_hal_uart.h
+.\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_hal_pcd.h
+.\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_ll_usb.h
+.\objects\ff_gen_drv.o: ..\Lib\Inc\stm32f4xx_hal_pcd_ex.h

@@ -365,7 +365,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F429xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable;..\Fatfs;..\STemWin\inc;..\STemWin\Config</IncludePath>
+              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable;..\Fatfs;..\STemWin\inc;..\STemWin\Config;..\STM32_USB_Device_Library\Core\Inc;..\STM32_USB_Device_Library\Class\MSC\Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -477,6 +477,36 @@
               <FileName>spi_flash.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Src\spi_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>crc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\crc.c</FilePath>
+            </File>
+            <File>
+              <FileName>usb_device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\usb_device.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_conf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\usbd_conf.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_desc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\usbd_desc.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_storage_if.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\usbd_storage_if.c</FilePath>
+            </File>
+            <File>
+              <FileName>dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\dma.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1027,6 +1057,46 @@
               <FileName>GUI_X_FreeRTOS.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STemWin\OS\GUI_X_FreeRTOS.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Usb</GroupName>
+          <Files>
+            <File>
+              <FileName>usbd_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32_USB_Device_Library\Core\Src\usbd_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_ctlreq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_ioreq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_msc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32_USB_Device_Library\Class\MSC\Src\usbd_msc.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_msc_bot.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32_USB_Device_Library\Class\MSC\Src\usbd_msc_bot.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_msc_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32_USB_Device_Library\Class\MSC\Src\usbd_msc_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_msc_scsi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32_USB_Device_Library\Class\MSC\Src\usbd_msc_scsi.c</FilePath>
             </File>
           </Files>
         </Group>

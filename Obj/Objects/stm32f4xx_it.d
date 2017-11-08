@@ -22,6 +22,7 @@
 .\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_hal_dma.h
 .\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_hal_dma_ex.h
 .\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_hal_cortex.h
+.\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_hal_crc.h
 .\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_hal_dma2d.h
 .\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_hal_flash.h
 .\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_hal_flash_ex.h
@@ -36,6 +37,9 @@
 .\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_ll_sdmmc.h
 .\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_hal_spi.h
 .\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_hal_uart.h
+.\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_hal_pcd.h
+.\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_ll_usb.h
+.\objects\stm32f4xx_it.o: ..\Lib\Inc\stm32f4xx_hal_pcd_ex.h
 .\objects\stm32f4xx_it.o: ..\User\Inc\stm32f4xx_it.h
 .\objects\stm32f4xx_it.o: ..\FreeRTOS\include\FreeRTOS.h
 .\objects\stm32f4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h

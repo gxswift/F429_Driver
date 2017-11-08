@@ -38,6 +38,7 @@
 .\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_hal_dma.h
 .\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_hal_dma_ex.h
 .\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_hal_cortex.h
+.\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_hal_crc.h
 .\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_hal_dma2d.h
 .\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_hal_flash.h
 .\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_hal_flash_ex.h
@@ -52,4 +53,7 @@
 .\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_ll_sdmmc.h
 .\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_hal_spi.h
 .\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_hal_uart.h
+.\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_hal_pcd.h
+.\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_ll_usb.h
+.\objects\sd_diskio.o: ..\Lib\Inc\stm32f4xx_hal_pcd_ex.h
 .\objects\sd_diskio.o: ..\User\Inc\bsp_driver_sd.h

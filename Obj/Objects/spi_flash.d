@@ -23,6 +23,7 @@
 .\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_hal_dma.h
 .\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_hal_dma_ex.h
 .\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_hal_cortex.h
+.\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_hal_crc.h
 .\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_hal_dma2d.h
 .\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_hal_flash.h
 .\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_hal_flash_ex.h
@@ -37,6 +38,9 @@
 .\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_ll_sdmmc.h
 .\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_hal_spi.h
 .\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_hal_uart.h
+.\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_hal_pcd.h
+.\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_ll_usb.h
+.\objects\spi_flash.o: ..\Lib\Inc\stm32f4xx_hal_pcd_ex.h
 .\objects\spi_flash.o: ..\Fatfs\ff_gen_drv.h
 .\objects\spi_flash.o: ..\Fatfs\diskio.h
 .\objects\spi_flash.o: ..\Fatfs\integer.h

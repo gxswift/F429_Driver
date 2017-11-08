@@ -38,6 +38,7 @@
 .\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_hal_dma.h
 .\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_hal_dma_ex.h
 .\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_hal_cortex.h
+.\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_hal_crc.h
 .\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_hal_dma2d.h
 .\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_hal_flash.h
 .\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_hal_flash_ex.h
@@ -52,4 +53,7 @@
 .\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_ll_sdmmc.h
 .\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_hal_spi.h
 .\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_hal_uart.h
+.\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_hal_pcd.h
+.\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_ll_usb.h
+.\objects\user_diskio.o: ..\Lib\Inc\stm32f4xx_hal_pcd_ex.h
 .\objects\user_diskio.o: ..\User\Inc\spi_flash.h

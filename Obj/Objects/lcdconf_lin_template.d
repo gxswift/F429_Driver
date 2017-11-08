@@ -23,6 +23,7 @@
 .\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_hal_dma.h
 .\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_hal_dma_ex.h
 .\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_hal_cortex.h
+.\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_hal_crc.h
 .\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_hal_dma2d.h
 .\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_hal_flash.h
 .\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_hal_flash_ex.h
@@ -37,6 +38,9 @@
 .\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_ll_sdmmc.h
 .\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_hal_spi.h
 .\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_hal_uart.h
+.\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_hal_pcd.h
+.\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_ll_usb.h
+.\objects\lcdconf_lin_template.o: ..\Lib\Inc\stm32f4xx_hal_pcd_ex.h
 .\objects\lcdconf_lin_template.o: ..\STemWin\inc\GUI.h
 .\objects\lcdconf_lin_template.o: ..\STemWin\inc\GUI_ConfDefaults.h
 .\objects\lcdconf_lin_template.o: ..\STemWin\Config\GUIConf.h

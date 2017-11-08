@@ -23,6 +23,7 @@
 .\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_hal_dma.h
 .\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_hal_dma_ex.h
 .\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_hal_cortex.h
+.\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_hal_crc.h
 .\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_hal_dma2d.h
 .\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_hal_flash.h
 .\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_hal_flash_ex.h
@@ -37,3 +38,6 @@
 .\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_ll_sdmmc.h
 .\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_hal_spi.h
 .\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_hal_uart.h
+.\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_hal_pcd.h
+.\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_ll_usb.h
+.\objects\bsp_driver_sd.o: ..\Lib\Inc\stm32f4xx_hal_pcd_ex.h
