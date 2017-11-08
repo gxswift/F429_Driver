@@ -116,19 +116,35 @@ static void vSD_Task(void *pvParameters)
 	vTaskDelay(1000);
 		printf("SD fatfs test\r\n");
 	look = f_mount(&fs[0],"0:/",0);
+	if(look == FR_OK)
+		printf("mount OK\r\n");
+	else printf("mount :%d\r\n",look);
 //	scan_files("0:/");
 	look =f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE);
+	if (look == FR_OK)
+		printf ("open OK!\r\n");
+	else printf("open :%d\r\n",look);
+	
 	f_puts("fatfs test \r\n\r\n文件系统测试",&fil);
 	look = f_close(&fil);
+	if (look == FR_OK)
+		printf ("close OK!\r\n");
+	else printf("close :%d\r\n",look);
 	
  	memset(ReadBuff,0,50);
 	look = f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
+		if (look == FR_OK)
+		printf ("open OK!\r\n");
+	else printf("open :%d\r\n",look);
 	while(1)
 	 {
 	 res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
 	 if(res||brw==0) break;
 	 }
 		look = f_close(&fil);
+	 	if (look == FR_OK)
+		printf ("close OK!\r\n");
+	else printf("close :%d\r\n",look);
 	 printf("SD:%s\r\n",ReadBuff);	
  //----------------------------------------------------------
 	printf("spi flash fatfs test\r\n");
@@ -256,7 +272,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 360;
+  RCC_OscInitStruct.PLL.PLLN = 336;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 7;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)

@@ -75,8 +75,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* Disk status */
 static volatile DSTATUS Stat = STA_NOINIT;
-#define SD_Card		1	//SD¿¨ 
-#define SPI_Flash		0	//SPI Flash
+
 /* USER CODE END DECL */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -118,19 +117,10 @@ DSTATUS USER_initialize (
   /* USER CODE BEGIN INIT */
 	DSTATUS stat = STA_NOINIT;
 
-	switch (pdrv) {
-		
-		case SD_Card :
-		return stat;
-
-		case SPI_Flash :
 			sFLASH_Init();
 			stat &= ~STA_NOINIT;		
 	
 		return stat;
-
-	}
-	return stat;
 
   /* USER CODE END INIT */
 }
@@ -146,13 +136,6 @@ DSTATUS USER_status (
 {
   /* USER CODE BEGIN STATUS */
  DSTATUS stat = STA_NOINIT;
-
-	switch (pdrv) {
-		
-		case SD_Card :
-		return stat;
-
-		case SPI_Flash :
 		
 			if(sFLASH_ID == sFLASH_ReadID())
 			{
@@ -163,8 +146,7 @@ DSTATUS USER_status (
 			  stat = STA_NOINIT;;
 			}			
 		return stat;
-	}
-	return STA_NOINIT;
+
   /* USER CODE END STATUS */
 }
 
@@ -184,17 +166,9 @@ DRESULT USER_read (
 )
 {
   /* USER CODE BEGIN READ */
-  	switch (pdrv) {
-		
-		case SD_Card:
-		return RES_PARERR;			
 
-		case SPI_Flash :
-		
 			sFLASH_ReadBuffer(buff, sector <<12, count<<12);			
 		return RES_OK;
-	}
-	return RES_PARERR;
   /* USER CODE END READ */
 }
 
@@ -216,19 +190,12 @@ DRESULT USER_write (
 { 
   /* USER CODE BEGIN WRITE */
 	uint32_t write_addr; 
-	switch (pdrv) {
-		
-		case SD_Card:						
-		return RES_PARERR;
-					
-		case SPI_Flash :
+
 			write_addr = sector<<12; 
 			sFLASH_EraseSector(write_addr);
 			sFLASH_WriteBuffer((uint8_t *)buff,write_addr,count<<12);
 		
 		return RES_OK;
-	}
-	return RES_PARERR;
   /* USER CODE HERE */
    // return RES_OK;
   /* USER CODE END WRITE */
@@ -250,11 +217,7 @@ DRESULT USER_ioctl (
 )
 {
   /* USER CODE BEGIN IOCTL */
-  switch (pdrv) {
-		case SD_Card :
-		return  RES_PARERR;
 
-		case SPI_Flash :
 			switch (cmd) {
 				case GET_SECTOR_COUNT:
 					*(DWORD * )buff = 2048;		
@@ -269,8 +232,6 @@ DRESULT USER_ioctl (
 				break;        
 			}	
 		return RES_OK;
-	}
-	return RES_PARERR;
   /* USER CODE END IOCTL */
 }
 #endif /* _USE_IOCTL == 1 */
