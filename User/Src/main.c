@@ -110,12 +110,15 @@ static void vTaskMsgPro(void *pvParameters)
 	FATFS fs[2];
 	FIL fil;
 uint8_t look = 0;
+uint32_t testsram[250] __attribute__((at(0XD0000000)));//测试用数组
+	uint8_t ReadBuff[200];
 static void vSD_Task(void *pvParameters)
 {
 	uint8_t res;
 	UINT brw;
-	uint8_t ReadBuff[50];
+
 	vTaskDelay(1000);
+	//SD卡测试
 		printf("SD fatfs test\r\n");
 	look = f_mount(&fs[0],"0:/",0);
 //	scan_files("0:/");
@@ -138,19 +141,56 @@ static void vSD_Task(void *pvParameters)
  //----------------------------------------------------------
 	printf("spi flash fatfs test\r\n");
 	f_mount(&fs[1],"1:/",0);
-	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE);
-	f_puts("spiflash fatfs test!\r\n文件系统测试",&fil);
-	f_close(&fil);
+//	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE);
+//	f_puts("spiflash fatfs test!\r\n文件系统测试",&fil);
+//	f_close(&fil);
 
 	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
-	memset(ReadBuff,0,50);
+	memset(ReadBuff,0,200);
 	while(1)
- {
- res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
- if(res||brw==0) break;
- }
- f_close(&fil);
- printf("文件内容:%s\r\n",ReadBuff);
+	 {
+	 res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
+	 if(res||brw==0) break;
+	 }
+	 f_close(&fil);
+	 printf("文件内容:\r\n%s\r\n",ReadBuff);
+	 printf("----------------\r\n");
+	 //----------------------------------------
+	 printf("SDRAM测试\r\n");
+	uint32_t i=0;  	  
+
+	printf ("存入250个数\r\n");
+	 for(i=0;i<250;i++)
+	{
+		testsram[i]=i;
+	} 	
+	printf ("第一次读取\r\n");
+	for(i=0;i<250;i++)
+	{
+		printf ("%4d",testsram[i]);
+	} 
+	printf ("第二次读取\r\n");
+	for(i=0;i<250;i++)
+	{
+		printf ("%4d",testsram[i]);
+	} 
+	
+/*	uint32_t temp=0;	   
+	uint32_t sval=0;	//在地址0读到的数据		
+		for(i=0;i<16*1024*1024;i+=16*1024)
+	{
+		*(volatile uint32_t*)(Bank5_SDRAM_ADDR+i)=temp; 
+		temp++;
+	}
+	//依次读出之前写入的数据,进行校验		
+  
+ 	for(i=0;i<16*1024*1024;i+=16*1024) 
+	{	
+  		temp=*(volatile uint32_t*)(Bank5_SDRAM_ADDR+i);
+		if(i==0)sval=temp;
+ 		else if(temp<=sval)break;//后面读出的数据一定要比第一次读到的数据大.	 
+		printf("SDRAM Capacity:%dKB\r\n",(uint16_t)(temp-sval+1)*16);//打印SDRAM容量
+ 	}		*/
  
 
 	while(1)
@@ -211,7 +251,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_FMC_Init();
+	MX_FMC_Init();
   MX_LTDC_Init();
   MX_SDIO_SD_Init();
   MX_SPI1_Init();
