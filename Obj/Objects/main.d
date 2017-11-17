@@ -72,6 +72,7 @@
 .\objects\main.o: ..\User\Inc\usbd_conf.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\main.o: ..\User\Inc\display.h
 .\objects\main.o: ..\FreeRTOS\include\task.h
 .\objects\main.o: ..\FreeRTOS\include\list.h
 .\objects\main.o: ..\FreeRTOS\include\croutine.h

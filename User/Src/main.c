@@ -49,6 +49,8 @@
 #include "crc.h"
 #include "fatfs.h"
 #include "usb_device.h"
+
+#include "display.h"
 /* USER CODE BEGIN Includes */
 #include "FreeRTOS.h"
 #include "task.h"
@@ -111,6 +113,7 @@ static void vTaskMsgPro(void *pvParameters)
 	FIL fil;
 uint8_t look = 0;
 uint32_t testsram[250] __attribute__((at(0XD0000000)));//测试用数组
+uint32_t testsram2[2500] __attribute__((at(0XD0020000)));
 	uint8_t ReadBuff[200];
 static void vSD_Task(void *pvParameters)
 {
@@ -169,12 +172,17 @@ static void vSD_Task(void *pvParameters)
 	{
 		printf ("%4d",testsram[i]);
 	} 
-	printf ("第二次读取\r\n");
+	printf ("\r\n第二次读取\r\n");
 	for(i=0;i<250;i++)
 	{
 		printf ("%4d",testsram[i]);
 	} 
+		 for(i=0;i<2500;i++)
+	{
+		testsram2[i]=0xf000;
+	} 	
 	
+//	Display_Test();
 /*	uint32_t temp=0;	   
 	uint32_t sval=0;	//在地址0读到的数据		
 		for(i=0;i<16*1024*1024;i+=16*1024)
@@ -251,6 +259,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();	
 	MX_FMC_Init();
   MX_LTDC_Init();
   MX_SDIO_SD_Init();
@@ -258,12 +267,12 @@ int main(void)
   MX_USART1_UART_Init();
 	MX_DMA2D_Init();
   MX_CRC_Init();
-  MX_DMA_Init();	
+
 	MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
-	 MX_USB_DEVICE_Init();
-AppTaskCreate();
-vTaskStartScheduler();
+	MX_USB_DEVICE_Init();
+	AppTaskCreate();
+	vTaskStartScheduler();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -331,7 +340,7 @@ void SystemClock_Config(void)
   }
 
   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_LTDC;
-  PeriphClkInitStruct.PLLSAI.PLLSAIN = 49;
+  PeriphClkInitStruct.PLLSAI.PLLSAIN = 100;
   PeriphClkInitStruct.PLLSAI.PLLSAIR = 2;
   PeriphClkInitStruct.PLLSAIDivR = RCC_PLLSAIDIVR_2;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)

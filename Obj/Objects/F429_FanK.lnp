@@ -19,6 +19,7 @@
 ".\objects\usbd_desc.o"
 ".\objects\usbd_storage_if.o"
 ".\objects\dma.o"
+".\objects\display.o"
 ".\objects\diskio.o"
 ".\objects\ff.o"
 ".\objects\ff_gen_drv.o"
