@@ -38,220 +38,243 @@ void LCD_SetLayer(uint8_t layer)
 // 函数：设置颜色色
 // 说明：此颜色包括显示字符、画点画线、图形等颜色
 //
+//void LCD_Set_Color(uint32_t Color)
+//{
+//	uint32_t Display_ColorMode = 0;		//当前层的颜色格式
+//	uint16_t Alpha_Value = 0, Red_Value = 0, Green_Value = 0, Blue_Value = 0; //各个颜色通道的值
+
+//#if(LCD_NUM_LAYERS == 2)		//如果开了双层
+//	if(LCD.Layer == 0)  			
+//		Display_ColorMode = ColorMode_0;		//获取层0的颜色格式
+//	else
+//		Display_ColorMode = ColorMode_1;		//获取层1的颜色格式
+//#else
+//	Display_ColorMode = ColorMode_0;	//单层显示下默认为层0的颜色格式
+//#endif
+
+//	if( Display_ColorMode == LCD_RGB565	)	//将32位色转换为16位色
+//	{
+//		Red_Value   = (uint16_t)((Color&0x00F80000)>>8);
+//		Green_Value = (uint16_t)((Color&0x0000FC00)>>5);
+//		Blue_Value  = (uint16_t)((Color&0x000000F8)>>3);
+//		LCD.Color = (uint16_t)(Red_Value | Green_Value | Blue_Value);		
+//	}
+//	else if( Display_ColorMode == LCD_ARGB1555 )	//将32位色转换为ARGB1555颜色
+//	{
+//		if( (Color & 0xFF000000) == 0 )	//判断是否使用透明色
+//			Alpha_Value = 0x0000;
+//		else
+//			Alpha_Value = 0x8000;
+
+//		Red_Value   = (uint16_t)((Color&0x00F80000)>>9);	
+//		Green_Value = (uint16_t)((Color&0x0000F800)>>6);
+//		Blue_Value  = (uint16_t)((Color&0x000000F8)>>3);
+//		LCD.Color = (uint16_t)(Alpha_Value | Red_Value | Green_Value | Blue_Value);	
+//	}
+//	else
+//		LCD.Color = Color;	//24位色或32位色不需要转换
+//}
+
 void LCD_Set_Color(uint32_t Color)
 {
-	uint32_t Display_ColorMode = 0;		//当前层的颜色格式
-	uint16_t Alpha_Value = 0, Red_Value = 0, Green_Value = 0, Blue_Value = 0; //各个颜色通道的值
-
-#if(LCD_NUM_LAYERS == 2)		//如果开了双层
-	if(LCD.Layer == 0)  			
-		Display_ColorMode = ColorMode_0;		//获取层0的颜色格式
-	else
-		Display_ColorMode = ColorMode_1;		//获取层1的颜色格式
-#else
-	Display_ColorMode = ColorMode_0;	//单层显示下默认为层0的颜色格式
-#endif
-
-	if( Display_ColorMode == LCD_RGB565	)	//将32位色转换为16位色
-	{
-		Red_Value   = (uint16_t)((Color&0x00F80000)>>8);
-		Green_Value = (uint16_t)((Color&0x0000FC00)>>5);
-		Blue_Value  = (uint16_t)((Color&0x000000F8)>>3);
-		LCD.Color = (uint16_t)(Red_Value | Green_Value | Blue_Value);		
-	}
-	else if( Display_ColorMode == LCD_ARGB1555 )	//将32位色转换为ARGB1555颜色
-	{
-		if( (Color & 0xFF000000) == 0 )	//判断是否使用透明色
-			Alpha_Value = 0x0000;
-		else
-			Alpha_Value = 0x8000;
-
-		Red_Value   = (uint16_t)((Color&0x00F80000)>>9);	
-		Green_Value = (uint16_t)((Color&0x0000F800)>>6);
-		Blue_Value  = (uint16_t)((Color&0x000000F8)>>3);
-		LCD.Color = (uint16_t)(Alpha_Value | Red_Value | Green_Value | Blue_Value);	
-	}
-	else
-		LCD.Color = Color;	//24位色或32位色不需要转换
+//		uint16_t Red_Value = 0, Green_Value = 0, Blue_Value = 0; //各个颜色通道的值
+//		Red_Value   = (uint16_t)((Color&0x00F80000)>>8);
+//		Green_Value = (uint16_t)((Color&0x0000FC00)>>5);
+//		Blue_Value  = (uint16_t)((Color&0x000000F8)>>3);
+//		LCD.Color = (uint16_t)(Red_Value | Green_Value | Blue_Value);		
+	LCD.Color = Color;
 }
 
 // 函数：设置背景色
 // 说明：用于字体等显示的背景颜色，而非LCD整个面板的颜色
 //
+//void LCD_SetBackColor(uint32_t Color)
+//{
+//	uint32_t Display_ColorMode = 0;		//当前层的颜色格式
+//	uint16_t Alpha_Value = 0, Red_Value = 0, Green_Value = 0, Blue_Value = 0;  //各个颜色通道的值
+
+//#if(LCD_NUM_LAYERS == 2)	//如果开了双层
+//	if(LCD.Layer == 0)  
+//		Display_ColorMode = ColorMode_0;	//获取层0的颜色格式
+//	else
+//		Display_ColorMode = ColorMode_1;	//获取层1的颜色格式
+//#else
+//	Display_ColorMode = ColorMode_0;	//单层显示下默认为层0的颜色格式
+//#endif
+
+//	if( Display_ColorMode == LCD_RGB565	)	//将32位色转换为16位色
+//	{
+//		Red_Value   = (uint16_t)((Color&0x00F80000)>>8);
+//		Green_Value = (uint16_t)((Color&0x0000FC00)>>5);
+//		Blue_Value  = (uint16_t)((Color&0x000000F8)>>3);
+//		LCD.BackColor = (uint16_t)(Red_Value | Green_Value | Blue_Value);	
+//	}
+//	else if( Display_ColorMode == LCD_ARGB1555 )	//将32位色转换为ARGB1555颜色
+//	{
+//		if( (Color & 0xFF000000) == 0 )	//判断是否使用透明色
+//			Alpha_Value = 0x0000;
+//		else
+//			Alpha_Value = 0x8000;
+
+//		Red_Value   = (uint16_t)((Color&0x00F80000)>>9);
+//		Green_Value = (uint16_t)((Color&0x0000F800)>>6);
+//		Blue_Value  = (uint16_t)((Color&0x000000F8)>>3);
+//		LCD.BackColor = (uint16_t)(Alpha_Value | Red_Value | Green_Value | Blue_Value);	
+//	}
+//	else	
+//		LCD.BackColor = Color;	//24位色或32位色不需要转换
+//}
 void LCD_SetBackColor(uint32_t Color)
 {
-	uint32_t Display_ColorMode = 0;		//当前层的颜色格式
-	uint16_t Alpha_Value = 0, Red_Value = 0, Green_Value = 0, Blue_Value = 0;  //各个颜色通道的值
-
-#if(LCD_NUM_LAYERS == 2)	//如果开了双层
-	if(LCD.Layer == 0)  
-		Display_ColorMode = ColorMode_0;	//获取层0的颜色格式
-	else
-		Display_ColorMode = ColorMode_1;	//获取层1的颜色格式
-#else
-	Display_ColorMode = ColorMode_0;	//单层显示下默认为层0的颜色格式
-#endif
-
-	if( Display_ColorMode == LCD_RGB565	)	//将32位色转换为16位色
-	{
+		uint16_t Red_Value = 0, Green_Value = 0, Blue_Value = 0;  //各个颜色通道的值
 		Red_Value   = (uint16_t)((Color&0x00F80000)>>8);
 		Green_Value = (uint16_t)((Color&0x0000FC00)>>5);
 		Blue_Value  = (uint16_t)((Color&0x000000F8)>>3);
 		LCD.BackColor = (uint16_t)(Red_Value | Green_Value | Blue_Value);	
-	}
-	else if( Display_ColorMode == LCD_ARGB1555 )	//将32位色转换为ARGB1555颜色
-	{
-		if( (Color & 0xFF000000) == 0 )	//判断是否使用透明色
-			Alpha_Value = 0x0000;
-		else
-			Alpha_Value = 0x8000;
-
-		Red_Value   = (uint16_t)((Color&0x00F80000)>>9);
-		Green_Value = (uint16_t)((Color&0x0000F800)>>6);
-		Blue_Value  = (uint16_t)((Color&0x000000F8)>>3);
-		LCD.BackColor = (uint16_t)(Alpha_Value | Red_Value | Green_Value | Blue_Value);	
-	}
-	else	
-		LCD.BackColor = Color;	//24位色或32位色不需要转换
-	
 }
+
+//__weak void LCD_DrawPoint(uint16_t x,uint16_t y,uint32_t color)
+//{
+//	uint32_t Display_Add = 0;			//当前层的显存地址
+//	uint32_t Display_ColorMode = 0;	//当前层的颜色格式
+
+//	/*************** 根据标志位切换显存地址 ****************/	
+//	
+//	if(LCD.BufferFlag == 0)	
+//		Display_Add = LCD_Buffer;	
+//	else
+//		Display_Add = LCD.LayerMemoryAdd;	
+
+//	/**************** 选择相应层的颜色模式 **************/
+//	
+//#if(LCD_NUM_LAYERS == 2)
+//		if(LCD.Layer == 0)  //根据不同的层选择不同的颜色格式
+//			Display_ColorMode = ColorMode_0;
+//		else
+//			Display_ColorMode = ColorMode_1;
+//#else
+//		Display_ColorMode = ColorMode_0;
+//#endif
+//	
+//	/****************** 32位色模式 ***********************/
+//		
+//	if( Display_ColorMode == LCD_ARGB8888 ) 
+//	{
+//		if (LCD.Direction == Mode_H) //水平方向
+//		{
+//			*(__IO uint32_t*)( Display_Add + 4*(x + y*LCD_Width) ) = color ; 	
+//		}
+//		else if(LCD.Direction == Mode_V)	//垂直方向
+//		{
+//			*(__IO uint32_t*)( Display_Add + 4*((LCD_Height - x - 1)*LCD_Width + y) ) = color ;
+//		}
+//	}
+//	
+//	/****************** 24位色模式 ***********************/	
+//	
+//	else if ( Display_ColorMode == LCD_RGB888 )
+//	{
+//		if (LCD.Direction == Mode_H) //水平方向
+//		{
+//			*(__IO uint16_t*)( Display_Add + 3*(x + y*LCD_Width) ) = color ; 
+//			*(__IO  uint8_t*)( Display_Add + 3*(x + y*LCD_Width) + 2 ) = color>>16 ; 	
+//		}
+//		else if(LCD.Direction == Mode_V)	//垂直方向
+//		{
+//			*(__IO uint16_t*)( Display_Add + 3*((LCD_Height - x - 1)*LCD_Width + y) ) = color ; 
+//			*(__IO  uint8_t*)( Display_Add + 3*((LCD_Height - x - 1)*LCD_Width + y) +2) = color>>16 ; 	
+//		}	
+//	}
+//	
+//	/****************** 16位色模式 ***********************/	
+//	else		
+//	{
+//		if (LCD.Direction == Mode_H) //水平方向
+//		{
+//			*(__IO uint16_t*)( Display_Add + 2*(x + y*LCD_Width) ) = color ; 	
+//		}
+//		else if(LCD.Direction == Mode_V)	//垂直方向
+//		{
+//			*(__IO uint16_t*)( Display_Add + 2*((LCD_Height - x - 1)*LCD_Width + y) ) = color ;
+//		}	
+//	}
+//}  
 
 void LCD_DrawPoint(uint16_t x,uint16_t y,uint32_t color)
 {
-	uint32_t Display_Add = 0;			//当前层的显存地址
-	uint32_t Display_ColorMode = 0;	//当前层的颜色格式
-
-	/*************** 根据标志位切换显存地址 ****************/	
-	
-	if(LCD.BufferFlag == 0)	
-		Display_Add = LCD_Buffer;	
-	else
-		Display_Add = LCD.LayerMemoryAdd;	
-
-	/**************** 选择相应层的颜色模式 **************/
-	
-#if(LCD_NUM_LAYERS == 2)
-		if(LCD.Layer == 0)  //根据不同的层选择不同的颜色格式
-			Display_ColorMode = ColorMode_0;
-		else
-			Display_ColorMode = ColorMode_1;
-#else
-		Display_ColorMode = ColorMode_0;
-#endif
-	
-	/****************** 32位色模式 ***********************/
-		
-	if( Display_ColorMode == LCD_ARGB8888 ) 
-	{
-		if (LCD.Direction == Mode_H) //水平方向
-		{
-			*(__IO uint32_t*)( Display_Add + 4*(x + y*LCD_Width) ) = color ; 	
-		}
-		else if(LCD.Direction == Mode_V)	//垂直方向
-		{
-			*(__IO uint32_t*)( Display_Add + 4*((LCD_Height - x - 1)*LCD_Width + y) ) = color ;
-		}
-	}
-	
-	/****************** 24位色模式 ***********************/	
-	
-	else if ( Display_ColorMode == LCD_RGB888 )
-	{
-		if (LCD.Direction == Mode_H) //水平方向
-		{
-			*(__IO uint16_t*)( Display_Add + 3*(x + y*LCD_Width) ) = color ; 
-			*(__IO  uint8_t*)( Display_Add + 3*(x + y*LCD_Width) + 2 ) = color>>16 ; 	
-		}
-		else if(LCD.Direction == Mode_V)	//垂直方向
-		{
-			*(__IO uint16_t*)( Display_Add + 3*((LCD_Height - x - 1)*LCD_Width + y) ) = color ; 
-			*(__IO  uint8_t*)( Display_Add + 3*((LCD_Height - x - 1)*LCD_Width + y) +2) = color>>16 ; 	
-		}	
-	}
-	
-	/****************** 16位色模式 ***********************/	
-	else		
-	{
-		if (LCD.Direction == Mode_H) //水平方向
-		{
-			*(__IO uint16_t*)( Display_Add + 2*(x + y*LCD_Width) ) = color ; 	
-		}
-		else if(LCD.Direction == Mode_V)	//垂直方向
-		{
-			*(__IO uint16_t*)( Display_Add + 2*((LCD_Height - x - 1)*LCD_Width + y) ) = color ;
-		}	
-	}
-}  
-
+	*(__IO uint16_t*)( LCD_MemoryAdd + 2*(x + y*LCD_Width) ) = color ; 
+}
 //	函数：读点
 //	参数：x-水平坐标，y-垂直坐标
 //	返回：读取的颜色
 // 说明：在使用16或24位色模式时，读出来的颜色数据是16位或24位的
 //
+//__weak uint32_t LCD_ReadPoint(uint16_t x,uint16_t y)
+//{
+//	uint32_t color = 0;
+//	uint32_t Display_Add = 0;		//当前层的显存地址
+//	uint32_t Display_ColorMode = 0;	//当前层的颜色格式
+
+//	/*************** 根据标志位切换显存地址 ****************/	
+
+//	if(LCD.BufferFlag == 0)	
+//		Display_Add = LCD_Buffer;	
+//	else
+//		Display_Add = LCD.LayerMemoryAdd;	
+
+//	/**************** 选择相应层的颜色模式 **************/
+
+//#if(LCD_NUM_LAYERS == 2)
+//	if(LCD.Layer == 0)  //根据不同的层选择不同的颜色格式
+//		Display_ColorMode = ColorMode_0;
+//	else
+//		Display_ColorMode = ColorMode_1;
+//#else
+//	Display_ColorMode = ColorMode_0;
+//#endif
+
+//	/****************** 32位色模式 ***********************/
+//	if( Display_ColorMode == LCD_ARGB8888 ) 
+//	{
+//		if (LCD.Direction == Mode_H) //水平方向
+//		{
+//			color = *(__IO uint32_t*)( Display_Add + 4*(x + y*LCD_Width) ); 	
+//		}
+//		else if(LCD.Direction == Mode_V)	//垂直方向
+//		{
+//			color = *(__IO uint32_t*)( Display_Add + 4*((LCD_Height - x - 1)*LCD_Width + y) );
+//		}
+//	}
+//	/****************** 24位色模式 ***********************/	
+//	else if ( Display_ColorMode == LCD_RGB888 )
+//	{
+//		if (LCD.Direction == Mode_H) //水平方向
+//		{
+//			color = *(__IO uint32_t*)( Display_Add + 3*(x + y*LCD_Width) ) &0x00ffffff; 	
+//		}
+//		else if(LCD.Direction == Mode_V)	//垂直方向
+//		{
+//			color = *(__IO uint32_t*)( Display_Add + 3*((LCD_Height - x - 1)*LCD_Width + y) ) &0x00ffffff; 	
+//		}	
+//	}
+//	/****************** 16位色模式 ***********************/	
+//	else		
+//	{
+//		if (LCD.Direction == Mode_H) //水平方向
+//		{
+//			color = *(__IO uint32_t*)( Display_Add + 2*(x + y*LCD_Width) ); 	
+//		}
+//		else if(LCD.Direction == Mode_V)	//垂直方向
+//		{
+//			color = *(__IO uint32_t*)( Display_Add + 2*((LCD_Height - x - 1)*LCD_Width + y) );
+//		}	
+//	}
+//	return color;
+//}  
 uint32_t LCD_ReadPoint(uint16_t x,uint16_t y)
 {
-	uint32_t color = 0;
-	uint32_t Display_Add = 0;		//当前层的显存地址
-	uint32_t Display_ColorMode = 0;	//当前层的颜色格式
-
-	/*************** 根据标志位切换显存地址 ****************/	
-
-	if(LCD.BufferFlag == 0)	
-		Display_Add = LCD_Buffer;	
-	else
-		Display_Add = LCD.LayerMemoryAdd;	
-
-	/**************** 选择相应层的颜色模式 **************/
-
-#if(LCD_NUM_LAYERS == 2)
-	if(LCD.Layer == 0)  //根据不同的层选择不同的颜色格式
-		Display_ColorMode = ColorMode_0;
-	else
-		Display_ColorMode = ColorMode_1;
-#else
-	Display_ColorMode = ColorMode_0;
-#endif
-
-	/****************** 32位色模式 ***********************/
-	if( Display_ColorMode == LCD_ARGB8888 ) 
-	{
-		if (LCD.Direction == Mode_H) //水平方向
-		{
-			color = *(__IO uint32_t*)( Display_Add + 4*(x + y*LCD_Width) ); 	
-		}
-		else if(LCD.Direction == Mode_V)	//垂直方向
-		{
-			color = *(__IO uint32_t*)( Display_Add + 4*((LCD_Height - x - 1)*LCD_Width + y) );
-		}
-	}
-	/****************** 24位色模式 ***********************/	
-	else if ( Display_ColorMode == LCD_RGB888 )
-	{
-		if (LCD.Direction == Mode_H) //水平方向
-		{
-			color = *(__IO uint32_t*)( Display_Add + 3*(x + y*LCD_Width) ) &0x00ffffff; 	
-		}
-		else if(LCD.Direction == Mode_V)	//垂直方向
-		{
-			color = *(__IO uint32_t*)( Display_Add + 3*((LCD_Height - x - 1)*LCD_Width + y) ) &0x00ffffff; 	
-		}	
-	}
-	/****************** 16位色模式 ***********************/	
-	else		
-	{
-		if (LCD.Direction == Mode_H) //水平方向
-		{
-			color = *(__IO uint32_t*)( Display_Add + 2*(x + y*LCD_Width) ); 	
-		}
-		else if(LCD.Direction == Mode_V)	//垂直方向
-		{
-			color = *(__IO uint32_t*)( Display_Add + 2*((LCD_Height - x - 1)*LCD_Width + y) );
-		}	
-	}
-	return color;
-}  
-
-
+	return *(__IO uint32_t*)( LCD_MemoryAdd + 2*(x + y*LCD_Width) ); 
+}
 
 #define ABS(X)  ((X) > 0 ? (X) : -(X))    
 
@@ -455,13 +478,42 @@ void LCD_FillCircle(uint16_t x, uint16_t y, uint16_t r)
   
   LCD_DrawCircle(x, y, r);  
 }
-
+void Display_Init(void)
+{	
+	uint32_t i;
+	for (i = 0;i < 2*800*480;i+=4)
+	*(__IO uint32_t*)( LCD_MemoryAdd +i) = 0;
+	
+}
 void Display_Test(void)
 {
+	uint32_t i;
 	
-	LCD_Set_Color(LCD_RED);    LCD_FillCircle(120,100,80);	
-	LCD_Set_Color(LCD_GREEN);  LCD_FillCircle(170,100,80); 
-	LCD_Set_Color(LCD_BLUE);   LCD_FillCircle(220,100,80);  	
+		 for(i=0;i<2500;i++)
+	{
+		*(__IO uint16_t*)( 0XD0030000+i*2) = 0xf800 ;
+	} 
+	HAL_Delay(2000);
+	LCD_DrawPoint(200,201,0x7e0);
+	LCD_DrawPoint(200,203,0x7e0);		
+//	HAL_Delay(2000);LCD_DrawPoint(200,200,LCD_GREEN);
+ 	LCD_Set_Color(0x7e0);
+
+	LCD_Set_Color(0x1f);
+	for (i = 0;i<800;i++)
+	{
+LCD_DrawPoint(i,50,0x7e0);HAL_Delay(20);	
+	}
+		for (i = 0;i<800;i++)
+	{
+LCD_DrawPoint(800-i,60,0x1f);HAL_Delay(20);	
+	}
+	HAL_Delay(2000);
+//	LCD_FillCircle(120,100,80);
+//	LCD_Set_Color(LCD_RED);    
+//	HAL_Delay(2000);
+//	LCD_Set_Color(LCD_GREEN);  LCD_FillCircle(170,100,80); 
+//	LCD_Set_Color(LCD_BLUE);   LCD_FillCircle(220,100,80);  	
 	
 }
 

@@ -1,0 +1,9 @@
+.\objects\mail.o: ..\GUI_User\mail.c
+.\objects\mail.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\mail.o: ..\STemWin\inc\GUI.h
+.\objects\mail.o: ..\STemWin\inc\GUI_ConfDefaults.h
+.\objects\mail.o: ..\STemWin\Config\GUIConf.h
+.\objects\mail.o: ..\STemWin\inc\GUI_Type.h
+.\objects\mail.o: ..\STemWin\inc\LCD.h
+.\objects\mail.o: ..\STemWin\inc\Global.h
+.\objects\mail.o: ..\STemWin\inc\GUI_Version.h

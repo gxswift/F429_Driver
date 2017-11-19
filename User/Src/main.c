@@ -57,8 +57,10 @@
 #include "queue.h"
 #include "croutine.h"
 #include "stdio.h"
-/* USER CODE END Includes */
 
+
+/* USER CODE END Includes */
+#include "GUIDEMO.h"
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
@@ -115,6 +117,7 @@ uint8_t look = 0;
 uint32_t testsram[250] __attribute__((at(0XD0000000)));//测试用数组
 uint32_t testsram2[2500] __attribute__((at(0XD0020000)));
 	uint8_t ReadBuff[200];
+extern void MainTask_U(void);
 static void vSD_Task(void *pvParameters)
 {
 	uint8_t res;
@@ -159,13 +162,17 @@ static void vSD_Task(void *pvParameters)
 	 printf("文件内容:\r\n%s\r\n",ReadBuff);
 	 printf("----------------\r\n");
 	 //----------------------------------------
+
 	 printf("SDRAM测试\r\n");
 	uint32_t i=0;  	  
-
+	 for(i=0;i<2500;i++)
+	{
+		*(__IO uint16_t*)( 0XD0030000+i*2) = 15 ;
+	} 	
 	printf ("存入250个数\r\n");
 	 for(i=0;i<250;i++)
 	{
-		testsram[i]=i;
+		testsram[i]=i*(3|3<<16);
 	} 	
 	printf ("第一次读取\r\n");
 	for(i=0;i<250;i++)
@@ -179,10 +186,11 @@ static void vSD_Task(void *pvParameters)
 	} 
 		 for(i=0;i<2500;i++)
 	{
-		testsram2[i]=0xf000;
+		testsram2[i]=0x7e0|0x7e0<<16;
 	} 	
-	
-//	Display_Test();
+	HAL_Delay(2000);
+	Display_Init();
+	Display_Test();
 /*	uint32_t temp=0;	   
 	uint32_t sval=0;	//在地址0读到的数据		
 		for(i=0;i<16*1024*1024;i+=16*1024)
@@ -199,8 +207,9 @@ static void vSD_Task(void *pvParameters)
  		else if(temp<=sval)break;//后面读出的数据一定要比第一次读到的数据大.	 
 		printf("SDRAM Capacity:%dKB\r\n",(uint16_t)(temp-sval+1)*16);//打印SDRAM容量
  	}		*/
- 
-
+ GUI_Init();
+	GUIDEMO_Main();
+//MainTask_U();
 	while(1)
 	{
 		vTaskDelay(1000);
@@ -259,7 +268,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();	
+ // MX_DMA_Init();	
 	MX_FMC_Init();
   MX_LTDC_Init();
   MX_SDIO_SD_Init();

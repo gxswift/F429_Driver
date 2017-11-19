@@ -1,0 +1,9 @@
+.\objects\wechat.o: ..\GUI_User\wechat.c
+.\objects\wechat.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\wechat.o: ..\STemWin\inc\GUI.h
+.\objects\wechat.o: ..\STemWin\inc\GUI_ConfDefaults.h
+.\objects\wechat.o: ..\STemWin\Config\GUIConf.h
+.\objects\wechat.o: ..\STemWin\inc\GUI_Type.h
+.\objects\wechat.o: ..\STemWin\inc\LCD.h
+.\objects\wechat.o: ..\STemWin\inc\Global.h
+.\objects\wechat.o: ..\STemWin\inc\GUI_Version.h

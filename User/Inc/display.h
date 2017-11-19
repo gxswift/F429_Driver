@@ -1,12 +1,10 @@
 #ifndef _DISPLAY_H
 #define _DISPLAY_H
 
-
-
 #include "stm32f4xx_hal.h"
 #define 	LCD_CLK  		25		//¶¨ÒåLCDÇı¶¯Ê±ÖÓ£¬ÕâÀïÎªÁË·½±ã¼ÆËãÊıÖµÓ¦ÔÚ10-70Ö®¼ä£¬µ¥Î»ÎªM
 #define 	LCD_NUM_LAYERS  1		//¶¨ÒåÏÔÊ¾µÄ²ãÊı£¬429¿ÉÇı¶¯Á½²ãÏÔÊ¾
-
+/*
 #define	ColorMode_0   LCD_RGB565   		//¶¨Òå²ã0µÄÑÕÉ«¸ñÊ½
 //#define	ColorMode_0   LCD_ARGB1555   
 //#define	ColorMode_0   LCD_RGB888  
@@ -29,6 +27,30 @@
 #define	LCD_RGB888      1   
 #define	LCD_ARGB8888    0  
 
+
+#if ( ColorMode_0 == LCD_RGB565 || ColorMode_0 == LCD_ARGB1555 )
+	#define BytesPerPixel_0		2		//16Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼2×Ö½Ú
+#elif ColorMode_0 == LCD_RGB888
+	#define BytesPerPixel_0		3		//24Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼3×Ö½Ú
+#else
+	#define BytesPerPixel_0		4		//32Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼4×Ö½Ú
+#endif	
+
+#if LCD_NUM_LAYERS == 2
+
+	#if ( ColorMode_1 == LCD_RGB565 || ColorMode_1 == LCD_ARGB1555 )
+		#define BytesPerPixel_1		2	//16Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼2×Ö½Ú
+	#elif ColorMode_1 == LCD_RGB888	
+		#define BytesPerPixel_1		3	//24Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼3×Ö½Ú
+	#else	
+		#define BytesPerPixel_1		4	//32Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼4×Ö½Ú
+	#endif	
+
+	#define LCD_MemoryAdd_OFFSET   LCD_Pixels * BytesPerPixel_0 	 //µÚ¶ş²ãµÄÏÔ´æµÄÆ«ÒÆµØÖ· 
+	#define LCD_Buffer	LCD_MemoryAdd + LCD_MemoryAdd_OFFSET + LCD_Pixels * BytesPerPixel_1	//¿ªË«²ãÊ±£¬»º³å²ãµÄÆğÊ¼µØÖ·
+#else
+	#define LCD_Buffer	LCD_MemoryAdd + LCD_Pixels * BytesPerPixel_0	//Ö»¿ªµ¥²ãÊ±£¬»º³å²ãµÄÆğÊ¼µØÖ·
+#endif*/
 /*-------------------------- ³£ÓÃÑÕÉ« ------------------------------*/
 
 #define 	LCD_WHITE       0xffFFFFFF
@@ -64,33 +86,6 @@
 #define LCD_MemoryAdd   0xD0000000 	//ÏÔ´æµÄÆğÊ¼µØÖ·  
 
 
-#if ( ColorMode_0 == LCD_RGB565 || ColorMode_0 == LCD_ARGB1555 )
-	#define BytesPerPixel_0		2		//16Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼2×Ö½Ú
-#elif ColorMode_0 == LCD_RGB888
-	#define BytesPerPixel_0		3		//24Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼3×Ö½Ú
-#else
-	#define BytesPerPixel_0		4		//32Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼4×Ö½Ú
-#endif	
-
-#if LCD_NUM_LAYERS == 2
-
-	#if ( ColorMode_1 == LCD_RGB565 || ColorMode_1 == LCD_ARGB1555 )
-		#define BytesPerPixel_1		2	//16Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼2×Ö½Ú
-	#elif ColorMode_1 == LCD_RGB888	
-		#define BytesPerPixel_1		3	//24Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼3×Ö½Ú
-	#else	
-		#define BytesPerPixel_1		4	//32Î»É«Ä£Ê½Ã¿¸öÏñËØÕ¼4×Ö½Ú
-	#endif	
-
-	#define LCD_MemoryAdd_OFFSET   LCD_Pixels * BytesPerPixel_0 	 //µÚ¶ş²ãµÄÏÔ´æµÄÆ«ÒÆµØÖ· 
-	#define LCD_Buffer	LCD_MemoryAdd + LCD_MemoryAdd_OFFSET + LCD_Pixels * BytesPerPixel_1	//¿ªË«²ãÊ±£¬»º³å²ãµÄÆğÊ¼µØÖ·
-#else
-	#define LCD_Buffer	LCD_MemoryAdd + LCD_Pixels * BytesPerPixel_0	//Ö»¿ªµ¥²ãÊ±£¬»º³å²ãµÄÆğÊ¼µØÖ·
-#endif
-
-
-
-
 void  LCD_Clear(void); //ÇåÆÁ
 
 void  LCD_SetLayer(uint8_t Layerx); 					//ÉèÖÃ²ã
@@ -105,6 +100,7 @@ void  LCD_DrawRect(uint16_t x, uint16_t y, uint16_t width, uint16_t height);	//»
 void  LCD_DrawCircle(uint16_t x, uint16_t y, uint16_t r);					//»­Ô²
 void  LCD_DrawEllipse(int x, int y, int r1, int r2);		//»­ÍÖÔ²
 
+void Display_Init(void);
 void Display_Test(void);
 
 #endif

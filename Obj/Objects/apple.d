@@ -1,0 +1,9 @@
+.\objects\apple.o: ..\GUI_User\apple.c
+.\objects\apple.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\apple.o: ..\STemWin\inc\GUI.h
+.\objects\apple.o: ..\STemWin\inc\GUI_ConfDefaults.h
+.\objects\apple.o: ..\STemWin\Config\GUIConf.h
+.\objects\apple.o: ..\STemWin\inc\GUI_Type.h
+.\objects\apple.o: ..\STemWin\inc\LCD.h
+.\objects\apple.o: ..\STemWin\inc\Global.h
+.\objects\apple.o: ..\STemWin\inc\GUI_Version.h

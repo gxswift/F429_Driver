@@ -1,0 +1,9 @@
+.\objects\qqlogo.o: ..\GUI_User\QQlogo.c
+.\objects\qqlogo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\qqlogo.o: ..\STemWin\inc\GUI.h
+.\objects\qqlogo.o: ..\STemWin\inc\GUI_ConfDefaults.h
+.\objects\qqlogo.o: ..\STemWin\Config\GUIConf.h
+.\objects\qqlogo.o: ..\STemWin\inc\GUI_Type.h
+.\objects\qqlogo.o: ..\STemWin\inc\LCD.h
+.\objects\qqlogo.o: ..\STemWin\inc\Global.h
+.\objects\qqlogo.o: ..\STemWin\inc\GUI_Version.h

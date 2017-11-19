@@ -1,0 +1,9 @@
+.\objects\game.o: ..\GUI_User\game.c
+.\objects\game.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\game.o: ..\STemWin\inc\GUI.h
+.\objects\game.o: ..\STemWin\inc\GUI_ConfDefaults.h
+.\objects\game.o: ..\STemWin\Config\GUIConf.h
+.\objects\game.o: ..\STemWin\inc\GUI_Type.h
+.\objects\game.o: ..\STemWin\inc\LCD.h
+.\objects\game.o: ..\STemWin\inc\Global.h
+.\objects\game.o: ..\STemWin\inc\GUI_Version.h
