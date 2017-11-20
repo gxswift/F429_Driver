@@ -502,11 +502,11 @@ void Display_Test(void)
 	LCD_Set_Color(0x1f);
 	for (i = 0;i<800;i++)
 	{
-LCD_DrawPoint(i,50,0x7e0);HAL_Delay(20);	
+LCD_DrawPoint(i,50,0x7e0);HAL_Delay(5);	
 	}
 		for (i = 0;i<800;i++)
 	{
-LCD_DrawPoint(800-i,60,0x1f);HAL_Delay(20);	
+LCD_DrawPoint(800-i,60,0x1f);HAL_Delay(5);	
 	}
 	HAL_Delay(2000);
 //	LCD_FillCircle(120,100,80);

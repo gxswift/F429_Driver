@@ -77,6 +77,7 @@
 .\objects\main.o: ..\FreeRTOS\include\list.h
 .\objects\main.o: ..\FreeRTOS\include\croutine.h
 .\objects\main.o: ..\FreeRTOS\include\list.h
+.\objects\main.o: ..\FreeRTOS\include\timers.h
 .\objects\main.o: ..\GUI_Demo\GUIDEMO.h
 .\objects\main.o: ..\STemWin\inc\GUI.h
 .\objects\main.o: ..\STemWin\inc\GUI_ConfDefaults.h
@@ -106,3 +107,4 @@
 .\objects\main.o: ..\STemWin\inc\ICONVIEW.h
 .\objects\main.o: ..\STemWin\inc\LISTVIEW.h
 .\objects\main.o: ..\STemWin\inc\TREEVIEW.h
+.\objects\main.o: ..\User\Inc\touch.h

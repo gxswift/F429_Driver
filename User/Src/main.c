@@ -56,11 +56,14 @@
 #include "task.h"
 #include "queue.h"
 #include "croutine.h"
+#include "timers.h"
+
 #include "stdio.h"
 
 
 /* USER CODE END Includes */
 #include "GUIDEMO.h"
+#include "touch.h"
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
@@ -76,6 +79,8 @@ void SystemClock_Config(void);
 static TaskHandle_t xHandleTaskLed = NULL;
 static TaskHandle_t xHandleTaskMsgPro = NULL;
 static TaskHandle_t xHandleTaskSD = NULL;
+static TaskHandle_t xHandleTaskTouch = NULL;
+static xTimerHandle TouchScreenTimer = NULL;
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -108,6 +113,18 @@ static void vTaskMsgPro(void *pvParameters)
 	{
 		HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
 				vTaskDelay(500);
+	}
+}
+static void vTimerCallback( xTimerHandle pxTimer )
+{
+   GUI_TouchScan();
+}
+static void vTaskTouch(void *pvParameters)
+{
+	while(1)
+	{
+		GUI_TouchScan();
+		vTaskDelay(30);
 	}
 }
 
@@ -188,7 +205,7 @@ static void vSD_Task(void *pvParameters)
 	{
 		testsram2[i]=0x7e0|0x7e0<<16;
 	} 	
-	HAL_Delay(2000);
+	HAL_Delay(1000);
 	Display_Init();
 	Display_Test();
 /*	uint32_t temp=0;	   
@@ -207,7 +224,7 @@ static void vSD_Task(void *pvParameters)
  		else if(temp<=sval)break;//后面读出的数据一定要比第一次读到的数据大.	 
 		printf("SDRAM Capacity:%dKB\r\n",(uint16_t)(temp-sval+1)*16);//打印SDRAM容量
  	}		*/
- GUI_Init();
+
 	GUIDEMO_Main();
 //MainTask_U();
 	while(1)
@@ -218,6 +235,20 @@ static void vSD_Task(void *pvParameters)
 static void AppTaskCreate (void)
 {
 
+//	TouchScreenTimer = xTimerCreate ("Timer", 50, pdTRUE, ( void * ) 1, vTimerCallback );
+//	if( TouchScreenTimer != NULL )
+//  {
+//    if( xTimerStart( TouchScreenTimer, 0 ) != pdPASS )
+//    {
+//      /* The timer could not be set into the Active state. */
+//    }
+//  }
+//	xTaskCreate(vTaskTouch,
+//							"vTaskTouch",
+//							512,
+//							NULL,
+//							4,
+//							&xHandleTaskTouch);
 	xTaskCreate(vTaskLed,
 							"vTaskLed",
 							512,
@@ -280,6 +311,9 @@ int main(void)
 	MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 	MX_USB_DEVICE_Init();
+	
+	 GUI_Init();
+	//Touch_Init();
 	AppTaskCreate();
 	vTaskStartScheduler();
   /* USER CODE END 2 */
