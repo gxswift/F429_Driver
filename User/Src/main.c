@@ -81,6 +81,7 @@ static TaskHandle_t xHandleTaskMsgPro = NULL;
 static TaskHandle_t xHandleTaskSD = NULL;
 static TaskHandle_t xHandleTaskTouch = NULL;
 static xTimerHandle TouchScreenTimer = NULL;
+static TaskHandle_t xHandleTaskScreen = NULL;
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -88,8 +89,6 @@ int fputc(int ch, FILE *f)
 {
   /* write a character to the uart1 and Loop until the end of transmission */
 		HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,10);
- // HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 10); 
-
   return ch;
 }
 
@@ -97,6 +96,8 @@ void HAL_Delay(__IO uint32_t Delay)
 {
 	vTaskDelay(Delay);
 }
+//--------------------------------------------------------------
+//--------------------------------------------------------------
 static void vTaskLed(void *pvParameters)
 {
 	while(1)
@@ -106,7 +107,46 @@ static void vTaskLed(void *pvParameters)
 				vTaskDelay(250);
 	}
 }
+//--------------------------------------------------------------
+//--------------------------------------------------------------
+FIL file;
 
+void _WriteByte2File(U8 Data, void * p) 
+{
+	f_putc(Data,p);
+}
+void ScreenShot()
+{	
+	char buf[20] = "1:/Screenshot.bmp";
+	
+	f_open(&file,buf, FA_WRITE|FA_CREATE_ALWAYS);
+	GUI_BMP_Serialize(_WriteByte2File,&file);
+	f_close(&file);
+
+}
+//PI8  按键上拉输入   
+static void vTaskScreenshot(void *pvParameters)
+{
+	static uint8_t temp = 1;
+	vTaskDelay(10000);//10秒后
+	while(1)
+	{	
+		if((HAL_GPIO_ReadPin(GPIOI,GPIO_PIN_8) == 0)&& temp)
+		{
+		vTaskDelay(20);
+			if(HAL_GPIO_ReadPin(GPIOI,GPIO_PIN_8) == 0)
+			{
+				ScreenShot();
+				temp = 0;
+			}
+		}
+		else if(HAL_GPIO_ReadPin(GPIOI,GPIO_PIN_8))
+				temp = 1;
+		vTaskDelay(20);
+	}
+}
+//--------------------------------------------------------------
+//--------------------------------------------------------------
 static void vTaskMsgPro(void *pvParameters)
 {
 	while(1)
@@ -115,6 +155,8 @@ static void vTaskMsgPro(void *pvParameters)
 				vTaskDelay(500);
 	}
 }
+//--------------------------------------------------------------
+//--------------------------------------------------------------
 static void vTimerCallback( xTimerHandle pxTimer )
 {
    GUI_TouchScan();
@@ -270,7 +312,12 @@ static void AppTaskCreate (void)
 							1,
 							&xHandleTaskSD
 							);
-							
+	xTaskCreate(vTaskScreenshot,
+							"vTaskScreenshot",
+							512,
+							NULL,
+							2,
+							&xHandleTaskScreen);							
 }
 /* USER CODE END 0 */
 
