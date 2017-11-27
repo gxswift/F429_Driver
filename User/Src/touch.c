@@ -45,12 +45,14 @@ void IIC_Touch_GPIO_Config (void)
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 	
 }
+
+
 //	函数：配置IIC的数据脚为输出模式
 //
 void IIC_Touch_SDA_Out(void)
 {
+//	HAL_GPIO_DeInit(GPIOB,GPIO_PIN_2);
 	GPIO_InitTypeDef GPIO_InitStruct;
-
   /*Configure GPIO pin : PD12 */
   GPIO_InitStruct.Pin = GPIO_PIN_2;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -63,13 +65,27 @@ void IIC_Touch_SDA_Out(void)
 //
 void IIC_Touch_SDA_In(void)
 {
+//	HAL_GPIO_DeInit(GPIOB,GPIO_PIN_2);
 	GPIO_InitTypeDef GPIO_InitStruct;
   GPIO_InitStruct.Pin = GPIO_PIN_2;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 }
+// IO口操作
+/*#define SCL(a) HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, a)
 
+#define SDA(a) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, a)
+*/
+void SCL(uint8_t mode)
+{
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, mode);
+}
+
+void SDA(uint8_t mode)
+{
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, mode);
+}
 //	函数：IIC起始信号
 //
 void IIC_Touch_Start(void)
@@ -317,7 +333,31 @@ uint8_t GT9XX_ReadData (uint16_t addr, uint8_t cnt, uint8_t *value)
 //
 void Touch_Init(void)
 {
-	IIC_Touch_GPIO_Config(); //初始化用于通信的IIC引脚
+//	IIC_Touch_GPIO_Config(); //初始化用于通信的IIC引脚
+	GPIO_InitTypeDef GPIO_InitStruct;
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PD12 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PG3 PG7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 }
 
 // 函数：触摸扫描

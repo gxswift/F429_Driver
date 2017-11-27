@@ -99,16 +99,16 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 #define SHOW_GUIDEMO_AATEXT 1
   #define SHOW_GUIDEMO_BARGRAPH          (1)
   #define SHOW_GUIDEMO_BITMAP            (1)	
-//  #define SHOW_GUIDEMO_TRANSPARENTDIALOG (1)	
+  //#define SHOW_GUIDEMO_TRANSPARENTDIALOG (1)	
   #define SHOW_GUIDEMO_SPEED             (1)	
-//  #define SHOW_GUIDEMO_IMAGEFLOW         (1)
+  #define SHOW_GUIDEMO_IMAGEFLOW         (1)
   #define SHOW_GUIDEMO_AUTOMOTIVE        (1)
   #define SHOW_GUIDEMO_COLORBAR          (1)
   #define SHOW_GUIDEMO_FADING            (1)
   #define SHOW_GUIDEMO_GRAPH             (1)	
   #define SHOW_GUIDEMO_IMAGEFLOW         (1)
-	  #define SHOW_GUIDEMO_LISTVIEW          (1)
-//  #define SHOW_GUIDEMO_SKINNING          (1)
+	#define SHOW_GUIDEMO_LISTVIEW          (1)
+  //#define SHOW_GUIDEMO_SKINNING          (1)
   #define SHOW_GUIDEMO_VSCREEN           (1)	
 	
 	
@@ -125,7 +125,7 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
   #define SHOW_GUIDEMO_AATEXT            (1)
 #endif
 #ifndef   SHOW_GUIDEMO_AUTOMOTIVE
-  #define SHOW_GUIDEMO_AUTOMOTIVE        (0)
+  #define SHOW_GUIDEMO_AUTOMOTIVE        (1)
 #endif
 #ifndef   SHOW_GUIDEMO_BARGRAPH
   #define SHOW_GUIDEMO_BARGRAPH          (1)
@@ -183,64 +183,64 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 #endif
 #else // Choose a demo
 #ifdef    RTE_Graphics_Demo_AA_Text
-#define   SHOW_GUIDEMO_AATEXT            (1)
+#define   SHOW_GUIDEMO_AATEXT            (0)
 #endif
 #ifdef    RTE_Graphics_Demo_Automotive
-#define   SHOW_GUIDEMO_AUTOMOTIVE        (1)
+#define   SHOW_GUIDEMO_AUTOMOTIVE        (0)
 #endif
 #ifdef    RTE_Graphics_Demo_BarGraph
-#define   SHOW_GUIDEMO_BARGRAPH          (1)
+#define   SHOW_GUIDEMO_BARGRAPH          (0)
 #endif
 #ifdef    RTE_Graphics_Demo_Bitmap
-#define   SHOW_GUIDEMO_BITMAP            (1)
+#define   SHOW_GUIDEMO_BITMAP            (0)
 #endif
 #ifdef    RTE_Graphics_Demo_ColorBar
-#define   SHOW_GUIDEMO_COLORBAR          (1)
+#define   SHOW_GUIDEMO_COLORBAR          (0)
 #endif
 #ifdef    RTE_Graphics_Demo_Cursor
-#define   SHOW_GUIDEMO_CURSOR            (1)
+#define   SHOW_GUIDEMO_CURSOR            (0)
 #endif
 #ifdef    RTE_Graphics_Demo_Fading
-#define   SHOW_GUIDEMO_FADING            (1)
+#define   SHOW_GUIDEMO_FADING            (0)
 #endif
 #ifdef    RTE_Graphics_Demo_Graph
-#define   SHOW_GUIDEMO_GRAPH             (1)
+#define   SHOW_GUIDEMO_GRAPH             (0)
 #endif
 #ifdef    RTE_Graphics_Demo_IconView
-#define   SHOW_GUIDEMO_ICONVIEW          (1)
+#define   SHOW_GUIDEMO_ICONVIEW          (0)
 #endif
 #ifdef    RTE_Graphics_Demo_ImageFlow
-#define   SHOW_GUIDEMO_IMAGEFLOW         (1)
+#define   SHOW_GUIDEMO_IMAGEFLOW         (0)
 #endif
 #ifdef    RTE_Graphics_Demo_ListView
-#define   SHOW_GUIDEMO_LISTVIEW          (1)
+#define   SHOW_GUIDEMO_LISTVIEW          (0)
 #endif
 #ifdef    RTE_Graphics_Demo_RadialMenu
-#define   SHOW_GUIDEMO_RADIALMENU        (1)
+#define   SHOW_GUIDEMO_RADIALMENU        (0)
 #endif
 #ifdef    RTE_Graphics_Demo_Skinning
-#define   SHOW_GUIDEMO_SKINNING          (1)
+#define   SHOW_GUIDEMO_SKINNING          (0)
 #endif
 #ifdef    RTE_Graphics_Demo_Speed
-#define   SHOW_GUIDEMO_SPEED             (1)
+#define   SHOW_GUIDEMO_SPEED             (0)
 #endif
 #ifdef    RTE_Graphics_Demo_Speedometer
-#define   SHOW_GUIDEMO_SPEEDOMETER       (1)
+#define   SHOW_GUIDEMO_SPEEDOMETER       (0)
 #endif
 #ifdef    RTE_Graphics_Demo_TransparentDialog
-#define   SHOW_GUIDEMO_TRANSPARENTDIALOG (1)
+#define   SHOW_GUIDEMO_TRANSPARENTDIALOG (0)
 #endif
 #ifdef    RTE_Graphics_Demo_Treeview
-#define   SHOW_GUIDEMO_TREEVIEW          (1)
+#define   SHOW_GUIDEMO_TREEVIEW          (0)
 #endif
 #ifdef    RTE_Graphics_Demo_VScreen
-#define   SHOW_GUIDEMO_VSCREEN           (1)
+#define   SHOW_GUIDEMO_VSCREEN           (0)
 #endif
 #ifdef    RTE_Graphics_Demo_WashingMachine
-#define   SHOW_GUIDEMO_WASHINGMACHINE    (1)
+#define   SHOW_GUIDEMO_WASHINGMACHINE    (0)
 #endif
 #ifdef    RTE_Graphics_Demo_ZoomAndRotate
-#define   SHOW_GUIDEMO_ZOOMANDROTATE     (1)
+#define   SHOW_GUIDEMO_ZOOMANDROTATE     (0)
 #endif
 #ifndef   SHOW_GUIDEMO_AATEXT
   #define SHOW_GUIDEMO_AATEXT            (0)

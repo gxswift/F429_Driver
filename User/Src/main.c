@@ -118,11 +118,14 @@ void _WriteByte2File(U8 Data, void * p)
 }
 void ScreenShot()
 {	
-	char buf[20] = "1:/Screenshot.bmp";
-	
-	f_open(&file,buf, FA_WRITE|FA_CREATE_ALWAYS);
-	GUI_BMP_Serialize(_WriteByte2File,&file);
-	f_close(&file);
+	char buf[20] = "0:/Screenshot.bmp";
+	uint8_t temp;
+	temp = f_open(&file,buf, FA_WRITE|FA_CREATE_ALWAYS);
+	if(FR_OK == temp);
+	{
+		GUI_BMP_Serialize(_WriteByte2File,&file);
+		f_close(&file);
+	}
 
 }
 //PI8  按键上拉输入   
@@ -168,6 +171,7 @@ static void vTimerCallback( xTimerHandle pxTimer )
 }
 static void vTaskTouch(void *pvParameters)
 {
+	vTaskDelay(5000);
 	while(1)
 	{
 		GUI_TouchScan();
@@ -193,7 +197,7 @@ static void vSD_Task(void *pvParameters)
 	look = f_mount(&fs[0],"0:/",0);
 //	scan_files("0:/");
 	look =f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE);
-	f_puts("fatfs test \r\n文件系统测试",&fil);
+	f_puts("fatfs test \r\n文件系统测试\r\n屏幕截图 Screenshot.bmp",&fil);
 	look = f_close(&fil);
 
 	
@@ -365,7 +369,7 @@ int main(void)
 	MX_USB_DEVICE_Init();
 	
 	 GUI_Init();
-	//Touch_Init();
+//	Touch_Init();
 	AppTaskCreate();
 	vTaskStartScheduler();
   /* USER CODE END 2 */

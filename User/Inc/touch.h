@@ -19,10 +19,7 @@
 #define IIC_Touch_SDA_PORT    GPIOB                   
 #define IIC_Touch_SDA_PIN     GPIO_Pin_2          
 
-// IO口操作
-#define SCL(a) HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, a)
 
-#define SDA(a) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, a);
 	
 /*---------------------- GT9XX芯片相关定义 ------------------------*/
 					
