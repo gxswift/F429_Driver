@@ -88,7 +88,7 @@ static TaskHandle_t xHandleTaskScreen = NULL;
 int fputc(int ch, FILE *f)
 {
   /* write a character to the uart1 and Loop until the end of transmission */
-		HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,10);
+		HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,20);
   return ch;
 }
 
@@ -108,6 +108,7 @@ static void vTaskLed(void *pvParameters)
 	}
 }
 //--------------------------------------------------------------
+//按键截图
 //--------------------------------------------------------------
 FIL file;
 
@@ -128,6 +129,7 @@ void ScreenShot()
 static void vTaskScreenshot(void *pvParameters)
 {
 	static uint8_t temp = 1;
+	uint32_t Use_Time;
 	vTaskDelay(10000);//10秒后
 	while(1)
 	{	
@@ -136,7 +138,10 @@ static void vTaskScreenshot(void *pvParameters)
 		vTaskDelay(20);
 			if(HAL_GPIO_ReadPin(GPIOI,GPIO_PIN_8) == 0)
 			{
+				Use_Time = HAL_GetTick();
 				ScreenShot();
+				Use_Time = HAL_GetTick() - Use_Time;
+				printf("截图成功! 用时%dms\r\n",Use_Time);
 				temp = 0;
 			}
 		}
@@ -231,7 +236,7 @@ static void vSD_Task(void *pvParameters)
 	printf ("存入250个数\r\n");
 	 for(i=0;i<250;i++)
 	{
-		testsram[i]=i*(3|3<<16);
+		testsram[i]=i;//*(3|3<<16)
 	} 	
 	printf ("第一次读取\r\n");
 	for(i=0;i<250;i++)
