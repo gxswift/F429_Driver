@@ -45,8 +45,8 @@ void IIC_Touch_GPIO_Config (void)
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 	
 }
-
-
+#define LIB 1
+#if LIB
 //	º¯Êý£ºÅäÖÃIICµÄÊý¾Ý½ÅÎªÊä³öÄ£Ê½
 //
 void IIC_Touch_SDA_Out(void)
@@ -72,6 +72,28 @@ void IIC_Touch_SDA_In(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 }
+
+/*
+GPIOB->MODER&=~(3<<(2*2));
+GPIOB->MODER|=1<<2*2;//ê?3?
+GPIOB->MODER|=0<<2*2;//ê?è?
+*/
+#else
+void IIC_Touch_SDA_Out(void)
+{
+GPIOB->MODER&=~(3<<(2*2));
+GPIOB->MODER|=1<<2*2;//ê?3?
+}
+
+//	o¯êy?o????IICµ?êy?Y???aê?è???ê?
+//
+void IIC_Touch_SDA_In(void)
+{
+GPIOB->MODER&=~(3<<(2*2));
+GPIOB->MODER|=0<<2*2;//ê?è?
+}
+
+#endif
 // IO¿Ú²Ù×÷
 /*#define SCL(a) HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, a)
 
@@ -86,6 +108,7 @@ void SDA(uint8_t mode)
 {
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, mode);
 }
+
 //	º¯Êý£ºIICÆðÊ¼ÐÅºÅ
 //
 void IIC_Touch_Start(void)
