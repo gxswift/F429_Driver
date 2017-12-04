@@ -82,15 +82,14 @@ GPIOB->MODER|=0<<2*2;//ê?è?
 void IIC_Touch_SDA_Out(void)
 {
 GPIOB->MODER&=~(3<<(2*2));
-GPIOB->MODER|=1<<2*2;//ê?3?
+GPIOB->MODER|=1<<2*2;//output
 }
 
-//	o¯êy?o????IICµ?êy?Y???aê?è???ê?
-//
+
 void IIC_Touch_SDA_In(void)
 {
 GPIOB->MODER&=~(3<<(2*2));
-GPIOB->MODER|=0<<2*2;//ê?è?
+GPIOB->MODER|=0<<2*2;//input
 }
 
 #endif
@@ -416,7 +415,14 @@ uint8_t	Touch_Scan(void)
 	}
 	
 }
-
+#define TOUCH_DEBUG 0
+#if TOUCH_DEBUG
+void	GUI_TouchScan(void)
+{
+	Touch_Scan();
+	printf("x:%d\ty:%d\r\n",touchInfo.x[0],touchInfo.y[0]);
+}
+#else
 void	GUI_TouchScan(void)
 {
 	GUI_PID_STATE State;
@@ -430,3 +436,6 @@ void	GUI_TouchScan(void)
 	}
 	GUI_TOUCH_StoreStateEx(&State);
 }
+
+#endif
+

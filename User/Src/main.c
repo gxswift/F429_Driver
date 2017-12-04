@@ -121,7 +121,7 @@ void ScreenShot()
 	char buf[20] = "0:/Screenshot.bmp";
 	uint8_t temp;
 	temp = f_open(&file,buf, FA_WRITE|FA_CREATE_ALWAYS);
-	if(FR_OK == temp);
+	if(FR_OK == temp)
 	{
 		GUI_BMP_Serialize(_WriteByte2File,&file);
 		f_close(&file);
@@ -171,14 +171,14 @@ static void vTimerCallback( xTimerHandle pxTimer )
 }
 static void vTaskTouch(void *pvParameters)
 {
-	vTaskDelay(5000);
 	while(1)
 	{
 		GUI_TouchScan();
-		vTaskDelay(30);
+		vTaskDelay(500);
 	}
 }
-
+//--------------------------------------------------------------
+//--------------------------------------------------------------
 	FATFS fs[2];
 	FIL fil;
 uint8_t look = 0;
@@ -259,22 +259,6 @@ static void vSD_Task(void *pvParameters)
 	HAL_Delay(1000);
 	Display_Init();
 	Display_Test();
-/*	uint32_t temp=0;	   
-	uint32_t sval=0;	//在地址0读到的数据		
-		for(i=0;i<16*1024*1024;i+=16*1024)
-	{
-		*(volatile uint32_t*)(Bank5_SDRAM_ADDR+i)=temp; 
-		temp++;
-	}
-	//依次读出之前写入的数据,进行校验		
-  
- 	for(i=0;i<16*1024*1024;i+=16*1024) 
-	{	
-  		temp=*(volatile uint32_t*)(Bank5_SDRAM_ADDR+i);
-		if(i==0)sval=temp;
- 		else if(temp<=sval)break;//后面读出的数据一定要比第一次读到的数据大.	 
-		printf("SDRAM Capacity:%dKB\r\n",(uint16_t)(temp-sval+1)*16);//打印SDRAM容量
- 	}		*/
 
 	GUIDEMO_Main();
 //MainTask_U();
@@ -316,7 +300,7 @@ static void AppTaskCreate (void)
 	
 	xTaskCreate(vSD_Task,
 							"SD_Task",
-							1024,
+							4096,
 							NULL,
 							1,
 							&xHandleTaskSD
@@ -365,9 +349,9 @@ int main(void)
   MX_CRC_Init();
 
 	MX_FATFS_Init();
-  /* USER CODE BEGIN 2 */
+//  /* USER CODE BEGIN 2 */
 	MX_USB_DEVICE_Init();
-	
+	WM_SetCreateFlags(WM_CF_MEMDEV);
 	 GUI_Init();
 //	Touch_Init();
 	AppTaskCreate();
