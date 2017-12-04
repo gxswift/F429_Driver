@@ -127,7 +127,7 @@ I (..\Lib\Inc\stm32f4xx_hal_pcd.h)(0x5A128C17)
 I (..\Lib\Inc\stm32f4xx_ll_usb.h)(0x5A128C18)
 I (..\Lib\Inc\stm32f4xx_hal_pcd_ex.h)(0x5A128C17)
 I (..\User\Inc\gpio.h)(0x5A128C21)
-F (..\User\Src\main.c)(0x5A24C532)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Core -I..\Lib\Inc -I..\FreeRTOS\include -I..\User\Inc -I..\User -I..\FreeRTOS\portable -I..\Fatfs -I..\STemWin\inc -I..\STemWin\Config -I..\STM32_USB_Device_Library\Core\Inc -I..\STM32_USB_Device_Library\Class\MSC\Inc -I..\GUI_Demo --C99-I D:\参考\F429_Driver\Obj\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (..\User\Src\main.c)(0x5A24E5AC)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Core -I..\Lib\Inc -I..\FreeRTOS\include -I..\User\Inc -I..\User -I..\FreeRTOS\portable -I..\Fatfs -I..\STemWin\inc -I..\STemWin\Config -I..\STM32_USB_Device_Library\Core\Inc -I..\STM32_USB_Device_Library\Class\MSC\Inc -I..\GUI_Demo --C99-I D:\参考\F429_Driver\Obj\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (..\User\Inc\main.h)(0x5A128C21)
 I (..\Lib\Inc\stm32f4xx_hal.h)(0x5A128C17)
 I (..\User\Inc\stm32f4xx_hal_conf.h)(0x5A128C21)
@@ -208,7 +208,7 @@ I (..\FreeRTOS\include\timers.h)(0x5A128C17)
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -1069,7 +1069,7 @@ I (..\Lib\Inc\stm32f4xx_ll_usb.h)(0x5A128C18)
 I (..\Lib\Inc\stm32f4xx_hal_pcd_ex.h)(0x5A128C17)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4201,7 +4201,7 @@ I (..\Lib\Inc\stm32f4xx_hal_pcd_ex.h)(0x5A128C17)
 I (..\Lib\Inc\stm32f4xx_ll_rcc.h)(0x5A128C18)
 I (..\Lib\Inc\stm32f4xx_ll_system.h)(0x5A128C18)
 I (..\Lib\Inc\stm32f4xx_ll_pwr.h)(0x5A128C18)
-F (..\Core\startup_stm32f429xx.s)(0x5A128C16)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I D:\参考\F429_Driver\Obj\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0-I C:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 514" --pd "STM32F429xx SETA 1"--list .\listings\startup_stm32f429xx.lst --xref -o .\objects\startup_stm32f429xx.o --depend .\objects\startup_stm32f429xx.d)
+F (..\Core\startup_stm32f429xx.s)(0x5A24E34F)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I D:\参考\F429_Driver\Obj\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0-I C:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 514" --pd "STM32F429xx SETA 1"--list .\listings\startup_stm32f429xx.lst --xref -o .\objects\startup_stm32f429xx.o --depend .\objects\startup_stm32f429xx.d)
 F (..\FreeRTOS\croutine.c)(0x5A128C16)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Core -I..\Lib\Inc -I..\FreeRTOS\include -I..\User\Inc -I..\User -I..\FreeRTOS\portable -I..\Fatfs -I..\STemWin\inc -I..\STemWin\Config -I..\STM32_USB_Device_Library\Core\Inc -I..\STM32_USB_Device_Library\Class\MSC\Inc -I..\GUI_Demo --C99-I D:\参考\F429_Driver\Obj\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o .\objects\croutine.o --omf_browse .\objects\croutine.crf --depend .\objects\croutine.d)
 I (..\FreeRTOS\include\FreeRTOS.h)(0x5A128C16)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5475F300)
@@ -4317,7 +4317,7 @@ F (..\STemWin\Lib\STemWin532_CM4_OS_Keil_ot.lib)(0x5A128C1F)()
 F (..\STemWin\Config\GUIConf.c)(0x5A128C1D)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Core -I..\Lib\Inc -I..\FreeRTOS\include -I..\User\Inc -I..\User -I..\FreeRTOS\portable -I..\Fatfs -I..\STemWin\inc -I..\STemWin\Config -I..\STM32_USB_Device_Library\Core\Inc -I..\STM32_USB_Device_Library\Class\MSC\Inc -I..\GUI_Demo --C99-I D:\参考\F429_Driver\Obj\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o .\objects\guiconf.o --omf_browse .\objects\guiconf.crf --depend .\objects\guiconf.d)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4366,7 +4366,7 @@ I (..\Lib\Inc\stm32f4xx_ll_usb.h)(0x5A128C18)
 I (..\Lib\Inc\stm32f4xx_hal_pcd_ex.h)(0x5A128C17)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4382,7 +4382,7 @@ I (..\User\Inc\dma2d.h)(0x5A128C21)
 F (..\STemWin\OS\GUI_X_FreeRTOS.c)(0x5A128C1F)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Core -I..\Lib\Inc -I..\FreeRTOS\include -I..\User\Inc -I..\User -I..\FreeRTOS\portable -I..\Fatfs -I..\STemWin\inc -I..\STemWin\Config -I..\STM32_USB_Device_Library\Core\Inc -I..\STM32_USB_Device_Library\Class\MSC\Inc -I..\GUI_Demo --C99-I D:\参考\F429_Driver\Obj\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o .\objects\gui_x_freertos.o --omf_browse .\objects\gui_x_freertos.crf --depend .\objects\gui_x_freertos.d)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4748,7 +4748,7 @@ F (..\GUI_Demo\GUIDEMO.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4778,7 +4778,7 @@ F (..\GUI_Demo\GUIDEMO_AntialiasedText.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4808,7 +4808,7 @@ F (..\GUI_Demo\GUIDEMO_Automotive.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICRO
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4837,7 +4837,7 @@ I (..\STemWin\inc\TREEVIEW.h)(0x5A128C21)
 F (..\GUI_Demo\GUIDEMO_BarGraph.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Core -I..\Lib\Inc -I..\FreeRTOS\include -I..\User\Inc -I..\User -I..\FreeRTOS\portable -I..\Fatfs -I..\STemWin\inc -I..\STemWin\Config -I..\STM32_USB_Device_Library\Core\Inc -I..\STM32_USB_Device_Library\Class\MSC\Inc -I..\GUI_Demo --C99-I D:\参考\F429_Driver\Obj\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o .\objects\guidemo_bargraph.o --omf_browse .\objects\guidemo_bargraph.crf --depend .\objects\guidemo_bargraph.d)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4868,7 +4868,7 @@ F (..\GUI_Demo\GUIDEMO_Bitmap.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB 
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4898,7 +4898,7 @@ F (..\GUI_Demo\GUIDEMO_ColorBar.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLI
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4927,7 +4927,7 @@ I (..\STemWin\inc\TREEVIEW.h)(0x5A128C21)
 F (..\GUI_Demo\GUIDEMO_Conf.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Core -I..\Lib\Inc -I..\FreeRTOS\include -I..\User\Inc -I..\User -I..\FreeRTOS\portable -I..\Fatfs -I..\STemWin\inc -I..\STemWin\Config -I..\STM32_USB_Device_Library\Core\Inc -I..\STM32_USB_Device_Library\Class\MSC\Inc -I..\GUI_Demo --C99-I D:\参考\F429_Driver\Obj\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o .\objects\guidemo_conf.o --omf_browse .\objects\guidemo_conf.crf --depend .\objects\guidemo_conf.d)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4958,7 +4958,7 @@ F (..\GUI_Demo\GUIDEMO_Cursor.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB 
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -4988,7 +4988,7 @@ F (..\GUI_Demo\GUIDEMO_Fading.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB 
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5018,7 +5018,7 @@ F (..\GUI_Demo\GUIDEMO_Graph.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5048,7 +5048,7 @@ F (..\GUI_Demo\GUIDEMO_IconView.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLI
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5078,7 +5078,7 @@ F (..\GUI_Demo\GUIDEMO_ImageFlow.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROL
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5109,7 +5109,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5475F300)
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5139,7 +5139,7 @@ F (..\GUI_Demo\GUIDEMO_Listview.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLI
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5172,7 +5172,7 @@ F (..\GUI_Demo\GUIDEMO_RadialMenu.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICRO
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5202,7 +5202,7 @@ F (..\GUI_Demo\GUIDEMO_Resource.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLI
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5232,7 +5232,7 @@ F (..\GUI_Demo\GUIDEMO_Skinning.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLI
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5262,7 +5262,7 @@ F (..\GUI_Demo\GUIDEMO_Speed.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5293,7 +5293,7 @@ F (..\GUI_Demo\GUIDEMO_Speedometer.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICR
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5323,7 +5323,7 @@ F (..\GUI_Demo\GUIDEMO_Start.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5353,7 +5353,7 @@ F (..\GUI_Demo\GUIDEMO_TransparentDialog.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5383,7 +5383,7 @@ F (..\GUI_Demo\GUIDEMO_Treeview.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLI
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5413,7 +5413,7 @@ F (..\GUI_Demo\GUIDEMO_VScreen.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5443,7 +5443,7 @@ F (..\GUI_Demo\GUIDEMO_WashingMachine.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__M
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5473,7 +5473,7 @@ F (..\GUI_Demo\GUIDEMO_ZoomAndRotate.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MI
 I (..\GUI_Demo\GUIDEMO.h)(0x5A1BC91C)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5503,7 +5503,7 @@ F (..\GUI_User\apple.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5512,7 +5512,7 @@ F (..\GUI_User\bar.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --ap
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5520,7 +5520,7 @@ I (..\STemWin\inc\GUI_Version.h)(0x5A128C20)
 F (..\GUI_User\clock.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Core -I..\Lib\Inc -I..\FreeRTOS\include -I..\User\Inc -I..\User -I..\FreeRTOS\portable -I..\Fatfs -I..\STemWin\inc -I..\STemWin\Config -I..\STM32_USB_Device_Library\Core\Inc -I..\STM32_USB_Device_Library\Class\MSC\Inc -I..\GUI_Demo --C99-I D:\参考\F429_Driver\Obj\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o .\objects\clock.o --omf_browse .\objects\clock.crf --depend .\objects\clock.d)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5568,7 +5568,7 @@ F (..\GUI_User\ETI_logo.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5577,7 +5577,7 @@ F (..\GUI_User\game.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --a
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5586,7 +5586,7 @@ F (..\GUI_User\git.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --ap
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5595,7 +5595,7 @@ F (..\GUI_User\gitlogo.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5604,7 +5604,7 @@ F (..\GUI_User\keil.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --a
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5613,7 +5613,7 @@ F (..\GUI_User\mail.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --a
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5622,7 +5622,7 @@ F (..\GUI_User\Palette.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 
 I (..\STemWin\inc\DIALOG.h)(0x5A128C20)
 I (..\STemWin\inc\WM.h)(0x5A128C21)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5666,7 +5666,7 @@ F (..\GUI_User\QQ.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apc
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5675,7 +5675,7 @@ F (..\GUI_User\QQlogo.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 -
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5684,7 +5684,7 @@ F (..\GUI_User\QQVIP.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5693,7 +5693,7 @@ F (..\GUI_User\return.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 -
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5702,7 +5702,7 @@ F (..\GUI_User\target.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 -
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5711,7 +5711,7 @@ F (..\GUI_User\Text.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --a
 I (..\STemWin\inc\DIALOG.h)(0x5A128C20)
 I (..\STemWin\inc\WM.h)(0x5A128C21)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5755,7 +5755,7 @@ F (..\GUI_User\Theme.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --
 I (..\STemWin\inc\DIALOG.h)(0x5A128C20)
 I (..\STemWin\inc\WM.h)(0x5A128C21)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5800,7 +5800,7 @@ F (..\GUI_User\wechat.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 -
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5475F300)
 I (..\STemWin\inc\GUI.h)(0x5A128C20)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5809,7 +5809,7 @@ F (..\GUI_User\Win_main.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0
 I (..\STemWin\inc\DIALOG.h)(0x5A128C20)
 I (..\STemWin\inc\WM.h)(0x5A128C21)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5855,7 +5855,7 @@ F (..\GUI_User\Win1.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --a
 I (..\STemWin\inc\DIALOG.h)(0x5A128C20)
 I (..\STemWin\inc\WM.h)(0x5A128C21)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5900,7 +5900,7 @@ F (..\GUI_User\Win3.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --a
 I (..\STemWin\inc\DIALOG.h)(0x5A128C20)
 I (..\STemWin\inc\WM.h)(0x5A128C21)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5945,7 +5945,7 @@ F (..\GUI_User\Win4.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --a
 I (..\STemWin\inc\DIALOG.h)(0x5A128C20)
 I (..\STemWin\inc\WM.h)(0x5A128C21)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -5990,7 +5990,7 @@ F (..\GUI_User\Win6.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --a
 I (..\STemWin\inc\DIALOG.h)(0x5A128C20)
 I (..\STemWin\inc\WM.h)(0x5A128C21)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -6036,7 +6036,7 @@ F (..\GUI_User\Win7.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --a
 I (..\STemWin\inc\DIALOG.h)(0x5A128C20)
 I (..\STemWin\inc\WM.h)(0x5A128C21)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)
@@ -6081,7 +6081,7 @@ F (..\GUI_User\winheader.c)(0x5A128C17)(-c --cpu Cortex-M4.fp -D__MICROLIB -g -O
 I (..\STemWin\inc\DIALOG.h)(0x5A128C20)
 I (..\STemWin\inc\WM.h)(0x5A128C21)
 I (..\STemWin\inc\GUI_ConfDefaults.h)(0x5A128C20)
-I (..\STemWin\Config\GUIConf.h)(0x5A24C7A2)
+I (..\STemWin\Config\GUIConf.h)(0x5A24E06C)
 I (..\STemWin\inc\GUI_Type.h)(0x5A128C20)
 I (..\STemWin\inc\LCD.h)(0x5A128C21)
 I (..\STemWin\inc\Global.h)(0x5A128C20)

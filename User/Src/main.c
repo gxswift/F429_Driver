@@ -174,7 +174,7 @@ static void vTaskTouch(void *pvParameters)
 	while(1)
 	{
 		GUI_TouchScan();
-		vTaskDelay(500);
+		vTaskDelay(50);
 	}
 }
 //--------------------------------------------------------------

@@ -26,7 +26,19 @@ Project File Date:  11/27/2017
 
 <h2>Output:</h2>
 Build target 'Fanke'
-".\Objects\F429_FanK.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+..\User\Src\main.c(82): warning:  #177-D: variable "xHandleTaskTouch" was declared but never referenced
+  static TaskHandle_t xHandleTaskTouch = NULL;
+..\User\Src\main.c(83): warning:  #177-D: variable "TouchScreenTimer" was declared but never referenced
+  static xTimerHandle TouchScreenTimer = NULL;
+..\User\Src\main.c(168): warning:  #177-D: function "vTimerCallback" was declared but never referenced
+  static void vTimerCallback( xTimerHandle pxTimer )
+..\User\Src\main.c(172): warning:  #177-D: function "vTaskTouch" was declared but never referenced
+  static void vTaskTouch(void *pvParameters)
+..\User\Src\main.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=218492 RO-data=464996 RW-data=18332 ZI-data=4354788  
+".\Objects\F429_FanK.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\²Î¿¼\F429_Driver\Obj\RTE
