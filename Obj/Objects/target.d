@@ -1,9 +1,0 @@
-.\objects\target.o: ..\GUI_User\target.c
-.\objects\target.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\objects\target.o: ..\STemWin\inc\GUI.h
-.\objects\target.o: ..\STemWin\inc\GUI_ConfDefaults.h
-.\objects\target.o: ..\STemWin\Config\GUIConf.h
-.\objects\target.o: ..\STemWin\inc\GUI_Type.h
-.\objects\target.o: ..\STemWin\inc\LCD.h
-.\objects\target.o: ..\STemWin\inc\Global.h
-.\objects\target.o: ..\STemWin\inc\GUI_Version.h

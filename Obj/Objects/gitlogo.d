@@ -1,9 +1,0 @@
-.\objects\gitlogo.o: ..\GUI_User\gitlogo.c
-.\objects\gitlogo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\objects\gitlogo.o: ..\STemWin\inc\GUI.h
-.\objects\gitlogo.o: ..\STemWin\inc\GUI_ConfDefaults.h
-.\objects\gitlogo.o: ..\STemWin\Config\GUIConf.h
-.\objects\gitlogo.o: ..\STemWin\inc\GUI_Type.h
-.\objects\gitlogo.o: ..\STemWin\inc\LCD.h
-.\objects\gitlogo.o: ..\STemWin\inc\Global.h
-.\objects\gitlogo.o: ..\STemWin\inc\GUI_Version.h

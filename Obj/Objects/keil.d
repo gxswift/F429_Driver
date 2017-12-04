@@ -1,9 +1,0 @@
-.\objects\keil.o: ..\GUI_User\keil.c
-.\objects\keil.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\objects\keil.o: ..\STemWin\inc\GUI.h
-.\objects\keil.o: ..\STemWin\inc\GUI_ConfDefaults.h
-.\objects\keil.o: ..\STemWin\Config\GUIConf.h
-.\objects\keil.o: ..\STemWin\inc\GUI_Type.h
-.\objects\keil.o: ..\STemWin\inc\LCD.h
-.\objects\keil.o: ..\STemWin\inc\Global.h
-.\objects\keil.o: ..\STemWin\inc\GUI_Version.h

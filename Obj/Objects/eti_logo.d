@@ -1,9 +1,0 @@
-.\objects\eti_logo.o: ..\GUI_User\ETI_logo.c
-.\objects\eti_logo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\objects\eti_logo.o: ..\STemWin\inc\GUI.h
-.\objects\eti_logo.o: ..\STemWin\inc\GUI_ConfDefaults.h
-.\objects\eti_logo.o: ..\STemWin\Config\GUIConf.h
-.\objects\eti_logo.o: ..\STemWin\inc\GUI_Type.h
-.\objects\eti_logo.o: ..\STemWin\inc\LCD.h
-.\objects\eti_logo.o: ..\STemWin\inc\Global.h
-.\objects\eti_logo.o: ..\STemWin\inc\GUI_Version.h

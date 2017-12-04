@@ -1,9 +1,0 @@
-.\objects\qqvip.o: ..\GUI_User\QQVIP.c
-.\objects\qqvip.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\objects\qqvip.o: ..\STemWin\inc\GUI.h
-.\objects\qqvip.o: ..\STemWin\inc\GUI_ConfDefaults.h
-.\objects\qqvip.o: ..\STemWin\Config\GUIConf.h
-.\objects\qqvip.o: ..\STemWin\inc\GUI_Type.h
-.\objects\qqvip.o: ..\STemWin\inc\LCD.h
-.\objects\qqvip.o: ..\STemWin\inc\Global.h
-.\objects\qqvip.o: ..\STemWin\inc\GUI_Version.h

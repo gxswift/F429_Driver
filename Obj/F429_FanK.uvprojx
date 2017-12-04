@@ -1370,6 +1370,15 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Lwip</GroupName>
+        </Group>
+        <Group>
+          <GroupName>Net</GroupName>
+        </Group>
+        <Group>
+          <GroupName>Net_Demo</GroupName>
+        </Group>
       </Groups>
     </Target>
   </Targets>

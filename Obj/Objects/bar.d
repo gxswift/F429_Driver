@@ -1,9 +1,0 @@
-.\objects\bar.o: ..\GUI_User\bar.c
-.\objects\bar.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-.\objects\bar.o: ..\STemWin\inc\GUI.h
-.\objects\bar.o: ..\STemWin\inc\GUI_ConfDefaults.h
-.\objects\bar.o: ..\STemWin\Config\GUIConf.h
-.\objects\bar.o: ..\STemWin\inc\GUI_Type.h
-.\objects\bar.o: ..\STemWin\inc\LCD.h
-.\objects\bar.o: ..\STemWin\inc\Global.h
-.\objects\bar.o: ..\STemWin\inc\GUI_Version.h
