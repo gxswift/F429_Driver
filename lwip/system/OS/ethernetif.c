@@ -104,7 +104,7 @@ __ALIGN_BEGIN uint8_t Tx_Buff[ETH_TXBUFNB][ETH_TX_BUF_SIZE] __ALIGN_END; /* Ethe
 SemaphoreHandle_t s_xSemaphore = NULL;
 static struct netif *s_pxNetIf = NULL;
 /* Global Ethernet handle */
-extern ETH_HandleTypeDef heth;
+ETH_HandleTypeDef heth;
 
 /* USER CODE BEGIN 3 */
 void ethernetif_input( void * pvParameters );
@@ -259,7 +259,7 @@ static void low_level_init(struct netif *netif)
 	heth.Init.Speed = ETH_SPEED_100M;
 	heth.Init.DuplexMode = ETH_MODE_FULLDUPLEX;
   /* USER CODE BEGIN MACADDRESS */
-    
+	
   /* USER CODE END MACADDRESS */
 
   hal_eth_init_status = HAL_ETH_Init(&heth);

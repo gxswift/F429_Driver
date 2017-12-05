@@ -49,6 +49,7 @@
 #include "crc.h"
 #include "fatfs.h"
 #include "usb_device.h"
+#include "adc.h"
 
 #include "display.h"
 /* USER CODE BEGIN Includes */
@@ -64,6 +65,17 @@
 /* USER CODE END Includes */
 #include "GUIDEMO.h"
 #include "touch.h"
+
+
+#include "lwip.h"
+#include "httpserver-netconn.h"
+#include "smtp.h"
+#include "lwip/apps/httpd.h"
+#include "lwip/apps/netbiosns.h"
+
+#include "tcpecho.h"
+#include "udpecho.h"
+#include "ntp_client.h"
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
@@ -83,7 +95,7 @@ static TaskHandle_t xHandleTaskTouch = NULL;
 static xTimerHandle TouchScreenTimer = NULL;
 static TaskHandle_t xHandleTaskScreen = NULL;
 /* USER CODE END PFP */
-
+#define NET 0
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f)
 {
@@ -97,6 +109,13 @@ void HAL_Delay(__IO uint32_t Delay)
 	vTaskDelay(Delay);
 }
 //--------------------------------------------------------------
+uint32_t reg[32];
+char ch[30];
+uint8_t Led_Flag;
+uint16_t Led_Time;
+
+
+
 //--------------------------------------------------------------
 static void vTaskLed(void *pvParameters)
 {
@@ -297,7 +316,8 @@ static void AppTaskCreate (void)
 							NULL,
 							3,
 							&xHandleTaskMsgPro);
-	
+#if NET
+#else
 	xTaskCreate(vSD_Task,
 							"SD_Task",
 							4096,
@@ -305,12 +325,15 @@ static void AppTaskCreate (void)
 							1,
 							&xHandleTaskSD
 							);
+							
+
 	xTaskCreate(vTaskScreenshot,
 							"vTaskScreenshot",
 							512,
 							NULL,
 							2,
-							&xHandleTaskScreen);							
+							&xHandleTaskScreen);
+#endif							
 }
 /* USER CODE END 0 */
 
@@ -351,8 +374,37 @@ int main(void)
 	MX_FATFS_Init();
 //  /* USER CODE BEGIN 2 */
 	MX_USB_DEVICE_Init();
+#if NET	
+	MY_ADC_Init();
+
+	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,0);
+	HAL_Delay(1000);
+	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,1);
+	HAL_Delay(1000);
+	MX_LWIP_Init();
+	
+	#ifdef USE_DHCP
+	xTaskCreate(DHCP_thread,
+							"DHCP_Thread",
+							512,
+							NULL,
+							3,
+							NULL);
+	#endif
+	httpd_ssi_init();
+	httpd_cgi_init();
+	httpd_init();
+	
+	tcpecho_init();
+	udpecho_init();
+	
+	netbiosns_set_name("gx.lwip");
+	netbiosns_init();	
+#else	
 	WM_SetCreateFlags(WM_CF_MEMDEV);
 	 GUI_Init();
+	 
+#endif	 
 //	Touch_Init();
 	AppTaskCreate();
 	vTaskStartScheduler();

@@ -8,6 +8,9 @@
 
 #include "stm32f4xx_hal.h"
 
+
+#include "adc.h"
+
 #define NUM_CONFIG_CGI_URIS	3 //CGI的URI数量
 #define NUM_CONFIG_SSI_TAGS	4  //SSI的TAG数量
 
