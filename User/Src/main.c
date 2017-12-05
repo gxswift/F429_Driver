@@ -95,7 +95,7 @@ static TaskHandle_t xHandleTaskTouch = NULL;
 static xTimerHandle TouchScreenTimer = NULL;
 static TaskHandle_t xHandleTaskScreen = NULL;
 /* USER CODE END PFP */
-#define NET 0
+#define NET 1
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f)
 {
@@ -119,11 +119,28 @@ uint16_t Led_Time;
 //--------------------------------------------------------------
 static void vTaskLed(void *pvParameters)
 {
+	Led_Time = 500;
+	Led_Flag = 1;
+	
 	while(1)
 	{
+		if (Led_Flag==1)
+		{
 		HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_12);
-//		HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
-				vTaskDelay(250);
+		HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
+		}
+		else if (Led_Flag == 0)
+		{
+			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_12,0);
+			HAL_GPIO_WritePin(GPIOG,GPIO_PIN_7,0);
+		}
+		else
+		{
+			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_12,1);
+			HAL_GPIO_WritePin(GPIOG,GPIO_PIN_7,1);
+		}
+				vTaskDelay(Led_Time);
+
 	}
 }
 //--------------------------------------------------------------
@@ -178,7 +195,7 @@ static void vTaskMsgPro(void *pvParameters)
 {
 	while(1)
 	{
-		HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
+//		HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
 				vTaskDelay(500);
 	}
 }
@@ -336,7 +353,8 @@ static void AppTaskCreate (void)
 #endif							
 }
 /* USER CODE END 0 */
-
+extern	void httpd_ssi_init();
+extern	void 	httpd_cgi_init();
 int main(void)
 {
 
@@ -362,16 +380,21 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
- // MX_DMA_Init();	
-	MX_FMC_Init();
-  MX_LTDC_Init();
+
+	
   MX_SDIO_SD_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
-	MX_DMA2D_Init();
-  MX_CRC_Init();
-
 	MX_FATFS_Init();
+//#if NET		
+//	
+//#else	
+ // MX_DMA_Init();	
+	MX_FMC_Init();
+  MX_LTDC_Init();
+	MX_DMA2D_Init();
+  MX_CRC_Init();	
+//#endif	
 //  /* USER CODE BEGIN 2 */
 	MX_USB_DEVICE_Init();
 #if NET	
@@ -398,7 +421,7 @@ int main(void)
 	tcpecho_init();
 	udpecho_init();
 	
-	netbiosns_set_name("gx.lwip");
+	netbiosns_set_name("gx.lwip");//
 	netbiosns_init();	
 #else	
 	WM_SetCreateFlags(WM_CF_MEMDEV);
