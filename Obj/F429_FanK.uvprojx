@@ -365,7 +365,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F429xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable;..\Fatfs;..\STemWin\inc;..\STemWin\Config;..\STM32_USB_Device_Library\Core\Inc;..\STM32_USB_Device_Library\Class\MSC\Inc;..\GUI_Demo;..\lwip\system\OS;..\lwip\system;..\NetDemo;..\lwip\system\arch;..\lwip\src\apps\httpd;..\lwip\src\include\lwip\apps;..\lwip\src\include</IncludePath>
+              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable;..\Fatfs;..\STemWin\inc;..\STemWin\Config;..\STM32_USB_Device_Library\Core\Inc;..\STM32_USB_Device_Library\Class\MSC\Inc;..\GUI_Demo;..\lwip\system\OS;..\lwip\system;..\NetDemo;..\lwip\system\arch;..\lwip\src\apps\httpd;..\lwip\src\include\lwip\apps;..\lwip\src\include;..\NetDemo</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1632,6 +1632,11 @@
               <FileName>netbiosns.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\lwip\src\apps\netbiosns\netbiosns.c</FilePath>
+            </File>
+            <File>
+              <FileName>vnc_thread.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\NetDemo\vnc_thread.c</FilePath>
             </File>
           </Files>
         </Group>

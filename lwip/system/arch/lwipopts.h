@@ -42,8 +42,10 @@
 /* Prevent having to link sys_arch.c (we don't test the API layers in unit tests) */
 #define NO_SYS                          0
 #define LWIP_NETCONN                    1
-#define LWIP_SOCKET                     0
+#define LWIP_SOCKET                     1
 
+
+#define LWIP_SOCKET_SET_ERRNO	0
 /* ---------- Memory options ---------- */
 /* MEM_ALIGNMENT: should be set to the alignment of the CPU for which
    lwIP is compiled. 4 byte alignment -> define MEM_ALIGNMENT to 4, 2

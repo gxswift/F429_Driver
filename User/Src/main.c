@@ -64,6 +64,8 @@
 
 /* USER CODE END Includes */
 #include "GUIDEMO.h"
+#include "GUI_VNC.h"
+#include "vnc_thread.h"
 #include "touch.h"
 
 
@@ -96,6 +98,9 @@ static xTimerHandle TouchScreenTimer = NULL;
 static TaskHandle_t xHandleTaskScreen = NULL;
 /* USER CODE END PFP */
 #define NET 1
+#define GUI 1
+#define TOUCH 0
+#define VNC 1
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f)
 {
@@ -295,8 +300,19 @@ static void vSD_Task(void *pvParameters)
 	HAL_Delay(1000);
 	Display_Init();
 	Display_Test();
-
+	
+	WM_SetCreateFlags(WM_CF_MEMDEV);
+	 GUI_Init();
+	
+#if VNC
+	GUI_VNC_X_StartServer(0, 0);
+	GUI_VNC_SetPassword("123456");
+	GUI_VNC_SetProgName("Designed by GX");
+#endif	
+	
 	GUIDEMO_Main();
+	
+
 //MainTask_U();
 	while(1)
 	{
@@ -314,12 +330,15 @@ static void AppTaskCreate (void)
 //      /* The timer could not be set into the Active state. */
 //    }
 //  }
-//	xTaskCreate(vTaskTouch,
-//							"vTaskTouch",
-//							512,
-//							NULL,
-//							4,
-//							&xHandleTaskTouch);
+	#if TOUCH
+	xTaskCreate(vTaskTouch,
+							"vTaskTouch",
+							512,
+							NULL,
+							4,
+							&xHandleTaskTouch);
+	#endif
+	
 	xTaskCreate(vTaskLed,
 							"vTaskLed",
 							512,
@@ -333,8 +352,7 @@ static void AppTaskCreate (void)
 							NULL,
 							3,
 							&xHandleTaskMsgPro);
-#if NET
-#else
+#if GUI
 	xTaskCreate(vSD_Task,
 							"SD_Task",
 							4096,
@@ -423,11 +441,8 @@ int main(void)
 	
 	netbiosns_set_name("gx.lwip");//
 	netbiosns_init();	
-#else	
-	WM_SetCreateFlags(WM_CF_MEMDEV);
-	 GUI_Init();
-	 
-#endif	 
+#endif	
+
 //	Touch_Init();
 	AppTaskCreate();
 	vTaskStartScheduler();

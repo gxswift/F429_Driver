@@ -493,20 +493,20 @@ void Display_Test(void)
 	{
 		*(__IO uint16_t*)( 0XD0030000+i*2) = 0xf800 ;
 	} 
-	HAL_Delay(2000);
-	LCD_DrawPoint(200,201,0x7e0);
-	LCD_DrawPoint(200,203,0x7e0);		
+//	HAL_Delay(2000);
+//	LCD_DrawPoint(200,201,0x7e0);
+//	LCD_DrawPoint(200,203,0x7e0);		
 //	HAL_Delay(2000);LCD_DrawPoint(200,200,LCD_GREEN);
  	LCD_Set_Color(0x7e0);
 
 	LCD_Set_Color(0x1f);
 	for (i = 0;i<800;i++)
 	{
-LCD_DrawPoint(i,50,0x7e0);HAL_Delay(5);	
+LCD_DrawPoint(i,50,0x7e0);HAL_Delay(3);	
 	}
 		for (i = 0;i<800;i++)
 	{
-LCD_DrawPoint(800-i,60,0x1f);HAL_Delay(5);	
+LCD_DrawPoint(800-i,60,0x1f);HAL_Delay(3);	
 	}
 	HAL_Delay(2000);
 //	LCD_FillCircle(120,100,80);
