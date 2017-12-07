@@ -125,7 +125,7 @@ int GUI_VNC_X_StartServer(int LayerIndex, int ServerIndex) {
 	_Context.ServerIndex = ServerIndex;
   xTaskCreate(VNC_Process,
   	"VNC_Task",
-  	1024,
+  	2048,
   	NULL,
   	3,
   	NULL

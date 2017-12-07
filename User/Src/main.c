@@ -308,11 +308,12 @@ static void vSD_Task(void *pvParameters)
 	GUI_VNC_X_StartServer(0, 0);
 	GUI_VNC_SetPassword("123456");
 	GUI_VNC_SetProgName("Designed by GX");
+	GUI_VNC_RingBell();
 #endif	
 	
 	GUIDEMO_Main();
 	
-
+	vTaskDelete(xHandleTaskSD);
 //MainTask_U();
 	while(1)
 	{
@@ -355,7 +356,7 @@ static void AppTaskCreate (void)
 #if GUI
 	xTaskCreate(vSD_Task,
 							"SD_Task",
-							4096,
+							1024,
 							NULL,
 							1,
 							&xHandleTaskSD
@@ -436,8 +437,8 @@ int main(void)
 	httpd_cgi_init();
 	httpd_init();
 	
-	tcpecho_init();
-	udpecho_init();
+//	tcpecho_init();
+//	udpecho_init();
 	
 	netbiosns_set_name("gx.lwip");//
 	netbiosns_init();	
