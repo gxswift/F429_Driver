@@ -78,6 +78,8 @@
 #include "tcpecho.h"
 #include "udpecho.h"
 #include "ntp_client.h"
+
+#include "bmp.h"
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
@@ -152,6 +154,7 @@ static void vTaskLed(void *pvParameters)
 //按键截图
 //--------------------------------------------------------------
 FIL file;
+#define USE_GUIBMP 0
 
 void _WriteByte2File(U8 Data, void * p) 
 {
@@ -164,7 +167,9 @@ void ScreenShot()
 	temp = f_open(&file,buf, FA_WRITE|FA_CREATE_ALWAYS);
 	if(FR_OK == temp)
 	{
-		GUI_BMP_Serialize(_WriteByte2File,&file);
+
+		GUI_BMP_Serialize(_WriteByte2File,&file);		
+
 		f_close(&file);
 	}
 
@@ -183,7 +188,12 @@ static void vTaskScreenshot(void *pvParameters)
 			if(HAL_GPIO_ReadPin(GPIOI,GPIO_PIN_8) == 0)
 			{
 				Use_Time = HAL_GetTick();
+				
+#if 	USE_GUIBMP==0
+				Create_BMP();
+#elif USE_GUIBMP==1
 				ScreenShot();
+#endif				
 				Use_Time = HAL_GetTick() - Use_Time;
 				printf("截图成功! 用时%dms\r\n",Use_Time);
 				temp = 0;

@@ -365,7 +365,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F429xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable;..\Fatfs;..\STemWin\inc;..\STemWin\Config;..\STM32_USB_Device_Library\Core\Inc;..\STM32_USB_Device_Library\Class\MSC\Inc;..\GUI_Demo;..\lwip\system\OS;..\lwip\system;..\NetDemo;..\lwip\system\arch;..\lwip\src\apps\httpd;..\lwip\src\include\lwip\apps;..\lwip\src\include;..\NetDemo</IncludePath>
+              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable;..\Fatfs;..\STemWin\inc;..\STemWin\Config;..\STM32_USB_Device_Library\Core\Inc;..\STM32_USB_Device_Library\Class\MSC\Inc;..\GUI_Demo;..\lwip\system\OS;..\lwip\system;..\NetDemo;..\lwip\system\arch;..\lwip\src\apps\httpd;..\lwip\src\include\lwip\apps;..\lwip\src\include;..\NetDemo;..\App</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1248,6 +1248,11 @@
               <FileType>1</FileType>
               <FilePath>..\GUI_Demo\GUIDEMO_ZoomAndRotate.c</FilePath>
             </File>
+            <File>
+              <FileName>tftp_server.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lwip\src\apps\tftp\tftp_server.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1637,6 +1642,26 @@
               <FileName>vnc_thread.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\NetDemo\vnc_thread.c</FilePath>
+            </File>
+            <File>
+              <FileName>tftp_server.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lwip\src\apps\tftp\tftp_server.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>App</GroupName>
+          <Files>
+            <File>
+              <FileName>bmp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\bmp.c</FilePath>
+            </File>
+            <File>
+              <FileName>tftp_file.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\tftp_file.c</FilePath>
             </File>
           </Files>
         </Group>
