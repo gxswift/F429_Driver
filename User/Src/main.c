@@ -312,7 +312,7 @@ static void vSD_Task(void *pvParameters)
 	 printf("ÎÄ¼şÄÚÈİ:\r\n%s\r\n",ReadBuff);
 	 printf("----------------\r\n");
 	 //----------------------------------------
-
+#if GUI
 	 printf("SDRAM²âÊÔ\r\n");
 	uint32_t i=0;  	  
 	 for(i=0;i<2500;i++)
@@ -353,7 +353,7 @@ static void vSD_Task(void *pvParameters)
 #endif	
 	
 	GUIDEMO_Main();
-	
+#endif	
 	vTaskDelete(xHandleTaskSD);
 //MainTask_U();
 	while(1)
@@ -394,7 +394,7 @@ static void AppTaskCreate (void)
 							NULL,
 							3,
 							&xHandleTaskMsgPro);
-#if GUI
+
 	xTaskCreate(vSD_Task,
 							"SD_Task",
 							1024,
@@ -403,7 +403,7 @@ static void AppTaskCreate (void)
 							&xHandleTaskSD
 							);
 							
-
+#if GUI
 	xTaskCreate(vTaskScreenshot,
 							"vTaskScreenshot",
 							512,

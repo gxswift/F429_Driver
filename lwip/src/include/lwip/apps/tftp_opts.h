@@ -88,7 +88,7 @@
  * Max. length of TFTP filename
  */
 #if !defined TFTP_MAX_FILENAME_LEN || defined __DOXYGEN__
-#define TFTP_MAX_FILENAME_LEN 20
+#define TFTP_MAX_FILENAME_LEN 30
 #endif
 
 /**

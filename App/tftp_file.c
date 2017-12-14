@@ -5,7 +5,7 @@
 static FIL tftp_file;
 static FIL *file_open(const char* fname, const char* mode, u8_t write)
 {
-	char name[20];
+	char name[40]={0};
 	BYTE Write_Mode;
 	if(write) Write_Mode = FA_WRITE|FA_CREATE_ALWAYS;
 	else Write_Mode = FA_READ;
