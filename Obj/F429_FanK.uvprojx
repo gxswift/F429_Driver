@@ -509,24 +509,9 @@
               <FilePath>..\User\Src\dma.c</FilePath>
             </File>
             <File>
-              <FileName>display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Src\display.c</FilePath>
-            </File>
-            <File>
-              <FileName>touch.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Src\touch.c</FilePath>
-            </File>
-            <File>
               <FileName>lwip.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Src\lwip.c</FilePath>
-            </File>
-            <File>
-              <FileName>adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Src\adc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1248,11 +1233,6 @@
               <FileType>1</FileType>
               <FilePath>..\GUI_Demo\GUIDEMO_ZoomAndRotate.c</FilePath>
             </File>
-            <File>
-              <FileName>tftp_server.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\lwip\src\apps\tftp\tftp_server.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1662,6 +1642,21 @@
               <FileName>tftp_file.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\App\tftp_file.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\display.c</FilePath>
+            </File>
+            <File>
+              <FileName>touch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\App\touch.c</FilePath>
             </File>
           </Files>
         </Group>

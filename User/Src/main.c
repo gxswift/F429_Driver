@@ -80,6 +80,7 @@
 #include "ntp_client.h"
 
 #include "bmp.h"
+#include "tftp_file.h"
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
@@ -100,9 +101,9 @@ static xTimerHandle TouchScreenTimer = NULL;
 static TaskHandle_t xHandleTaskScreen = NULL;
 /* USER CODE END PFP */
 #define NET 1
-#define GUI 1
+#define GUI 0
 #define TOUCH 0
-#define VNC 1
+#define VNC 0
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f)
 {
@@ -172,7 +173,6 @@ void ScreenShot()
 
 		f_close(&file);
 	}
-
 }
 //PI8  按键上拉输入   
 static void vTaskScreenshot(void *pvParameters)
@@ -206,8 +206,39 @@ static void vTaskScreenshot(void *pvParameters)
 }
 //--------------------------------------------------------------
 //--------------------------------------------------------------
+extern	void httpd_ssi_init();
+extern	void 	httpd_cgi_init();
 static void vTaskMsgPro(void *pvParameters)
 {
+#if NET	
+	MY_ADC_Init();
+
+	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,0);
+	HAL_Delay(1000);
+	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,1);
+	HAL_Delay(1000);
+	MX_LWIP_Init();
+	
+	#ifdef USE_DHCP
+	xTaskCreate(DHCP_thread,
+							"DHCP_Thread",
+							512,
+							NULL,
+							3,
+							NULL);
+	#endif
+	httpd_ssi_init();
+	httpd_cgi_init();
+	httpd_init();
+	
+//	tcpecho_init();
+//	udpecho_init();
+	
+	netbiosns_set_name("gx.lwip");//
+	netbiosns_init();	
+	
+	TFTP_Start();
+#endif
 	while(1)
 	{
 //		HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
@@ -382,8 +413,6 @@ static void AppTaskCreate (void)
 #endif							
 }
 /* USER CODE END 0 */
-extern	void httpd_ssi_init();
-extern	void 	httpd_cgi_init();
 int main(void)
 {
 
@@ -426,33 +455,7 @@ int main(void)
 //#endif	
 //  /* USER CODE BEGIN 2 */
 	MX_USB_DEVICE_Init();
-#if NET	
-	MY_ADC_Init();
-
-	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,0);
-	HAL_Delay(1000);
-	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,1);
-	HAL_Delay(1000);
-	MX_LWIP_Init();
 	
-	#ifdef USE_DHCP
-	xTaskCreate(DHCP_thread,
-							"DHCP_Thread",
-							512,
-							NULL,
-							3,
-							NULL);
-	#endif
-	httpd_ssi_init();
-	httpd_cgi_init();
-	httpd_init();
-	
-//	tcpecho_init();
-//	udpecho_init();
-	
-	netbiosns_set_name("gx.lwip");//
-	netbiosns_init();	
-#endif	
 
 //	Touch_Init();
 	AppTaskCreate();
