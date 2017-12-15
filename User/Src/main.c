@@ -231,8 +231,8 @@ static void vTaskMsgPro(void *pvParameters)
 	httpd_cgi_init();
 	httpd_init();
 	
-//	tcpecho_init();
-//	udpecho_init();
+	tcpecho_init();
+	udpecho_init();
 	
 	netbiosns_set_name("gx.lwip");//
 	netbiosns_init();	

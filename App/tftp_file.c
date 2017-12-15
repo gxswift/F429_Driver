@@ -2,14 +2,35 @@
 #include "ff.h"
 #include "lwip/apps/tftp_server.h"
 
+#include "string.h"
 static FIL tftp_file;
 static FIL *file_open(const char* fname, const char* mode, u8_t write)
 {
 	char name[40]={0};
+	char namecopy[40];
 	BYTE Write_Mode;
+char *p;
+uint8_t i;
+//filename error sometimes
+	memcpy(namecopy,fname,30);
+p = namecopy;
+for (i = 0;i < 20;i++)
+{
+	if(*p++ == '.')
+	break;
+}
+for (i = 0;i < 5;i++)
+{
+	p++;
+	if(*p<'A' ||*p>'z')
+	{
+		*p = '\0';
+		break;
+	}
+}
 	if(write) Write_Mode = FA_WRITE|FA_CREATE_ALWAYS;
 	else Write_Mode = FA_READ;
-	sprintf(name,"0:/%s",fname);
+	sprintf(name,"0:/%s",namecopy);
 	f_open (&tftp_file,name,Write_Mode);
 	return &tftp_file;
 }
