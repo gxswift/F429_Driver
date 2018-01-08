@@ -1628,6 +1628,11 @@
               <FileType>1</FileType>
               <FilePath>..\lwip\src\apps\tftp\tftp_server.c</FilePath>
             </File>
+            <File>
+              <FileName>fs_custom.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\NetDemo\fs_custom.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

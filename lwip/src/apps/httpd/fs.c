@@ -35,13 +35,14 @@
 #include "lwip/apps/fs.h"
 #include "fsdata.h"
 #include <string.h>
-
+#include "fs_custom.h"
 
 #if HTTPD_USE_CUSTOM_FSDATA
 #include "fsdata_custom.c"
 #else /* HTTPD_USE_CUSTOM_FSDATA */
 #include "fsdata.c"
 #endif /* HTTPD_USE_CUSTOM_FSDATA */
+
 
 /*-----------------------------------------------------------------------------------*/
 
