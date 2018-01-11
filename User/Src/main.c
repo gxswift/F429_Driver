@@ -101,9 +101,10 @@ static xTimerHandle TouchScreenTimer = NULL;
 static TaskHandle_t xHandleTaskScreen = NULL;
 /* USER CODE END PFP */
 #define NET 1
-#define GUI 0
+#define GUI 1
 #define TOUCH 0
-#define VNC 0
+#define VNC 1
+#define SCREENSHOT	0
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f)
 {
@@ -230,14 +231,18 @@ static void vTaskMsgPro(void *pvParameters)
 	httpd_ssi_init();
 	httpd_cgi_init();
 	httpd_init();
-	
+#if VNC
+
+#else
 	tcpecho_init();
 	udpecho_init();
 	
+	TFTP_Start();	
+#endif	
 	netbiosns_set_name("gx.lwip");//
 	netbiosns_init();	
 	
-	TFTP_Start();
+
 #endif
 	while(1)
 	{
@@ -266,10 +271,12 @@ static void vTaskTouch(void *pvParameters)
 uint8_t look = 0;
 uint32_t testsram[250] __attribute__((at(0XD0000000)));//≤‚ ‘”√ ˝◊È
 uint32_t testsram2[2500] __attribute__((at(0XD0020000)));
-	uint8_t ReadBuff[200];
+	
 extern void MainTask_U(void);
+extern void MainTask_ETI(void);
 static void vSD_Task(void *pvParameters)
 {
+	uint8_t ReadBuff[200];
 	uint8_t res;
 	UINT brw;
 
@@ -352,10 +359,11 @@ static void vSD_Task(void *pvParameters)
 	GUI_VNC_RingBell();
 #endif	
 	
-	GUIDEMO_Main();
+	//GUIDEMO_Main();
+	MainTask_ETI();
 #endif	
 	vTaskDelete(xHandleTaskSD);
-//MainTask_U();
+//MainTask_ETI();
 	while(1)
 	{
 		vTaskDelay(1000);
@@ -404,12 +412,15 @@ static void AppTaskCreate (void)
 							);
 							
 #if GUI
+#if SCREENSHOT
 	xTaskCreate(vTaskScreenshot,
 							"vTaskScreenshot",
 							512,
 							NULL,
 							2,
 							&xHandleTaskScreen);
+							
+#endif
 #endif							
 }
 /* USER CODE END 0 */
