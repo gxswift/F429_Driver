@@ -50,6 +50,7 @@
 #include "fatfs.h"
 #include "usb_device.h"
 #include "adc.h"
+#include "tim.h"
 
 #include "display.h"
 /* USER CODE BEGIN Includes */
@@ -103,7 +104,7 @@ static TaskHandle_t xHandleTaskScreen = NULL;
 #define NET 1
 #define GUI 1
 #define TOUCH 0
-#define VNC 1
+#define VNC 0
 #define SCREENSHOT	0
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f)
@@ -122,7 +123,7 @@ uint32_t reg[32];
 char ch[30];
 uint8_t Led_Flag;
 uint16_t Led_Time;
-
+uint16_t Led_P;
 
 
 //--------------------------------------------------------------
@@ -130,25 +131,28 @@ static void vTaskLed(void *pvParameters)
 {
 	Led_Time = 500;
 	Led_Flag = 1;
-	
+	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_1);
+	static uint16_t flash;
 	while(1)
 	{
 		if (Led_Flag==1)
 		{
-		HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_12);
-		HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
+			if(++flash>=Led_Time/2)
+			{
+				flash = 0;
+				HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
+			}
 		}
 		else if (Led_Flag == 0)
 		{
-			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_12,0);
 			HAL_GPIO_WritePin(GPIOG,GPIO_PIN_7,0);
 		}
 		else
 		{
-			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_12,1);
 			HAL_GPIO_WritePin(GPIOG,GPIO_PIN_7,1);
 		}
-				vTaskDelay(Led_Time);
+		TIM4->CCR1 = 1000-Led_P;
+		vTaskDelay(1);
 
 	}
 }
@@ -463,6 +467,7 @@ int main(void)
   MX_LTDC_Init();
 	MX_DMA2D_Init();
   MX_CRC_Init();	
+	MX_TIM4_Init();
 //#endif	
 //  /* USER CODE BEGIN 2 */
 	MX_USB_DEVICE_Init();

@@ -22,6 +22,10 @@ const char* Ctrl_CGI_Handler(int iIndex,int iNumParams,char *pcParam[],char *pcV
 
 extern uint8_t Led_Flag;
 extern uint16_t Led_Time;
+extern uint16_t Led_P;
+
+
+
 static const tCGI ppcURLs[]= //cgi³ÌÐò
 {
 	{"/login.cgi",Login_CGI_Handler},
@@ -56,7 +60,7 @@ void State_Handler(char *pcInsert)
 	if(Led_Flag == 0)
 		sprintf(pcInsert,"LED¿ª");
 	else if(Led_Flag == 1)
-		sprintf(pcInsert,"LEDÉÁ£º%dms",Led_Time);
+		sprintf(pcInsert,"LEDÉÁ£º%dms",Led_Time/2);
 	else
 		sprintf(pcInsert,"LEDÃð");
 }
@@ -185,12 +189,17 @@ const char* Set_CGI_Handler(int iIndex, int iNumParams, char *pcParam[], char *p
 	iIndex = FindCGIParameter("rate",pcParam,iNumParams); 
 	if (iIndex != -1)
 	{
-		for (i=0; i<iNumParams; i++) //??CGI??
+		for (i=0; i<iNumParams; i++)
 		{
-		  if (strcmp(pcParam[i] , "rate")==0)  //????"led" ????LED1??
+		  if (strcmp(pcParam[i] , "rate")==0)
 		  {
 				if(atoi(pcValue[i]))
 				Led_Time = atoi(pcValue[i])*100;
+		  }
+		  if (strcmp(pcParam[i] , "time")==0)
+		  {
+				if(atoi(pcValue[i]))
+				Led_P = atoi(pcValue[i])*10;
 		  }
 		}
 	 }

@@ -365,7 +365,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_HAL_DRIVER,STM32F429xx</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable;..\Fatfs;..\STemWin\inc;..\STemWin\Config;..\STM32_USB_Device_Library\Core\Inc;..\STM32_USB_Device_Library\Class\MSC\Inc;..\GUI_Demo;..\lwip\system\OS;..\lwip\system;..\NetDemo;..\lwip\system\arch;..\lwip\src\apps\httpd;..\lwip\src\include\lwip\apps;..\lwip\src\include;..\NetDemo;..\App</IncludePath>
+              <IncludePath>..\Core;..\Lib\Inc;..\FreeRTOS\include;..\User\Inc;..\User;..\FreeRTOS\portable;..\Fatfs;..\STemWin\inc;..\STemWin\Config;..\STM32_USB_Device_Library\Core\Inc;..\STM32_USB_Device_Library\Class\MSC\Inc;..\GUI_Demo;..\lwip\system\OS;..\lwip\system;..\NetDemo;..\lwip\system\arch;..\lwip\src\apps\httpd;..\lwip\src\include\lwip\apps;..\lwip\src\include;..\NetDemo;..\App;..\emWinFont</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -512,6 +512,11 @@
               <FileName>lwip.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Src\lwip.c</FilePath>
+            </File>
+            <File>
+              <FileName>tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Src\tim.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1670,6 +1675,21 @@
               <FileName>mygui.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\ETI_Test\mygui.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Font</GroupName>
+          <Files>
+            <File>
+              <FileName>siffont.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\emWinFont\siffont.c</FilePath>
+            </File>
+            <File>
+              <FileName>xbffont.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\emWinFont\xbffont.c</FilePath>
             </File>
           </Files>
         </Group>
