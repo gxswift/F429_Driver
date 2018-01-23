@@ -107,7 +107,7 @@ tcpecho_thread(void *arg)
 					}
 					else if(strncmp(data , "pwm=",4)==0)
 					{
-						if((char*)data+4)=="0")
+						if(*((char*)data+4) =='0')
 						{
 							Led_P = 0;
 						}

@@ -81,6 +81,7 @@
 #include "ntp_client.h"
 
 #include "bmp.h"
+#include "Font_Test.h"
 #include "tftp_file.h"
 /* Private variables ---------------------------------------------------------*/
 
@@ -105,7 +106,7 @@ static TaskHandle_t xHandleTaskScreen = NULL;
 #define GUI 1
 #define TOUCH 0
 #define VNC 0
-#define SCREENSHOT	0
+#define SCREENSHOT	1
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f)
 {
@@ -280,10 +281,11 @@ extern void MainTask_U(void);
 extern void MainTask_ETI(void);
 static void vSD_Task(void *pvParameters)
 {
-	uint8_t ReadBuff[200];
+	uint8_t ReadBuff[100] = {0};
 	uint8_t res;
 	UINT brw;
-
+	BYTE work[4096];
+	
 	vTaskDelay(1000);
 	//SD卡测试
 		printf("SD fatfs test\r\n");
@@ -293,7 +295,6 @@ static void vSD_Task(void *pvParameters)
 	f_puts("fatfs test \r\n文件系统测试\r\n屏幕截图 Screenshot.bmp",&fil);
 	look = f_close(&fil);
 
-	
  	memset(ReadBuff,0,50);
 	look = f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
 
@@ -307,18 +308,23 @@ static void vSD_Task(void *pvParameters)
 	 printf("SD:%s\r\n",ReadBuff);	
  //----------------------------------------------------------
 	printf("spi flash fatfs test\r\n");
-	f_mount(&fs[1],"1:/",0);
+	 
+	look = f_mount(&fs[1],"1:/",0);
+//	 f_mkfs("1:", FM_FAT32, 0, work, sizeof work);//	 
 //	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE);
 //	f_puts("spiflash fatfs test!\r\n文件系统测试",&fil);
 //	f_close(&fil);
-
-	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
-	memset(ReadBuff,0,200);
-	while(1)
+	 //---------------
+	 if (FR_OK == look)
 	 {
-	 res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
-	 if(res||brw==0) break;
-	 }
+		f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
+		memset(ReadBuff,0,100);
+		while(1)
+		 {
+		 res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
+		 if(res||brw==0) break;
+		 }
+		}
 	 f_close(&fil);
 	 printf("文件内容:\r\n%s\r\n",ReadBuff);
 	 printf("----------------\r\n");
@@ -364,9 +370,10 @@ static void vSD_Task(void *pvParameters)
 #endif	
 	
 	//GUIDEMO_Main();
-	MainTask_ETI();
+	//MainTask_ETI();
+	Font_Demo();
 #endif	
-	vTaskDelete(xHandleTaskSD);
+	//vTaskDelete(xHandleTaskSD);
 //MainTask_ETI();
 	while(1)
 	{

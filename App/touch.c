@@ -49,11 +49,11 @@ void IIC_Touch_GPIO_Config (void)
 #if LIB
 //	º¯Êý£ºÅäÖÃIICµÄÊý¾Ý½ÅÎªÊä³öÄ£Ê½
 //
+/*
 void IIC_Touch_SDA_Out(void)
 {
 //	HAL_GPIO_DeInit(GPIOB,GPIO_PIN_2);
 	GPIO_InitTypeDef GPIO_InitStruct;
-  /*Configure GPIO pin : PD12 */
   GPIO_InitStruct.Pin = GPIO_PIN_2;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -72,7 +72,7 @@ void IIC_Touch_SDA_In(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 }
-
+*/
 /*
 GPIOB->MODER&=~(3<<(2*2));
 GPIOB->MODER|=1<<2*2;//ê?3?
@@ -112,7 +112,7 @@ void SDA(uint8_t mode)
 //
 void IIC_Touch_Start(void)
 {
-	IIC_Touch_SDA_Out();
+	//IIC_Touch_SDA_Out();
 	
 	SDA(1);
 	SCL(1);
@@ -142,7 +142,7 @@ void IIC_Touch_Stop(void)
 //
 void IIC_Touch_Response(void)
 {
-	IIC_Touch_SDA_Out();
+//	IIC_Touch_SDA_Out();
 
 	SDA(0);
 	IIC_Touch_Delay( Touch_DelayVaule );	
@@ -156,7 +156,7 @@ void IIC_Touch_Response(void)
 //
 void IIC_Touch_NoResponse(void)
 {
-	IIC_Touch_SDA_Out();
+//	IIC_Touch_SDA_Out();
 	
 	SCL(0);	
 	IIC_Touch_Delay( Touch_DelayVaule );
@@ -179,7 +179,7 @@ uint8_t IIC_Touch_WaitResponse(void)
 	IIC_Touch_Delay( Touch_DelayVaule );
 	SCL(1);
 
-	IIC_Touch_SDA_In();	//ÅäÖÃÎªÊäÈëÄ£Ê½
+	//IIC_Touch_SDA_In();	//ÅäÖÃÎªÊäÈëÄ£Ê½
 	IIC_Touch_Delay( Touch_DelayVaule );
 	
 	SCL(0);	
@@ -202,7 +202,7 @@ uint8_t IIC_Touch_WriteByte(uint8_t IIC_Data)
 {
 	uint8_t i;
 
-	IIC_Touch_SDA_Out(); //Êý¾Ý½ÅÎªÊä³öÄ£Ê½
+	//IIC_Touch_SDA_Out(); //Êý¾Ý½ÅÎªÊä³öÄ£Ê½
 	
 	for (i = 0; i < 8; i++)
 	{
@@ -232,7 +232,7 @@ uint8_t IIC_Touch_ReadByte(uint8_t ResponseMode)
 	SDA(1);
 	SCL(0);
 
-	IIC_Touch_SDA_In(); //ÊäÈëÄ£Ê½
+//	IIC_Touch_SDA_In(); //ÊäÈëÄ£Ê½
 	
 	//¶ÁÒ»×Ö½ÚÊý¾Ý
 	for (i = 0; i < 8; i++)
@@ -415,7 +415,7 @@ uint8_t	Touch_Scan(void)
 	}
 	
 }
-#define TOUCH_DEBUG 0
+#define TOUCH_DEBUG 1
 #if TOUCH_DEBUG
 void	GUI_TouchScan(void)
 {

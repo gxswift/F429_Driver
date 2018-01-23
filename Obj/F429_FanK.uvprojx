@@ -1691,6 +1691,16 @@
               <FileType>1</FileType>
               <FilePath>..\emWinFont\xbffont.c</FilePath>
             </File>
+            <File>
+              <FileName>Font_Test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\emWinFont\Font_Test.c</FilePath>
+            </File>
+            <File>
+              <FileName>Demo_String.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\emWinFont\Demo_String.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
