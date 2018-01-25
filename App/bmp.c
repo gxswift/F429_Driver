@@ -42,12 +42,16 @@ void Create_BMP()
 		//if(res||bw<54)return;
 		#if MERROR
 		for (i=0;i<=800*480*2/4096;i++)//镜像翻转
-
 		{
 			memcpy(Data_Buff,(const uint16_t*)( 0XD0000000+i*4096),sizeof Data_Buff);//一次写4K
 			res = f_write(&fil,(uint8_t*)Data_Buff,4096,&bw);
 		}
 		#else
+		for (i=800*480;i>0;i--)
+		{
+			memcpy(Data_Buff,(const uint16_t*)( 0XD0000000+i*2),2);//一次写4K
+			res = f_write(&fil,(uint8_t*)Data_Buff,2,&bw);
+		}
 		#endif
 		f_close(&fil);
 	}
