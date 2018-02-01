@@ -30,7 +30,7 @@ for (i = 0;i < 5;i++)
 }
 	if(write) Write_Mode = FA_WRITE|FA_CREATE_ALWAYS;
 	else Write_Mode = FA_READ;
-	sprintf(name,"0:/%s",namecopy);
+	sprintf(name,"0:/TFTP/%s",namecopy);
 	f_open (&tftp_file,name,Write_Mode);
 	return &tftp_file;
 }

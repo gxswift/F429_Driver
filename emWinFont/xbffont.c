@@ -2,7 +2,7 @@
 #include "ff.h"
 
 
-
+//XBF字体  存储在SD卡或外部FLASH中
 //定义字体
 GUI_FONT XBF20_Font;
 

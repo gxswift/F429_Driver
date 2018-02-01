@@ -1,5 +1,8 @@
 #include "siffont.h"
 #include "ff.h"
+
+//SIF字体 先转到内存中
+
 //字体定义
 GUI_FONT SIF20_Font;
 //字体文件
