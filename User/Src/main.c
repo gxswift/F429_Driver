@@ -52,7 +52,6 @@
 #include "adc.h"
 #include "tim.h"
 
-#include "display.h"
 /* USER CODE BEGIN Includes */
 #include "FreeRTOS.h"
 #include "task.h"
@@ -62,27 +61,9 @@
 
 #include "stdio.h"
 
-
+#include "app_task.h"
 /* USER CODE END Includes */
-#include "GUIDEMO.h"
-#include "GUI_VNC.h"
-#include "vnc_thread.h"
-#include "touch.h"
 
-
-#include "lwip.h"
-#include "httpserver-netconn.h"
-#include "smtp.h"
-#include "lwip/apps/httpd.h"
-#include "lwip/apps/netbiosns.h"
-
-#include "tcpecho.h"
-#include "udpecho.h"
-#include "ntp_client.h"
-
-#include "bmp.h"
-#include "Font_Test.h"
-#include "tftp_file.h"
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
@@ -95,23 +76,14 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-static TaskHandle_t xHandleTaskLed = NULL;
-static TaskHandle_t xHandleTaskMsgPro = NULL;
-static TaskHandle_t xHandleTaskSD = NULL;
-static TaskHandle_t xHandleTaskTouch = NULL;
-static xTimerHandle TouchScreenTimer = NULL;
-static TaskHandle_t xHandleTaskScreen = NULL;
+
 /* USER CODE END PFP */
-#define NET 1
-#define GUI 1
-#define TOUCH 0
-#define VNC 0
-#define SCREENSHOT	1
+
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f)
 {
   /* write a character to the uart1 and Loop until the end of transmission */
-		HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,20);
+	HAL_UART_Transmit(&huart1,(uint8_t *)&ch,1,20);
   return ch;
 }
 
@@ -119,321 +91,7 @@ void HAL_Delay(__IO uint32_t Delay)
 {
 	vTaskDelay(Delay);
 }
-//--------------------------------------------------------------
-uint32_t reg[32];
-char ch[30];
-uint8_t Led_Flag;
-uint16_t Led_Time;
-uint16_t Led_P;
 
-
-//--------------------------------------------------------------
-static void vTaskLed(void *pvParameters)
-{
-	Led_Time = 500;
-	Led_Flag = 1;
-	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_1);
-	static uint16_t flash;
-	while(1)
-	{
-		if (Led_Flag==1)
-		{
-			if(++flash>=Led_Time/2)
-			{
-				flash = 0;
-				HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
-			}
-		}
-		else if (Led_Flag == 0)
-		{
-			HAL_GPIO_WritePin(GPIOG,GPIO_PIN_7,0);
-		}
-		else
-		{
-			HAL_GPIO_WritePin(GPIOG,GPIO_PIN_7,1);
-		}
-		TIM4->CCR1 = 1000-Led_P;
-		vTaskDelay(1);
-
-	}
-}
-//--------------------------------------------------------------
-//按键截图
-//--------------------------------------------------------------
-FIL file;
-#define USE_GUIBMP 0
-
-void _WriteByte2File(U8 Data, void * p) 
-{
-	f_putc(Data,p);
-}
-void ScreenShot()
-{	
-	char buf[20] = "0:/Screenshot.bmp";
-	uint8_t temp;
-	temp = f_open(&file,buf, FA_WRITE|FA_CREATE_ALWAYS);
-	if(FR_OK == temp)
-	{
-
-		GUI_BMP_Serialize(_WriteByte2File,&file);		
-
-		f_close(&file);
-	}
-}
-//PI8  按键上拉输入   
-static void vTaskScreenshot(void *pvParameters)
-{
-	static uint8_t temp = 1;
-	uint32_t Use_Time;
-	vTaskDelay(10000);//10秒后
-	while(1)
-	{	
-		if((HAL_GPIO_ReadPin(GPIOI,GPIO_PIN_8) == 0)&& temp)
-		{
-		vTaskDelay(20);
-			if(HAL_GPIO_ReadPin(GPIOI,GPIO_PIN_8) == 0)
-			{
-				Use_Time = HAL_GetTick();
-				
-#if 	USE_GUIBMP==0
-				Create_BMP();
-#elif USE_GUIBMP==1
-				ScreenShot();
-#endif				
-				Use_Time = HAL_GetTick() - Use_Time;
-				printf("截图成功! 用时%dms\r\n",Use_Time);
-				temp = 0;
-			}
-		}
-		else if(HAL_GPIO_ReadPin(GPIOI,GPIO_PIN_8))
-				temp = 1;
-		vTaskDelay(20);
-	}
-}
-//--------------------------------------------------------------
-//--------------------------------------------------------------
-extern	void httpd_ssi_init();
-extern	void 	httpd_cgi_init();
-static void vTaskMsgPro(void *pvParameters)
-{
-#if NET	
-	MY_ADC_Init();
-
-	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,0);
-	HAL_Delay(1000);
-	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,1);
-	HAL_Delay(1000);
-	MX_LWIP_Init();
-	
-	#ifdef USE_DHCP
-	xTaskCreate(DHCP_thread,
-							"DHCP_Thread",
-							512,
-							NULL,
-							3,
-							NULL);
-	#endif
-	httpd_ssi_init();
-	httpd_cgi_init();
-	httpd_init();
-#if VNC
-
-#else
-	tcpecho_init();
-	udpecho_init();
-	
-	TFTP_Start();	
-#endif	
-	netbiosns_set_name("gx.lwip");//
-	netbiosns_init();	
-	
-
-#endif
-	while(1)
-	{
-//		HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
-				vTaskDelay(500);
-	}
-}
-//--------------------------------------------------------------
-//--------------------------------------------------------------
-static void vTimerCallback( xTimerHandle pxTimer )
-{
-   GUI_TouchScan();
-}
-static void vTaskTouch(void *pvParameters)
-{
-	while(1)
-	{
-		GUI_TouchScan();
-		vTaskDelay(50);
-	}
-}
-//--------------------------------------------------------------
-//--------------------------------------------------------------
-	FATFS fs[2];
-	FIL fil;
-uint8_t look = 0;
-uint32_t testsram[250] __attribute__((at(0XD0000000)));//测试用数组
-uint32_t testsram2[2500] __attribute__((at(0XD0020000)));
-	
-extern void MainTask_U(void);
-extern void MainTask_ETI(void);
-static void vSD_Task(void *pvParameters)
-{
-	uint8_t ReadBuff[100] = {0};
-	uint8_t res;
-	UINT brw;
-	BYTE work[4096];
-	
-	vTaskDelay(1000);
-	//SD卡测试
-		printf("SD fatfs test\r\n");
-	look = f_mount(&fs[0],"0:/",0);
-//	scan_files("0:/");
-	look =f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE);
-	f_puts("fatfs test \r\n文件系统测试\r\n屏幕截图 Screenshot.bmp",&fil);
-	look = f_close(&fil);
-
- 	memset(ReadBuff,0,50);
-	look = f_open (&fil,"0:/123.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
-
-	while(1)
-	 {
-	 res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
-	 if(res||brw==0) break;
-	 }
-		look = f_close(&fil);
-
-	 printf("SD:%s\r\n",ReadBuff);	
- //----------------------------------------------------------
-	printf("spi flash fatfs test\r\n");
-	 
-	look = f_mount(&fs[1],"1:/",0);
-//	 f_mkfs("1:", FM_FAT32, 0, work, sizeof work);//	 
-//	f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE);
-//	f_puts("spiflash fatfs test!\r\n文件系统测试",&fil);
-//	f_close(&fil);
-	 //---------------
-	 if (FR_OK == look)
-	 {
-		f_open (&fil,"1:/1.txt",FA_OPEN_ALWAYS|FA_WRITE|FA_READ);
-		memset(ReadBuff,0,100);
-		while(1)
-		 {
-		 res = f_read(&fil,ReadBuff,sizeof(ReadBuff),&brw);
-		 if(res||brw==0) break;
-		 }
-		}
-	 f_close(&fil);
-	 printf("文件内容:\r\n%s\r\n",ReadBuff);
-	 printf("----------------\r\n");
-	 //----------------------------------------
-#if GUI
-	 printf("SDRAM测试\r\n");
-	uint32_t i=0;  	  
-	 for(i=0;i<2500;i++)
-	{
-		*(__IO uint16_t*)( 0XD0030000+i*2) = 15 ;
-	} 	
-	printf ("存入250个数\r\n");
-	 for(i=0;i<250;i++)
-	{
-		testsram[i]=i;//*(3|3<<16)
-	} 	
-	printf ("第一次读取\r\n");
-	for(i=0;i<250;i++)
-	{
-		printf ("%4d",testsram[i]);
-	} 
-	printf ("\r\n第二次读取\r\n");
-	for(i=0;i<250;i++)
-	{
-		printf ("%4d",testsram[i]);
-	} 
-		 for(i=0;i<2500;i++)
-	{
-		testsram2[i]=0x7e0|0x7e0<<16;
-	} 	
-	HAL_Delay(1000);
-	Display_Init();
-	Display_Test();
-	
-	WM_SetCreateFlags(WM_CF_MEMDEV);
-	 GUI_Init();
-	
-#if VNC
-	GUI_VNC_X_StartServer(0, 0);
-	GUI_VNC_SetPassword("123456");
-	GUI_VNC_SetProgName("Designed by GX");
-	GUI_VNC_RingBell();
-#endif	
-	
-	//GUIDEMO_Main();
-	//MainTask_ETI();
-	Font_Demo();
-#endif	
-	//vTaskDelete(xHandleTaskSD);
-//MainTask_ETI();
-	while(1)
-	{
-		vTaskDelay(1000);
-	}
-}
-static void AppTaskCreate (void)
-{
-
-//	TouchScreenTimer = xTimerCreate ("Timer", 50, pdTRUE, ( void * ) 1, vTimerCallback );
-//	if( TouchScreenTimer != NULL )
-//  {
-//    if( xTimerStart( TouchScreenTimer, 0 ) != pdPASS )
-//    {
-//      /* The timer could not be set into the Active state. */
-//    }
-//  }
-	#if TOUCH
-	xTaskCreate(vTaskTouch,
-							"vTaskTouch",
-							512,
-							NULL,
-							4,
-							&xHandleTaskTouch);
-	#endif
-	
-	xTaskCreate(vTaskLed,
-							"vTaskLed",
-							512,
-							NULL,
-							2,
-							&xHandleTaskLed);
-	
-	xTaskCreate(vTaskMsgPro,
-							"vTaskMsgPro",
-							512,
-							NULL,
-							3,
-							&xHandleTaskMsgPro);
-
-	xTaskCreate(vSD_Task,
-							"SD_Task",
-							1024,
-							NULL,
-							1,
-							&xHandleTaskSD
-							);
-							
-#if GUI
-#if SCREENSHOT
-	xTaskCreate(vTaskScreenshot,
-							"vTaskScreenshot",
-							512,
-							NULL,
-							2,
-							&xHandleTaskScreen);
-							
-#endif
-#endif							
-}
 /* USER CODE END 0 */
 int main(void)
 {
@@ -460,27 +118,22 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_USART1_UART_Init();
 
-	
   MX_SDIO_SD_Init();
   MX_SPI1_Init();
-  MX_USART1_UART_Init();
 	MX_FATFS_Init();
-//#if NET		
-//	
-//#else	
+	
+	MX_USB_DEVICE_Init();
  // MX_DMA_Init();	
 	MX_FMC_Init();
   MX_LTDC_Init();
 	MX_DMA2D_Init();
   MX_CRC_Init();	
-	MX_TIM4_Init();
-//#endif	
-//  /* USER CODE BEGIN 2 */
-	MX_USB_DEVICE_Init();
 	
+	MX_TIM4_Init();
+  /* USER CODE BEGIN 2 */
 
-//	Touch_Init();
 	AppTaskCreate();
 	vTaskStartScheduler();
   /* USER CODE END 2 */

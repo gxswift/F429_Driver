@@ -55,6 +55,6 @@ uint8_t Create_XBF20(uint8_t *fxpath)
 
 uint8_t Create_Font(void)
 {
-	Create_XBF20("0:/SYS/FONT/XBF12.xbf");
+	Create_XBF20("0:/SYS/FONT/XBF20.xbf");
 }
 

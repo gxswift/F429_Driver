@@ -8,7 +8,7 @@
 #define Response_OK 1  //IIC响应
 #define Response_ERR 0
 
-#define Touch_DelayVaule 5  //通讯延时时间
+#define Touch_DelayVaule 4  //通讯延时时间
 
 // IO口相关宏
 #define IIC_Touch_SCL_CLK     RCC_AHB1Periph_GPIOC
@@ -23,7 +23,7 @@
 	
 /*---------------------- GT9XX芯片相关定义 ------------------------*/
 					
-#define TOUCH_MAX   5	//最大触摸点数
+#define TOUCH_MAX   1	//最大触摸点数 5
 
 typedef struct 
 {
