@@ -61,20 +61,35 @@ void MX_LTDC_Init(void)
   hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AL;
   hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
 	/*≈‰÷√Õ¨≤Ω ±–Ú*/
-#define HBP  46
-#define VBP  23
-#define HSW  1
-#define VSW  1
-#define HFP  200
-#define VFP  22
+#define LCD7	1
+#if LCD7
+	#define HBP  46
+	#define VBP  23
+	#define HSW  1
+	#define VSW  1
+	#define HFP  200
+	#define VFP  22
+	#define Width 800
+	#define Height 480
+#else
+	#define HBP  40
+	#define VBP  8
+	#define HSW  1
+	#define VSW  1
+	#define HFP  5
+	#define VFP  8
+	#define Width 480
+	#define Height 272
+#endif
+	
   hltdc.Init.HorizontalSync = HSW;
   hltdc.Init.VerticalSync = VSW;
   hltdc.Init.AccumulatedHBP = HBP;
   hltdc.Init.AccumulatedVBP = VBP;
-  hltdc.Init.AccumulatedActiveW = 800+HBP;
-  hltdc.Init.AccumulatedActiveH = 480+VBP;
-  hltdc.Init.TotalWidth = 800+HBP+HFP;
-  hltdc.Init.TotalHeigh = 480+VBP+VFP;
+  hltdc.Init.AccumulatedActiveW = Width+HBP;
+  hltdc.Init.AccumulatedActiveH = Height+VBP;
+  hltdc.Init.TotalWidth = Width+HBP+HFP;
+  hltdc.Init.TotalHeigh = Height+VBP+VFP;
 	
   hltdc.Init.Backcolor.Blue = 0;
   hltdc.Init.Backcolor.Green = 0;

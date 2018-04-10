@@ -5,10 +5,6 @@ internal	159544
 Program Size: Code=121652 RO-data=13388 RW-data=800 ZI-data=4307768  
 internal	113464
 
-
-
-
-
 GUI
 
 Program Size: Code=219352 RO-data=464996 RW-data=18344 ZI-data=4367464
@@ -28,7 +24,6 @@ GUI_DBUFF	2*800*480	768000
 
 LWIP		25k
 FreeRTOS	75k
-
 
 STACK		4K
 HEAD		8K
