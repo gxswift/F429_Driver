@@ -28,7 +28,8 @@ for (i = 0;i < 5;i++)
 		break;
 	}
 }
-	if(write) Write_Mode = FA_WRITE|FA_CREATE_ALWAYS;
+//------------------------------------------------------
+	if(write) Write_Mode = FA_WRITE|FA_CREATE_ALWAYS|FA_READ	;
 	else Write_Mode = FA_READ;
 	sprintf(name,"0:/TFTP/%s",namecopy);
 	f_open (&tftp_file,name,Write_Mode);

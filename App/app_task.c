@@ -43,12 +43,10 @@
 #include "Font_Test.h"
 #include "tftp_file.h"
 
-#define NET 1
-#define GUI 1
-#define TOUCH 0
-#define VNC 0
-#define SCREENSHOT	0
-#define TEST 0
+
+#include "funopts.h"
+
+
 
 
 static TaskHandle_t xHandleTaskLed = NULL;

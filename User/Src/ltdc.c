@@ -41,6 +41,7 @@
 #include "ltdc.h"
 
 #include "gpio.h"
+#include "funopts.h"
 
 /* USER CODE BEGIN 0 */
 
@@ -61,7 +62,6 @@ void MX_LTDC_Init(void)
   hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AL;
   hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
 	/*≈‰÷√Õ¨≤Ω ±–Ú*/
-#define LCD7	1
 #if LCD7
 	#define HBP  46
 	#define VBP  23

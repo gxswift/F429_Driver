@@ -50,6 +50,8 @@
 #include "GUI_Private.h"
 #include "ltdc.h"
 #include "dma2d.h"
+
+#include "funopts.h"
 /** @addtogroup STEMWIN_LIBRARY
 * @{
 */
@@ -74,9 +76,17 @@
 
 #define LCD_SWAP_XY  0 
 #define LCD_MIRROR_Y 1
+#if LCD7
 
-#define XSIZE_PHYS 800
-#define YSIZE_PHYS 480
+	#define XSIZE_PHYS 800
+	#define YSIZE_PHYS 480
+	
+#else
+
+	#define XSIZE_PHYS 480
+	#define YSIZE_PHYS 272
+	
+#endif
 
 #define NUM_BUFFERS  1 // Number of multiple buffers to be used
 #define NUM_VSCREENS 1 // Number of virtual screens to be used
