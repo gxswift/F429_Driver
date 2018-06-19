@@ -41,7 +41,7 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
-
+//PD12 LED  PD13 LCD Backlight
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim4;
@@ -89,7 +89,10 @@ void MX_TIM4_Init(void)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
-
+  if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
   HAL_TIM_MspPostInit(&htim4);
 
 }
@@ -121,14 +124,14 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
   
     /**TIM4 GPIO Configuration    
     PD12     ------> TIM4_CH1 
+		PD13     ------> TIM4_CH2 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_12;
+    GPIO_InitStruct.Pin = GPIO_PIN_12 |GPIO_PIN_13;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF2_TIM4;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-
   /* USER CODE BEGIN TIM4_MspPostInit 1 */
 
   /* USER CODE END TIM4_MspPostInit 1 */

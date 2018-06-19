@@ -85,9 +85,10 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 #define CIRCLE_RADIUS     100
 #define LOGO_DIST_BORDER  5
 #define CHAR_READING_TIME 80
-#define XSIZE_MIN         800
-#define YSIZE_MIN         480
-
+//#define XSIZE_MIN         800
+//#define YSIZE_MIN         480
+#define XSIZE_MIN         480
+#define YSIZE_MIN         272
 //
 // Use an or-combination of the following flags to configure the
 // GUIDemo container for the current application.
@@ -98,7 +99,7 @@ extern "C" {     /* Make sure we have C-declarations in C++ programs */
 
 #define SHOW_GUIDEMO_AATEXT 1
   #define SHOW_GUIDEMO_BARGRAPH          (1)
-  #define SHOW_GUIDEMO_BITMAP            (1)	
+ // #define SHOW_GUIDEMO_BITMAP            (1)	
   //#define SHOW_GUIDEMO_TRANSPARENTDIALOG (1)	
   #define SHOW_GUIDEMO_SPEED             (1)	
   #define SHOW_GUIDEMO_IMAGEFLOW         (1)

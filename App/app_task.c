@@ -69,7 +69,22 @@ static void vTaskLed(void *pvParameters)
 	Led_Time = 500;
 	Led_Flag = 1;
 	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_2);
 	static uint16_t flash;
+	TIM4->CCR2 = 500;
+	//BackLight Test
+/*
+	while(1)
+	{
+		TIM4->CCR2 = 700;//ÁÁ
+		TIM4->CCR1 = 700;
+		vTaskDelay(1000);
+		TIM4->CCR2 = 200;
+		TIM4->CCR1 = 200;
+		vTaskDelay(500);	
+		HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_7);
+	}
+	*/
 	while(1)
 	{
 		if (Led_Flag==1)
@@ -311,9 +326,9 @@ static void vGUI_Task(void *pvParameters)
 	GUI_VNC_SetProgName("Designed by GX");
 	GUI_VNC_RingBell();
 #endif	
-	//GUIDEMO_Main();
-	MainTask_ETI();
-	//Font_Demo();	
+	GUIDEMO_Main();
+//	MainTask_ETI();
+//	Font_Demo();	
 }
 
 void AppTaskCreate (void)
