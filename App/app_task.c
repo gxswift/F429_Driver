@@ -46,7 +46,7 @@
 
 #include "funopts.h"
 
-
+#include "GetData.h"
 
 
 static TaskHandle_t xHandleTaskLed = NULL;
@@ -76,7 +76,7 @@ static void vTaskLed(void *pvParameters)
 /*
 	while(1)
 	{
-		TIM4->CCR2 = 700;//ÁÁ
+		TIM4->CCR2 = 700;//ÁÁ 4.3
 		TIM4->CCR1 = 700;
 		vTaskDelay(1000);
 		TIM4->CCR2 = 200;
@@ -318,6 +318,7 @@ static void vSD_Task(void *pvParameters)
 }
 static void vGUI_Task(void *pvParameters)
 {
+	vTaskDelay(10000);
 	WM_SetCreateFlags(WM_CF_MEMDEV);
 	 GUI_Init();
 #if VNC
@@ -326,9 +327,12 @@ static void vGUI_Task(void *pvParameters)
 	GUI_VNC_SetProgName("Designed by GX");
 	GUI_VNC_RingBell();
 #endif	
-	GUIDEMO_Main();
+//	GUIDEMO_Main();
 //	MainTask_ETI();
-//	Font_Demo();	
+//	Font_Demo();
+	vTaskDelay(1000);	
+	printf("picture test\r\n");
+	PicDisplaly_Test();
 }
 
 void AppTaskCreate (void)

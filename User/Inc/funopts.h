@@ -8,7 +8,7 @@
 #define TOUCH 0
 #define VNC 0
 #define SCREENSHOT	0
-#define TEST 0
+#define TEST 1
 
 #endif
 

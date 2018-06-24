@@ -4,6 +4,7 @@
 #include "stm32f4xx_hal.h"
 #define 	LCD_CLK  		25		//定义LCD驱动时钟，这里为了方便计算数值应在10-70之间，单位为M
 #define 	LCD_NUM_LAYERS  1		//定义显示的层数，429可驱动两层显示
+#include "funopts.h"
 /*
 #define	ColorMode_0   LCD_RGB565   		//定义层0的颜色格式
 //#define	ColorMode_0   LCD_ARGB1555   
@@ -79,12 +80,17 @@
 #define 	DARK_MAGENTA    0xff800080
 #define 	DARK_YELLOW     0xff808000
 #define 	DARK_GREY       0xff404040
-
+#if LCD7
 #define LCD_Width     800				//LCD的像素长度
 #define LCD_Height    480				//LCD的像素宽度
 #define LCD_Pixels    800*480 		//分辨率
 #define LCD_MemoryAdd   0xD0000000 	//显存的起始地址  
-
+#else
+#define LCD_Width     480				//LCD的像素长度
+#define LCD_Height    272				//LCD的像素宽度
+#define LCD_Pixels    272*480 		//分辨率
+#define LCD_MemoryAdd   0xD0000000 	//显存的起始地址  
+#endif
 
 void  LCD_Clear(void); //清屏
 
