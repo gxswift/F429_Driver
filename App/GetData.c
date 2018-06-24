@@ -6,7 +6,7 @@
 //use fatfs
 //Get BMP/GIF/JPEG Data
 
-static char acBuffer[0x200];
+static char acBuffer[0x400];//稍微大点  不然bmp无法显示 jpeg进入hardfault
 int Static_GetData(void * p, const U8 ** ppData, unsigned NumBytes, U32 Off) {
 
 FIL * phFile;
@@ -21,6 +21,7 @@ NumBytes = sizeof(acBuffer);
 //
 // Set file pointer to the required position
 //
+//	if(Off == 1) Off = 0;
 f_lseek(phFile,Off);
 //SetFilePointer(*phFile, Off, 0, FILE_BEGIN);
 //
@@ -31,7 +32,7 @@ f_read(phFile,acBuffer,NumBytes,&NumBytesRead);
 //
 // Set data pointer to the beginning of the buffer
 //
-*ppData = acBuffer;
+*ppData = (U8*)acBuffer;
 //
 // Return number of available bytes
 //
@@ -120,7 +121,7 @@ void PicDisplaly_Test(void)
 	if (res == FR_OK)
 	{
 		f_read(&JPG,TestBuffer,JPG.obj.objsize,&Read);
-	GUI_JPEG_Draw(TestBuffer,JPG.obj.objsize,0,0);
+	GUI_JPEG_Draw(TestBuffer,JPG.obj.objsize,200,0);
 	f_close(&JPG);
 		printf("internal jpg\r\n");
 	vTaskDelay(2000);
@@ -130,19 +131,18 @@ void PicDisplaly_Test(void)
 		printf("jpg file open error:%d\r\n",res);
 	}
 //------------------------------------------------------------		
-//显示完进入hardfault。。。	
-//	res = f_open (&JPG,path2,FA_READ);
-//	if (res == FR_OK)
-//	{
-//		GUI_JPEG_DrawEx(Static_GetData,&JPG,300,150);
-//		f_close(&JPG);
-//		printf("jpg display extern\r\n");
-//		vTaskDelay(2000);
-//	}
-//	else 
-//	{
-//		printf("jpg file open error:%d\r\n",res);
-//	}
+	res = f_open (&JPG,path2,FA_READ);
+	if (res == FR_OK)
+	{
+		GUI_JPEG_DrawEx(Static_GetData,&JPG,300,150);
+		f_close(&JPG);
+		printf("jpg display extern\r\n");
+		vTaskDelay(2000);
+	}
+	else 
+	{
+		printf("jpg file open error:%d\r\n",res);
+	}
 
 }
 
