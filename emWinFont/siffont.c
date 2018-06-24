@@ -22,8 +22,7 @@ void Create_SIF20(uint8_t *fxpath)
 	f_read(&SIF20FontFile,SIF20FontBuff,SIF20FontFile.obj.objsize,(UINT *)&bread);
 	
 	GUI_SIF_CreateFont(SIF20FontBuff,&SIF20_Font,GUI_SIF_TYPE_PROP_AA2);
-	
-	//f_close(&SIF20FontFile);
+	f_close(&SIF20FontFile);
 }
 
 

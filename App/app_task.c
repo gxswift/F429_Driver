@@ -329,10 +329,14 @@ static void vGUI_Task(void *pvParameters)
 #endif	
 //	GUIDEMO_Main();
 //	MainTask_ETI();
-//	Font_Demo();
+	Font_Demo();
 	vTaskDelay(1000);	
 	printf("picture test\r\n");
 	PicDisplaly_Test();
+	while(1)
+	{
+		vTaskDelay(1000);
+	}
 }
 
 void AppTaskCreate (void)

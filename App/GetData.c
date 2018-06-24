@@ -76,14 +76,14 @@ SD:0  FLASH:1
 char path1[20] = "0:/image/1.bmp";
 char path2[20] = "0:/image/1.jpg";
 char path3[20] = "0:/image/1.png";
-static FIL BMP;
+static FIL BMP,JPG;
 
 uint8_t TestBuffer[480*272*2+1000] __attribute__((at(0XD0400000)));
 void PicDisplaly_Test(void)
 {
 	uint8_t res;
 	UINT Read;
-	
+	//先加载到内存
 	res = f_open (&BMP,path1,FA_READ);
 //xSize = GUI_BMP_GetXSizeEx(Static_GetData,&BMP_File);
 //ySize = GUI_BMP_GetYSizeEx(Static_GetData,&BMP_File);
@@ -101,8 +101,6 @@ void PicDisplaly_Test(void)
 	}
 //------------------------------------------------------------	
 	res = f_open (&BMP,path1,FA_READ);
-//xSize = GUI_BMP_GetXSizeEx(Static_GetData,&BMP_File);
-//ySize = GUI_BMP_GetYSizeEx(Static_GetData,&BMP_File);
 	if (res == FR_OK)
 	{
 	GUI_BMP_DrawEx(Static_GetData,&BMP,250,50);
@@ -115,25 +113,37 @@ void PicDisplaly_Test(void)
 		printf("bmp file open error:%d\r\n",res);
 	}
 //------------------------------------------------------------	
-
-	
-	res = f_open (&BMP,path2,FA_READ);
+//先加载到内存
+	res = f_open (&JPG,path2,FA_READ);
+//xSize = GUI_BMP_GetXSizeEx(Static_GetData,&BMP_File);
+//ySize = GUI_BMP_GetYSizeEx(Static_GetData,&BMP_File);
 	if (res == FR_OK)
 	{
-		GUI_JPEG_DrawEx(Static_GetData,&BMP,100,100);
-		f_close(&BMP);
-		vTaskDelay(2000);
+		f_read(&JPG,TestBuffer,JPG.obj.objsize,&Read);
+	GUI_JPEG_Draw(TestBuffer,JPG.obj.objsize,0,0);
+	f_close(&JPG);
+		printf("internal jpg\r\n");
+	vTaskDelay(2000);
 	}
-	else 
+	else
 	{
 		printf("jpg file open error:%d\r\n",res);
 	}
-/*	
-	f_open (&BMP,path1,FA_READ);
-	GUI_JPEG_DrawEx(Stream_GetData,&BMP,50,50);
-	f_close(&BMP);
-	vTaskDelay(2000);
-	*/
+//------------------------------------------------------------		
+//显示完进入hardfault。。。	
+//	res = f_open (&JPG,path2,FA_READ);
+//	if (res == FR_OK)
+//	{
+//		GUI_JPEG_DrawEx(Static_GetData,&JPG,300,150);
+//		f_close(&JPG);
+//		printf("jpg display extern\r\n");
+//		vTaskDelay(2000);
+//	}
+//	else 
+//	{
+//		printf("jpg file open error:%d\r\n",res);
+//	}
+
 }
 
 
