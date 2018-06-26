@@ -34,6 +34,8 @@ typedef struct
 }TouchStructure;
 
 
+#define GT9XX_CFG_ADDR 	0x8047		// 固件配置信息寄存器和配置起始地址
+
 #define GT9XX_IIC_RADDR 0xBB	//IIC初始化地址
 #define GT9XX_IIC_WADDR 0xBA
 

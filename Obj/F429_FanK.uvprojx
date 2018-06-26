@@ -1522,11 +1522,6 @@
               <FileType>1</FileType>
               <FilePath>..\App\GetData.c</FilePath>
             </File>
-            <File>
-              <FileName>touch4_3.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\App\touch4_3.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
