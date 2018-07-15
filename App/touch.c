@@ -35,6 +35,9 @@ void Touch_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOI_CLK_ENABLE();  
+  
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_RESET);
 
@@ -52,6 +55,18 @@ void Touch_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  
+  GPIO_InitStruct.Pin = GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = GPIO_PIN_11;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
 }
 #define LIB 1
 #if LIB
@@ -329,32 +344,9 @@ uint8_t GT9XX_ReadData (uint16_t addr, uint8_t cnt, uint8_t *value)
 	return (status);	
 }
 
-// 函数：触摸扫描
 
-uint8_t	Touch_Scan(void)
-{
- 	uint8_t  touchData[2 + 8 * TOUCH_MAX ]; //用于存储触摸数据
-	memset(touchData,0,10);
-	GT9XX_ReadData (GT9XX_READ_ADDR,2 + 8 * TOUCH_MAX ,touchData);	//读数据
-	GT9XX_WriteData (GT9XX_READ_ADDR,0);	//	清除触摸芯片的寄存器标志位
-	touchInfo.num = touchData[0] & 0x0f;	//取当前的触摸点数
-	
-	if ( (touchInfo.num ) &&touchData[5]<200 && touchData[3]<200 ) //当触摸数在 1-5 之间时>= 1) && (touchInfo.num <=5
-	{
-		// 取相应的触摸坐标
-		touchInfo.y[0] = ((touchData[5]<<8) | touchData[4])*0.81+1;
-		touchInfo.x[0] = ((touchData[3]<<8) | touchData[2])*0.78+1;	
-		return	SUCCESS ;	
-	}
-	else                       
-	{	
-		touchInfo.x[0] = 0;
-		touchInfo.y[0] = 0;
-		return	ERROR ;		
-	}
-}
 #else
-
+//4.3LCD
 // 触摸参数配置数组，在函数 GT9XX_SendCfg() 里调用，用于配置触摸IC的相关参数
 //	由于GT9147可以固化保存这些参数，所以用户一般情况下无需再进行配置
 //	详细的寄存器功能请参考《GT9147编程指南》
@@ -428,21 +420,21 @@ const uint8_t GT9XX_CFG_DATA[] =
 
 void GT9XX_Reset(void)
 {
-	Touch_INT_Out();	//	将INT引脚配置为输出
+	//Touch_INT_Out();	//	将INT引脚配置为输出
 	
 	// 初始化引脚状态
-	GPIO_ResetBits(Touch_INT_PORT,Touch_INT_PIN); 	// 将INT拉低
-	GPIO_SetBits  (Touch_RST_PORT,Touch_RST_PIN);	// 将RST拉高
+	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_15,0); 	// 将INT拉低
+	HAL_GPIO_WritePin(GPIOI,GPIO_PIN_11,1);	// 将RST拉高
 	T_Delay(10000);	
 	
 	// 开始执行复位
 	//	INT引脚保持低电平不变，将器件地址设置为0XBA/0XBB
-	GPIO_ResetBits(Touch_RST_PORT,Touch_RST_PIN);			// 拉低复位引脚，此时芯片执行复位
+	HAL_GPIO_WritePin(GPIOI,GPIO_PIN_11,0);			// 拉低复位引脚，此时芯片执行复位
 	T_Delay(350000);										// 延时
-	GPIO_SetBits  (Touch_RST_PORT,Touch_RST_PIN);			// 拉高复位引脚，复位结束
-	Touch_IIC_Delay(350000);										// 延时
-	Touch_INT_In();													// INT引脚转为浮空输入
-	Touch_IIC_Delay(350000);										// 延时
+	HAL_GPIO_WritePin(GPIOI,GPIO_PIN_11,1);			// 拉高复位引脚，复位结束
+	T_Delay(350000);										// 延时
+	//Touch_INT_In();													// INT引脚转为浮空输入
+	T_Delay(350000);										// 延时
 }
 
 /*****************************************************************************************
@@ -458,13 +450,13 @@ uint8_t GT9XX_WriteHandle (uint16_t addr)
 {
 	uint8_t status;	// 状态标志位
 
-	Touch_IIC_Start();	// 启动IIC通信
+	IIC_Touch_Start();	// 启动IIC通信
 	
-	if( Touch_IIC_WriteByte(GT9XX_IIC_WADDR) == 1 ) //写数据指令
+	if( IIC_Touch_WriteByte(GT9XX_IIC_WADDR) == 1 ) //写数据指令
 	{
-		if( Touch_IIC_WriteByte((uint8_t)(addr >> 8)) == 1 ) //写入16位地址
+		if( IIC_Touch_WriteByte((uint8_t)(addr >> 8)) == 1 ) //写入16位地址
 		{
-			if( Touch_IIC_WriteByte((uint8_t)(addr)) != 1 )
+			if( IIC_Touch_WriteByte((uint8_t)(addr)) != 1 )
 			{
 				status = ERROR;	// 操作失败
 			}			
@@ -488,16 +480,16 @@ uint8_t GT9XX_WriteData (uint16_t addr,uint8_t value)
 {
 	uint8_t status;
 	
-	Touch_IIC_Start(); //启动IIC通讯
+	IIC_Touch_Start(); //启动IIC通讯
 
 	if( GT9XX_WriteHandle(addr) == SUCCESS)	//写入要操作的寄存器
 	{
-		if (Touch_IIC_WriteByte(value) != 1) //写数据
+		if (IIC_Touch_WriteByte(value) != 1) //写数据
 		{
 			status = ERROR;	// 写入失败					
 		}
 	}	
-	Touch_IIC_Stop(); // 停止通讯
+	IIC_Touch_Stop(); // 停止通讯
 	
 	status = SUCCESS;	// 写入成功
 	return status;
@@ -519,20 +511,20 @@ uint8_t GT9XX_WriteReg (uint16_t addr, uint8_t cnt, uint8_t *value)
 	uint8_t status = 0;
 	uint8_t i = 0;
 
-	Touch_IIC_Start();	// 启动IIC通信
+	IIC_Touch_Start();	// 启动IIC通信
 
 	if( GT9XX_WriteHandle(addr) == SUCCESS) //写入要操作的寄存器
 	{
 		for(i = 0 ; i < cnt; i++)		// 计数
 		{
-			Touch_IIC_WriteByte(value[i]);	// 写入数据
+			IIC_Touch_WriteByte(value[i]);	// 写入数据
 		}					
-		Touch_IIC_Stop();		// 停止IIC通信
+		IIC_Touch_Stop();		// 停止IIC通信
 		status = SUCCESS;		// 写入成功
 	}
 	else
 	{
-		Touch_IIC_Stop();		// 停止IIC通信
+		IIC_Touch_Stop();		// 停止IIC通信
 		status = ERROR;		// 写入失败
 	}
 
@@ -550,36 +542,36 @@ uint8_t GT9XX_WriteReg (uint16_t addr, uint8_t cnt, uint8_t *value)
 *	说    明:从芯片的寄存器区读取指定长度的数据
 ******************************************************************************************/
 
-uint8_t GT9XX_ReadReg (uint16_t addr, uint8_t cnt, uint8_t *value)
+uint8_t GT9XX_ReadData (uint16_t addr, uint8_t cnt, uint8_t *value)
 {
 	uint8_t status = 0;
 	uint8_t i = 0;
 
 	status = ERROR;
-	Touch_IIC_Start();	// 启动IIC通信
+	IIC_Touch_Start();	// 启动IIC通信
 
 	if( GT9XX_WriteHandle(addr) == SUCCESS) 	//	写入要操作的寄存器
 	{
-		Touch_IIC_Start(); // 重新启动IIC通讯
+		IIC_Touch_Start(); // 重新启动IIC通讯
 
-		if (Touch_IIC_WriteByte(GT9XX_IIC_RADDR) == 1)	// 发送读命令
+		if (IIC_Touch_WriteByte(GT9XX_IIC_RADDR) == 1)	// 发送读命令
 		{	
 			for(i = 0 ; i < cnt; i++)	// 计数
 			{
 				if (i == (cnt - 1))
 				{
-					value[i] = Touch_IIC_ReadByte(0);	//	读到最后一个数据时发送 非应答信号
+					value[i] = IIC_Touch_ReadByte(0);	//	读到最后一个数据时发送 非应答信号
 				}
 				else
 				{
-					value[i] = Touch_IIC_ReadByte(1);	// 发送应答信号
+					value[i] = IIC_Touch_ReadByte(1);	// 发送应答信号
 				}
 			}					
-			Touch_IIC_Stop();	// 停止IIC通信
+			IIC_Touch_Stop();	// 停止IIC通信
 			status = SUCCESS;
 		}
 	}
-	Touch_IIC_Stop();
+	IIC_Touch_Stop();
 	return (status);	
 }
 
@@ -625,7 +617,7 @@ void GT9XX_ReadCfg(void)
 	printf("-----------------------------------------\r\n");	
 	printf("读取芯片配置信息，串口打印输出\r\n");
 	
-	GT9XX_ReadReg (GT9XX_CFG_ADDR,184,GT9XX_Cfg);	// 读配置信息
+	GT9XX_ReadData (GT9XX_CFG_ADDR,184,GT9XX_Cfg);	// 读配置信息
 	for(i=0;i<184;i++)
 	{	
 		if( (i%10 == 0) && (i>0) )			
@@ -646,12 +638,12 @@ void GT9XX_ReadCfg(void)
 *	说    明: 在程序里周期性的调用该函数，用以检测触摸操作，触摸信息存储在 touchInfo 结构体
 ******************************************************************************************/
 
-uint8_t Touch_Init(void)
+uint8_t Touch43_Init(void)
 {
 	uint8_t GT9XX_Info[11];	// 触摸屏IC信息
 	uint8_t cfgVersion = 0;	// 触摸配置版本
 	
-	Touch_IIC_GPIO_Config(); 	// 初始化IIC引脚
+//	Touch_IIC_GPIO_Config(); 	// 初始化IIC引脚
 	GT9XX_Reset();					// GT9147 复位
 	
 //	 //读取GT9147配置参数，通过串口打印输出	
@@ -662,8 +654,8 @@ uint8_t Touch_Init(void)
 //	//用户修改参数之后，需要将该函数屏蔽掉，不然频繁的写入会将触摸芯片的Flash写坏	
 //	GT9XX_SendCfg();	
 	
-	GT9XX_ReadReg (GT9XX_ID_ADDR,11,GT9XX_Info);		// 读触摸屏IC信息
-	GT9XX_ReadReg (GT9XX_CFG_ADDR,1,&cfgVersion);	// 读触摸配置版本
+	GT9XX_ReadData (GT9XX_ID_ADDR,11,GT9XX_Info);		// 读触摸屏IC信息
+	GT9XX_ReadData (GT9XX_CFG_ADDR,1,&cfgVersion);	// 读触摸配置版本
 	
 	if( GT9XX_Info[0] == '9' )		//	判断第一个字符是否为 ‘9’
 	{
@@ -680,13 +672,7 @@ uint8_t Touch_Init(void)
 	}
 }
 
-/*****************************************************************************************
-*	函 数 名: Touch_Scan
-*	入口参数: 无
-*	返 回 值: 无
-*	函数功能: 触摸扫描
-*	说    明: 在程序里周期性的调用该函数，用以检测触摸操作，触摸信息存储在 touchInfo 结构体
-******************************************************************************************/
+/*
 
 void Touch_Scan(void)
 {
@@ -712,17 +698,40 @@ void Touch_Scan(void)
 	}
 }
 
-
+*/
 #endif
 
 
+// 函数：触摸扫描
+
+uint8_t	Touch_Scan(void)
+{
+ 	uint8_t  touchData[2 + 8 * TOUCH_MAX ]; //用于存储触摸数据
+	memset(touchData,0,10);
+	GT9XX_ReadData (GT9XX_READ_ADDR,2 + 8 * TOUCH_MAX ,touchData);	//读数据
+	GT9XX_WriteData (GT9XX_READ_ADDR,0);	//	清除触摸芯片的寄存器标志位
+	touchInfo.num = touchData[0] & 0x0f;	//取当前的触摸点数
+	
+	if ( (touchInfo.num ) &&touchData[5]<200 && touchData[3]<200 ) //当触摸数在 1-5 之间时>= 1) && (touchInfo.num <=5
+	{
+		// 取相应的触摸坐标
+		touchInfo.y[0] = ((touchData[5]<<8) | touchData[4])*0.81+1;
+		touchInfo.x[0] = ((touchData[3]<<8) | touchData[2])*0.78+1;	
+		return	SUCCESS ;	
+	}
+	else                       
+	{	
+		touchInfo.x[0] = 0;
+		touchInfo.y[0] = 0;
+		return	ERROR ;		
+	}
+}
 
 
 
 
 
 
-#define TOUCH_DEBUG 0
 #if TOUCH_DEBUG
 void	GUI_TouchScan(void)
 {

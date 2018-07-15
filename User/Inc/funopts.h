@@ -5,10 +5,12 @@
 
 #define NET 0
 #define GUI 1
-#define TOUCH 0
+#define TOUCH 1
 #define VNC 0
 #define SCREENSHOT	0
 #define TEST 1
 
+
+#define TOUCH_DEBUG 0
 #endif
 

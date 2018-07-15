@@ -72,7 +72,8 @@ SD:0  FLASH:1
 */
 #include "FreeRTOS.h"
 #include "timers.h"
-#include ""
+
+
 char path1[20] = "0:/image/1.bmp";
 char path2[20] = "0:/image/1.jpg";
 char path3[20] = "0:/image/1.png";

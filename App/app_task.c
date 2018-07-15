@@ -213,10 +213,18 @@ static void vTimerCallback( xTimerHandle pxTimer )
 }
 static void vTaskTouch(void *pvParameters)
 {
+	#if LCD7
+	#else
+	Touch43_Init();
+	#endif
 	while(1)
 	{
 		GUI_TouchScan();
-		vTaskDelay(20);
+		#if TOUCH_DEBUG
+		vTaskDelay(500);
+		#else
+		vTaskDelay(50);
+		#endif
 	}
 }
 //--------------------------------------------------------------
@@ -327,9 +335,9 @@ static void vGUI_Task(void *pvParameters)
 	GUI_VNC_SetProgName("Designed by GX");
 	GUI_VNC_RingBell();
 #endif	
-//	GUIDEMO_Main();
+	GUIDEMO_Main();
 //	MainTask_ETI();
-	Font_Demo();
+//	Font_Demo();
 	vTaskDelay(1000);	
 	printf("picture test\r\n");
 	PicDisplaly_Test();

@@ -43,6 +43,7 @@ typedef struct
 #define GT9XX_ID_ADDR 0x8140		//´¥ÃþÃæ°åID¼Ä´æÆ÷
 
 void Touch_Init(void);
+uint8_t Touch43_Init(void);
 uint8_t Touch_Scan(void);
 void	GUI_TouchScan(void);
 
