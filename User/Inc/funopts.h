@@ -3,10 +3,10 @@
 
 #define LCD7	0
 
-#define NET 0
+#define NET 1
 #define GUI 1
 #define TOUCH 1
-#define VNC 0
+#define VNC 1
 #define SCREENSHOT	0
 #define TEST 1
 
