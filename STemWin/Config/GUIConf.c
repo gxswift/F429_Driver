@@ -61,9 +61,10 @@ Purpose     : Display controller initialization
 */
 //
 // Define the available number of bytes available for the GUI
-//4M
+//4M//0x400000
 #define GUI_NUMBYTES  0x400000
 #define GUI_EXTBUFADD  0xD0465000
+//#define GUI_BLOCKSIZE 0x80
 /*********************************************************************
 *
 *       Public code
@@ -87,6 +88,7 @@ void GUI_X_Config(void) {
   // Assign memory to emWin
   //
   GUI_ALLOC_AssignMemory(aMemory, GUI_NUMBYTES);
+	//GUI_ALLOC_SetAvBlockSize(GUI_BLOCKSIZE);//使用后不能使用fade demo
   //
   // Se  fd 
   //

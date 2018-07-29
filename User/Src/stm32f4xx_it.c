@@ -59,14 +59,20 @@ void NMI_Handler(void)
 
   /* USER CODE END NonMaskableInt_IRQn 1 */
 }
-
+__asm void wait()
+ {
+       BX lr
+ }
 /**
 * @brief This function handles Hard fault interrupt.
 */
 void HardFault_Handler(void)
 {
-  /* USER CODE BEGIN HardFault_IRQn 0 */
+	/* Go to infinite loop when Hard Fault exception occurs */
+//  wait();  
+	/* USER CODE BEGIN HardFault_IRQn 0 */
 	printf("hardfault error\r\n");
+
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
   {

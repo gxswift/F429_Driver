@@ -56,7 +56,7 @@ static TaskHandle_t xHandleTaskTouch = NULL;
 static xTimerHandle TouchScreenTimer = NULL;
 static TaskHandle_t xHandleTaskScreen = NULL;
 static TaskHandle_t xHandleTaskGUI = NULL;
-
+static TaskHandle_t xHandleTaskGUIRAM = NULL;
 //--------------------------------------------------------------
 //--------------------------------------------------------------
 //LEDÈÎÎñ
@@ -310,7 +310,7 @@ static void vSD_Task(void *pvParameters)
 	{
 		printf ("%4d",testsram[i]);
 	} 
-		 for(i=0;i<2500;i++)
+	for(i=0;i<2500;i++)
 	{
 		testsram2[i]=0x7e0|0x7e0<<16;
 	} 	
@@ -347,23 +347,44 @@ static void vGUI_Task(void *pvParameters)
 	}
 }
 
+
+static void vGUIRAM_Task(void *pvParameters)
+{
+	uint32_t Free;
+	while(1)
+	{
+		Free = GUI_ALLOC_GetNumFreeBytes();
+		printf("Free RAM = %d byte\r\n",Free);
+		vTaskDelay(1000);
+	}
+	
+}
+
+
+
 void AppTaskCreate (void)
 {
 #if TOUCH
-//	TouchScreenTimer = xTimerCreate ("Timer", 50, pdTRUE, ( void * ) 1, vTimerCallback );
-//	if( TouchScreenTimer != NULL )
-//  {
-//    if( xTimerStart( TouchScreenTimer, 0 ) != pdPASS )
-//    {
-//      /* The timer could not be set into the Active state. */
-//    }
-//  }
-	xTaskCreate(vTaskTouch,
-							"vTaskTouch",
-							1024,
-							NULL,
-							4,
-							&xHandleTaskTouch);
+//-----------------------------------------------------------------
+	#if LCD7
+	#else
+	Touch43_Init();
+	#endif
+	TouchScreenTimer = xTimerCreate ("Timer", 50, pdTRUE, ( void * ) 1, vTimerCallback );
+	if( TouchScreenTimer != NULL )
+  {
+    if( xTimerStart( TouchScreenTimer, 0 ) != pdPASS )
+    {
+      /* The timer could not be set into the Active state. */
+    }
+  }
+	//-----------------------------------------------------------------
+//	xTaskCreate(vTaskTouch,
+//							"vTaskTouch",
+//							2048,
+//							NULL,
+//							4,
+//							&xHandleTaskTouch);
 #endif
 	
 	xTaskCreate(vTaskLed,
@@ -397,6 +418,13 @@ void AppTaskCreate (void)
 							NULL,
 							2,
 							&xHandleTaskGUI
+							);
+		xTaskCreate(vGUIRAM_Task,
+							"GUIRAM_Task",
+							512,
+							NULL,
+							2,
+							&xHandleTaskGUIRAM
 							);
 	#if SCREENSHOT
 	xTaskCreate(vTaskScreenshot,
