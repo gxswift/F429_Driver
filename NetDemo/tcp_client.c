@@ -1,3 +1,12 @@
+#include "tcpecho.h"
+
+#include "lwip/opt.h"
+
+#if LWIP_NETCONN
+
+#include "lwip/sys.h"
+#include "lwip/api.h"
+
 static void tcpecho_thread(void *arg)
 {
 
@@ -42,7 +51,7 @@ static void tcpecho_thread(void *arg)
                                  {
                                      
                                         //接收到的数据 转发给串口1，来达到透传的目的
-                                        comSendBuf(COM1,data,len);
+                                     //   comSendBuf(COM1,data,len);
                                      
                                         netbuf_delete(buf);
                                      
@@ -85,4 +94,4 @@ static void tcpecho_thread(void *arg)
 }
 
 
-
+#endif

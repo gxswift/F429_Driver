@@ -38,14 +38,14 @@ for (i = 0;i < 5;i++)
 
 static void file_close(void* handle)
 {
-	f_close(handle);
+	f_close((FIL *)handle);
 }
 
 static int file_read(void* handle, void* buf, int bytes)
 {
 	UINT br;
 	FRESULT res;
-	res = f_read(handle,buf,bytes,&br);
+	res = f_read((FIL *)handle,buf,bytes,&br);
 	if(res || br<bytes)
 		return 1;
 	else
@@ -56,7 +56,7 @@ static int file_write(void* handle, struct pbuf* p)
 {
 	UINT bw;
 		FRESULT res;
-	res = f_write(handle,p->payload,p->len,&bw);
+	res = f_write((FIL *)handle,p->payload,p->len,&bw);
 	if(res||bw<p->len)
 		return 1;
 	else

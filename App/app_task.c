@@ -34,6 +34,7 @@
 #include "smtp.h"
 #include "lwip/apps/httpd.h"
 #include "lwip/apps/netbiosns.h"
+#include "lwip/apps/sntp.h"
 
 #include "tcpecho.h"
 #include "udpecho.h"
@@ -198,6 +199,12 @@ static void vTaskMsgPro(void *pvParameters)
 #endif	
 	netbiosns_set_name("gx.lwip");//
 	netbiosns_init();	
+	//----------------------------------------------
+	sntp_setservername(0,"s1a.time.edu.cn");
+	sntp_setservername(1,"s2c.time.edu.cn");
+	sntp_setservername(2,"s2f.time.edu.cn");
+	sntp_setservername(3,"s2j.time.edu.cn");
+	sntp_init();
 #endif
 	while(1)
 	{
@@ -355,7 +362,7 @@ static void vGUIRAM_Task(void *pvParameters)
 	{
 		Free = GUI_ALLOC_GetNumFreeBytes();
 		printf("Free RAM = %d byte\r\n",Free);
-		vTaskDelay(1000);
+		vTaskDelay(5000);
 	}
 	
 }

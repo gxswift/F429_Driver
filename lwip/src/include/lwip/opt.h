@@ -880,7 +880,7 @@
  * The maximum of NTP servers requested
  */
 #if !defined LWIP_DHCP_MAX_NTP_SERVERS || defined __DOXYGEN__
-#define LWIP_DHCP_MAX_NTP_SERVERS       1
+#define LWIP_DHCP_MAX_NTP_SERVERS       4
 #endif
 
 /**

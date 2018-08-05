@@ -1482,6 +1482,16 @@
               <FileType>1</FileType>
               <FilePath>..\NetDemo\fs_custom.c</FilePath>
             </File>
+            <File>
+              <FileName>sntp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\lwip\src\apps\sntp\sntp.c</FilePath>
+            </File>
+            <File>
+              <FileName>tcp_client.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\NetDemo\tcp_client.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
