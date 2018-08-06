@@ -4,34 +4,40 @@
 
 #include "string.h"
 static FIL tftp_file;
-static FIL *file_open(const char* fname, const char* mode, u8_t write)
+static void *file_open(const char* fname, const char* mode, u8_t write)
 {
 	char name[40]={0};
-	char namecopy[40];
 	BYTE Write_Mode;
-char *p;
-uint8_t i;
+/*	
 //filename error sometimes
-	memcpy(namecopy,fname,30);
-p = namecopy;
-for (i = 0;i < 20;i++)
-{
-	if(*p++ == '.')
-	break;
-}
-for (i = 0;i < 5;i++)
-{
-	p++;
-	if(*p<'A' ||*p>'z')
+	char namecopy[40];
+
+	char *p;
+	uint8_t i;
+
+		memcpy(namecopy,fname,30);
+	p = namecopy;
+	for (i = 0;i < 20;i++)
 	{
-		*p = '\0';
+		if(*p++ == '.')
 		break;
 	}
-}
+	for (i = 0;i < 5;i++)
+	{
+		p++;
+		if(*p<'A' ||*p>'z')
+		{
+			*p = '\0';
+			break;
+		}
+	}
+	sprintf(name,"0:/TFTP/%s",namecopy);
+	*/
 //------------------------------------------------------
+	sprintf(name,"0:/TFTP/%s",fname);
 	if(write) Write_Mode = FA_WRITE|FA_CREATE_ALWAYS|FA_READ	;
 	else Write_Mode = FA_READ;
-	sprintf(name,"0:/TFTP/%s",namecopy);
+	
 	f_open (&tftp_file,name,Write_Mode);
 	return &tftp_file;
 }
@@ -46,8 +52,8 @@ static int file_read(void* handle, void* buf, int bytes)
 	UINT br;
 	FRESULT res;
 	res = f_read((FIL *)handle,buf,bytes,&br);
-	if(res || br<bytes)
-		return 1;
+	if(res || br<bytes)//error
+		return -1;
 	else
 		return 0;
 }
@@ -55,10 +61,10 @@ static int file_read(void* handle, void* buf, int bytes)
 static int file_write(void* handle, struct pbuf* p)
 {
 	UINT bw;
-		FRESULT res;
+	FRESULT res;
 	res = f_write((FIL *)handle,p->payload,p->len,&bw);
-	if(res||bw<p->len)
-		return 1;
+	if(res||bw < p->len)//error
+		return -1;
 	else
 		return 0;	
 }
