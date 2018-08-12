@@ -1,0 +1,41 @@
+s_start:开始
+s_start_boundary:分割线解析
+	part_data_begin
+s_header_field_start:文件开始
+s_header_field:文件解析 头部 read header name
+	跳转1 head_value解析头部数据  2 head_data
+s_header_almost_done:头部解析完
+s_header_value_start: header 数值区开始
+s_header_value: header数值区
+s_header_value_almost_done:数值解析完 
+头部解析两次\r\n 跳入数据区解析 
+s_part_data:文件数据
+
+
+
+'\n' 10 换行（newline） LF
+'\r' 13 回车（return）	CR
+
+
+
+post 请求报文格式
+
+　　POST/logsys/home/uploadIspeedLog!doDefault.html HTTP/1.1 
+
+　　Accept: text/plain, */* 
+　　Accept-Language: zh-cn 
+　　Host: 192.168.24.56
+　　Content-Type:multipart/form-data;boundary=-----------------------------7db372eb000e2
+　　User-Agent: WinHttpClient 
+　　Content-Length: 3693
+　　Connection: Keep-Alive
+
+　　-------------------------------7db372eb000e2
+
+　　Content-Disposition: form-data; name="file"; filename="kn.jpg"
+
+　　Content-Type: image/jpeg
+
+　　(此处省略jpeg文件二进制数据...）
+
+　　-------------------------------7db372eb000e2--

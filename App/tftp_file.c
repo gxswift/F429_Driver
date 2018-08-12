@@ -52,12 +52,12 @@ static int file_read(void* handle, void* buf, int bytes)
 	UINT br;
 	FRESULT res;
 	res = f_read((FIL *)handle,buf,bytes,&br);
-	if(res || br<bytes)//error
+	if(res || br == 0)//error
 		return -1;
 	else
 		return 0;
 }
-
+//直接返回正确速度快，但不能判断是否正确写入
 static int file_write(void* handle, struct pbuf* p)
 {
 	UINT bw;

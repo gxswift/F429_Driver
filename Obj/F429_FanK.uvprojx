@@ -1492,6 +1492,16 @@
               <FileType>1</FileType>
               <FilePath>..\NetDemo\tcp_client.c</FilePath>
             </File>
+            <File>
+              <FileName>httpd_post.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\NetDemo\httpd_post.c</FilePath>
+            </File>
+            <File>
+              <FileName>multipart_parser.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\NetDemo\multipart_parser.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

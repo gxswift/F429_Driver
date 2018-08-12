@@ -1,520 +1,357 @@
+/*
+ * Copyright (c) 2001-2003 Swedish Institute of Computer Science.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. The name of the author may not be used to endorse or promote products
+ *    derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+ * OF SUCH DAMAGE.
+ *
+ * This file is part of the lwIP TCP/IP stack.
+ *
+ * Author:       Joakim Myrland
+ * website:      www.LDA.as
+ * email:        joakim.myrland@LDA.as
+ * project:      https://github.com/Lindem-Data-Acquisition-AS/iot_lib/
+ *
+ */
 
-err_t httpd_post_begin(void *connection, const char *uri, const char *
-http_request,u16_t http_request_len, int content_len, char *
-response_uri,u16_t response_uri_len, u8_t *post_auto_wnd)
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include "fs.h"
+#include "httpd.h"
+#include "multipart_parser.h"
+#include "ff.h"
+#define HTTPD_DEBUG 1
+// List of accepted URI for POST requests
+multipart_parser* parser;
+static uint8_t http_post_uri_file_index = 0;
+static uint32_t http_post_content_len = 0;
+#define HTTP_POST_URI_NUM	2
+const char *a[HTTP_POST_URI_NUM] = {
+   	"/upload.cgi",
+	"/relays.ajax"
+};
+const char *
+find_header_name(const char*header );
+const char *
+find_boundary(const char*content_type );
+/*
+ * Mulitpart Parser settings
+ * 
+ * read_on_part_data_begin: (nul
+ * read_header_name: Content-Disposition: read_header_value: form-data; name="key_name"
+ * read_on_headers_complete: (null)
+ * read_part_data: form_value			// May be called multiple times if a file
+ * read_on_part_data_end: (null)
+ * read_on_body_end: (null)
+ *
+ */
+multipart_parser_settings callbacks;
+multipart_parser* _parser;
+//-------------
+static FIL file;
+char filename[30];
+uint8_t File_Flag;
+//-------------
+/* Header which contains the Key with the name */
+int read_header_name(multipart_parser* p, const char *at, size_t length)
 {
-#if LWIP_HTTPD_CGI
-  int i = 0;
+#ifdef  HTTPD_DEBUG
+	printf("read_header_name: %.*s: \n", length, at);
 #endif
-struct http_state *hs = (struct http_state *)connection;
- if(!uri || (uri[0] == '\0')) {
-    return ERR_ARG;
- }
-#if LWIP_HTTPD_CGI
-  if (g_iNumCGIs && g_pCGIs) {
-    for (i = 0; i < g_iNumCGIs; i++) {
-      if (strcmp(uri, g_pCGIs[i].pcCGIName) == 0) {
-	  	response_uri = g_pCGIs[i].pfnCGIHandler(i, http_cgi_paramcount, hs->params,
-                                          hs->param_vals);
-		response_uri_len = strlen(response_uri);
-         break;
-       }
-    }
-  }
-  if(i == g_iNumCGIs) {
-    return ERR_ARG; // 未找到CGI handler 
-  }
+	
+	/* Parse the Header Value */
+	/* Content-Disposition: read_header_value: form-data; name="variable_name" */
+	const char *key_name = find_header_name(at);
+	
+#ifdef  HTTPD_DEBUG 
+	printf("Key Name: %s\n", key_name);
 #endif
-  return ERR_OK;
+	//---------------------------------------------------------------------
+	static uint8_t Ffile_Flag;
+	if (strcmp(key_name,"datafile") == 0)
+	{
+		Ffile_Flag =1;
+		printf("find file\r\n\r\n");
+		return 0;
+	}
+	else
+	{
+		printf("NO file\r\n\r\n");
+	}
+	const char *getfilename = key_name;
+	if (getfilename != NULL && Ffile_Flag)
+	{
+		Ffile_Flag = 0;
+		char name[30];
+		File_Flag = 1;
+		sprintf(name,"0:/WebFile/%s",getfilename);
+		f_open (&file,name,FA_WRITE|FA_CREATE_ALWAYS|FA_READ);
+	}
+	else
+		File_Flag = 0;
+	//---------------------------------------------------------------------
+	return 0;
+}
+
+int read_header_value(multipart_parser* p, const char *at, size_t length)
+{
+#ifdef  HTTPD_DEBUG
+	printf("read_header_value: %.*s\n", length, at);
+#endif
+	return 0;
+}
+
+/* Value for the latest key */
+/* If this is a file, this may be called multiple times. */
+/* Wait until part_end for the complete file. */
+int read_part_data(multipart_parser* p, const char *at, size_t length)
+{
+#ifdef  HTTPD_DEBUG
+	printf("read_part_data: %.*s\n", length, at);
+#endif
+	if (File_Flag)
+	{
+			UINT bw;
+			FRESULT res;
+			res = f_write(&file,at,length,&bw);
+			if(res||bw < length)//error
+				return 1;
+			else
+				return 0;	
+	}
+	return 0;
+}
+
+/* Beginning of a key and value */
+int read_on_part_data_begin(multipart_parser* p, const char *at, size_t length)
+{
+#ifdef  HTTPD_DEBUG
+	printf("read_on_part_data_begin: %.*s\n", length, at);
+#endif
+	return 0;
+}
+
+/* End of header which contains the key */
+int read_on_headers_complete(multipart_parser* p, const char *at, size_t length)
+{
+#ifdef  HTTPD_DEBUG
+	printf("read_on_headers_complete: %.*s\n", length, at);
+#endif
+	return 0;
+}
+
+/** End of the key and value */
+/* If this is a file, the file is complete. */
+/* If this is a value, then the value is complete. */
+int read_on_part_data_end(multipart_parser* p, const char *at, size_t length)
+{
+#ifdef  HTTPD_DEBUG
+	printf("read_on_part_data_end: %.*s\n", length, at);
+#endif
+	if (File_Flag)
+		f_close(&file);
+	return 0;
+}
+
+/* End of the entire form */
+int read_on_body_end(multipart_parser* p, const char *at, size_t length)
+{
+#ifdef  HTTPD_DEBUG
+	printf("read_on_body_end: %.*s\n", length, at);
+#endif
+	return 0;
 }
 
 
-
-
-#define LWIP_HTTPD_POST_MAX_PAYLOAD_LEN     512
-static char http_post_payload[LWIP_HTTPD_POST_MAX_PAYLOAD_LEN];
-static u16_t http_post_payload_len = 0;
-
-err_t httpd_post_receive_data(void *connection, struct pbuf *p)
+static err_t
+http_parse_post(char * data, uint32_t length) 
 {
-    struct http_state *hs = (struct http_state *)connection;
-    struct pbuf *q = p;
-    int count;
-    u32_t http_post_payload_full_flag = 0;
-    while(q != NULL)  // 缓存接收的数据至http_post_payload
-    {
-      if(http_post_payload_len + q->len <= LWIP_HTTPD_POST_MAX_PAYLOAD_LEN) {
-          MEMCPY(http_post_payload+http_post_payload_len, q->payload, q->len);
-          http_post_payload_len += q->len;
-      }
-      else {  // 缓存溢出 置溢出标志位
-        http_post_payload_full_flag = 1;
-        break;
-      }
-      q = q->next;
-    }
-    pbuf_free(p); // 释放pbuf
-    if(http_post_payload_full_flag) // 缓存溢出 则丢弃数据
-    {
-        http_post_payload_full_flag = 0;
-        http_post_payload_len = 0;
-    }
-    else if(hs->post_content_len_left == 0) {  // POST数据已经接收完毕 则处理
-            count = extract_uri_parameters(hs, http_post_payload);  // 解析
-            http_post_payload_len = 0;
-        }
-    }
+#ifdef  HTTPD_DEBUG
+	printf("http_parse_post POST data: %s\n", data);
+#endif	
+
+	/* Parse the data */
+	multipart_parser_execute(_parser, data, length);
+	
     return ERR_OK;
 }
 
 
+/** Called when a POST request has been received. The application can decide
+ * whether to accept it or not.
+ *
+ * @param connection Unique connection identifier, valid until httpd_post_end
+ *        is called.
+ * @param uri The HTTP header URI receiving the POST request.
+ * @param http_request The raw HTTP request (the first packet, normally).
+ * @param http_request_len Size of 'http_request'.
+ * @param content_len Content-Length from HTTP header.
+ * @param response_uri Filename of response file, to be filled when denying the
+ *        request
+ * @param response_uri_len Size of the 'response_uri' buffer.
+ * @param post_auto_wnd Set this to 0 to let the callback code handle window
+ *        updates by calling 'httpd_post_data_recved' (to throttle rx speed)
+ *        default is 1 (httpd handles window updates automatically)
+ * @param content_type Content-Type string.
+ * @return ERR_OK: Accept the POST request, data may be passed in
+ *         another err_t: Deny the POST request, send back 'bad request'.
+ */
+err_t
+httpd_post_begin(void *connection,
+                 const char *uri,
+                 const char *http_request,
+                 u16_t http_request_len,
+                 int content_len,
+                 char *response_uri,
+                 u16_t response_uri_len,
+                 u8_t *post_auto_wnd/*,
+				 const char *content_type*/) {
 
-void httpd_post_finished(void *connection, char *response_uri, u16_t response_uri_len)
-{
-    struct http_state *hs = (struct http_state *)connection;
- 	strncpy(response_uri, "/index.html",response_uri_len);
+	// Check the URI given with the list
+    for (uint8_t i=0; i<HTTP_POST_URI_NUM; i++) {
+        if (strcmp(uri, a[i]) == 0) {
+
+            http_post_uri_file_index = i;
+            http_post_content_len = content_len;
+			
+#ifdef  HTTPD_DEBUG
+			printf("httpd_post_begin: Post Content: %s\n",  http_request);
+#endif
+		
+			memset(&callbacks, 0, sizeof(multipart_parser_settings));
+
+			callbacks.on_header_field = read_header_name;
+			callbacks.on_header_value = read_header_value;
+			callbacks.on_part_data = read_part_data;
+			callbacks.on_part_data_begin = read_on_part_data_begin;
+			callbacks.on_headers_complete = read_on_headers_complete;
+			callbacks.on_part_data_end = read_on_part_data_end;
+			callbacks.on_body_end = read_on_body_end;
+			
+			/* 
+			 * Get the boundary from the content-type 
+			 * Then pass it to the parser 
+			 */
+			//const char *boundary = find_boundary(content_type);
+			const char *boundary  = "---------------------------1234567890123";
+		/*	if(boundary != NULL) {
+				_parser = multipart_parser_init(boundary, &callbacks);
+			}*/
+			_parser = multipart_parser_init(boundary, &callbacks);
+            return ERR_OK;
+        }
+
+    }
+    //returns /404.html when response_uri is empty
+    return ERR_VAL;
 }
 
-//--------------------------------------------------------------
-struct fs_file {
-  char *data;
-  int len;
-};
-#ifdef USE_IAP_HTTP
+/** Called for each pbuf of data that has been received for a POST.
+ * ATTENTION: The application is responsible for freeing the pbufs passed in!
+ *
+ * @param connection Unique connection identifier.
+ * @param p Received data.
+ * @return ERR_OK: Data accepted.
+ *         another err_t: Data denied, http_post_get_response_uri will be called.
+ */
+err_t
+httpd_post_receive_data(void *connection, struct pbuf *p) {
 
-static __IO uint32_t DataFlag=0;
-static __IO uint32_t size =0;
-static __IO uint32_t FlashWriteAddress;
-static uint32_t TotalReceived=0;
-static char LeftBytesTab[4];
-static uint8_t LeftBytes=0;
-static __IO uint8_t resetpage=0;
-static uint32_t ContentLengthOffset =0,BrowserFlag=0;
-static __IO uint32_t TotalData=0, checklogin=0; 
-struct http_state
-{
-  char *file;
-  u32_t left;
-};
+    char *data;
+    err_t ret_val = ERR_ARG;
 
-typedef enum 
-{
-  LoginPage = 0,
-  FileUploadPage,
-  UploadDonePage,
-  ResetDonePage
-}htmlpageState;
-  
-htmlpageState htmlpage;
- 
-static const char http_crnl_2[4] = 
-/* "\r\n--" */
-{0xd, 0xa,0x2d,0x2d};
-static const char octet_stream[14] = 
-/* "octet-stream" */
-{0x6f, 0x63, 0x74, 0x65, 0x74, 0x2d, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d,0x0d, };
-static const char Content_Length[17] = 
-/* Content Length */
-{0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x2d, 0x4c, 0x65, 0x6e, 0x67,0x74, 0x68, 0x3a, 0x20, };
+    struct http_state *hs = (struct http_state*)connection;
+    if (hs != NULL && p != NULL) {
+        data = p->payload;
+        ret_val = http_parse_post(data, http_post_content_len);
+    }
 
-
-static uint32_t Parse_Content_Length(char *data, uint32_t len);
-static void IAP_HTTP_writedata(char* data, uint32_t len);
-
-/* file must be allocated by caller and will be filled in
-   by the function. */
-static int fs_open(char *name, struct fs_file *file);
-
-
-
-/**
-  * @brief callback function for handling TCP HTTP traffic
-  * @param arg: pointer to an argument structure to be passed to callback function
-  * @param pcb: pointer to a tcp_pcb structure
-  * @param p: pointer to a packet buffer
-  * @param err: LwIP error code
-  * @retval err
-  */
-static err_t http_recv(void *arg, struct tcp_pcb *pcb,  struct pbuf *p, err_t err)
-{
-  int32_t i,len=0;
-  uint32_t DataOffset, FilenameOffset;
-  char *data, *ptr, filename[40], login[LOGIN_SIZE];
-  struct fs_file file = {0, 0};
-  struct http_state *hs;
-
-#ifdef USE_LCD
-  char message[46];
-#endif
-  
-  hs = arg;
-
-  if (err == ERR_OK && p != NULL)
-  {
-    /* Inform TCP that we have taken the data */
-    tcp_recved(pcb, p->tot_len);
-    
-    if (hs->file == NULL)
-    {
-      data = p->payload;
-      len = p->tot_len;
-      if (((strncmp(data, "POST /upload.cgi",16)==0)||(DataFlag >=1))&&(htmlpage == FileUploadPage))
-      { 
-        DataOffset =0;
-        
-        /* POST Packet received */
-        if (DataFlag ==0)
-        { 
-          BrowserFlag=0;
-          TotalReceived =0;
-          
-          /* parse packet for Content-length field */
-          size = Parse_Content_Length(data, (uint32_t)(p->tot_len));//解析出文件长度
-           
-          /* parse packet for the octet-stream field */
-          for (i=0;i<len;i++)
-          {
-             if (strncmp ((char*)(data+i), octet_stream, 13)==0)
-             {
-               DataOffset = i+16;
-               break;
-             }
-          }  
-          /* case of MSIE8 : we do not receive data in the POST packet */ 
-          if (DataOffset==0)
-          {
-             DataFlag++;
-             BrowserFlag = 1;
-             pbuf_free(p);
-             return ERR_OK;
-             
-          }
-          /* case of Mozilla Firefox : we receive data in the POST packet*/
-          else
-          {
-            TotalReceived = len - (ContentLengthOffset + 4);
-          }
-        }
-        
-        if (((DataFlag ==1)&&(BrowserFlag==1)) || ((DataFlag ==0)&&(BrowserFlag==0)))
-        { 
-           if ((DataFlag ==0)&&(BrowserFlag==0)) 
-           {
-             DataFlag++;
-           }
-           else if ((DataFlag ==1)&&(BrowserFlag==1))
-           {
-             /* parse packet for the octet-stream field */
-             for (i=0;i<len;i++)
-             {
-               if (strncmp ((char*)(data+i), octet_stream, 13)==0)
-               {
-                 DataOffset = i+16;
-                 break;
-               }
-             }
-             TotalReceived+=len;
-             DataFlag++;
-           }  
-                
-           /* parse packet for the filename field */
-           FilenameOffset = 0;
-           for (i=0;i<len;i++)
-           {
-             if (strncmp ((char*)(data+i), "filename=", 9)==0)
-             {
-                FilenameOffset = i+10;
-                break;
-             }
-           }           
-           i =0;
-           if (FilenameOffset)
-           {
-             while((*(data+FilenameOffset + i)!=0x22 )&&(i < 40))
-             {
-               filename[i] = *(data+FilenameOffset + i);//解析出文件名
-               i++;
-             }
-             filename[i] = 0x0;
-           }
-           
-           if (i==0)//没有文件名
-           {
-             htmlpage = FileUploadPage;
-             /* no filename, in this case reload upload page */
-             fs_open("/upload.html", &file);
-             hs->file = file.data;
-             hs->left = file.len;
-             pbuf_free(p);
-             
-             /* send index.html page */ 
-             send_data(pcb, hs);
-          
-             /* Tell TCP that we wish be to informed of data that has been
-             successfully sent by a call to the http_sent() function. */
-             tcp_sent(pcb, http_sent); 
-             DataFlag=0;
-             return ERR_OK;
-             
-           }
-          
-           TotalData =0;
-           /* init flash */
-           FLASH_If_Init();
-           /* erase user flash area */
-           FLASH_If_Erase(USER_FLASH_FIRST_PAGE_ADDRESS);
-          
-           FlashWriteAddress = USER_FLASH_FIRST_PAGE_ADDRESS;
-         }
-         /* DataFlag >1 => the packet is data only  */
-         else 
-         {
-           TotalReceived +=len;
-         }
-        
-         ptr = (char*)(data + DataOffset);
-         len-= DataOffset;
-        
-         /* update Total data received counter */
-         TotalData +=len;
-        
-         /* check if last data packet */
-         if (TotalReceived == size)
-         {
-           /* if last packet need to remove the http boundary tag */
-           /* parse packet for "\r\n--" starting from end of data */
-           i=4; 
-           while (strncmp ((char*)(data+ p->tot_len -i),http_crnl_2 , 4) && (p->tot_len -i > 0))
-           {
-             i++;
-           }
-           len-=i;
-           TotalData-=i;
-          
-           /* write data in Flash */
-           if (len)
-           IAP_HTTP_writedata(ptr,len);
-          
-           DataFlag=0;
-          htmlpage = UploadDonePage;
-          /* send uploaddone.html page */
-          fs_open("/uploaddone.html", &file);
-          hs->file = file.data;
-          hs->left = file.len;
-          send_data(pcb, hs);
-          
-          /* Tell TCP that we wish be to informed of data that has been
-           successfully sent by a call to the http_sent() function. */
-          tcp_sent(pcb, http_sent);  
-        }
-        /* not last data packet */
-        else
-        {
-          /* write data in flash */
-          if(len)
-          IAP_HTTP_writedata(ptr,len);
-        }
+    if (p != NULL) {
         pbuf_free(p);
-      }
-      else
-      {
-
-       /* Bad HTTP requests */
-        close_conn(pcb, hs);
-      }
     }
-    else
-    {
-      pbuf_free(p);
-      close_conn(pcb,hs);
-    }
-    
-  }
-  if (err == ERR_OK && p == NULL)
-  {
-    /* received empty frame */
-    close_conn(pcb, hs);
-  }
 
-  return ERR_OK;
+    return ret_val;
 }
 
-/**
-  * @brief  callback function on TCP connection setup ( on port 80)
-  * @param  arg: pointer to an argument structure to be passed to callback function
-  * @param  pcb: pointer to a tcp_pcb structure
-  * &param  err: Lwip stack error code
-  * @retval err
-  */
-static err_t http_accept(void *arg, struct tcp_pcb *pcb, err_t err)
-{
-  struct http_state *hs;
+/** Called when all data is received or when the connection is closed.
+ * The application must return the filename/URI of a file to send in response
+ * to this POST request. If the response_uri buffer is untouched, a 404
+ * response is returned.
+ *
+ * @param connection Unique connection identifier.
+ * @param response_uri Filename of response file on success
+ * @param response_uri_len Size of the 'response_uri' buffer.
+ */
+void
+httpd_post_finished(void *connection,
+                    char *response_uri,
+                    u16_t response_uri_len) {
 
-  /* Allocate memory for the structure that holds the state of the connection */
-  hs = mem_malloc(sizeof(struct http_state));
-
-  if (hs == NULL)
-  {
-    return ERR_MEM;
-  }
-
-  /* Initialize the structure. */
-  hs->file = NULL;
-  hs->left = 0;
-
-  /* Tell TCP that this is the structure we wish to be passed for our
-     callbacks. */
-  tcp_arg(pcb, hs);
-
-  /* Tell TCP that we wish to be informed of incoming data by a call
-     to the http_recv() function. */
-  tcp_recv(pcb, http_recv);
-
-  tcp_err(pcb, conn_err);
-
-  tcp_poll(pcb, http_poll, 10);
-  return ERR_OK;
+    struct http_state *hs = (struct http_state*)connection;
+    if (hs != NULL) {
+      //  strncpy(response_uri, a[http_post_uri_file_index], response_uri_len);//使用ajax
+			strncpy(response_uri, "/finish.html", response_uri_len);
+    }
+	
+	/* End the parser */
+	multipart_parser_free(_parser);
 }
 
-/**
-  * @brief  intialize HTTP webserver  
-  * @param  none
-  * @retval None
-  */
-void IAP_httpd_init(void)
-{
-  struct tcp_pcb *pcb;
-  /*create new pcb*/
-  pcb = tcp_new();
-  /* bind HTTP traffic to pcb */
-  tcp_bind(pcb, IP_ADDR_ANY, 80);
-  /* start listening on port 80 */
-  pcb = tcp_listen(pcb);
-  /* define callback function for TCP connection setup */
-  tcp_accept(pcb, http_accept);
+/* Find boundary value in the Content-Type. */
+const char *
+find_boundary(const char*content_type ) {
+	
+	#define BOUNDARY_TITLE               "boundary="
+	#define BOUNDARY_TITLE_LEN           9
+	
+	if(content_type != NULL) {
+		char *boundary_begin = strstr(content_type, BOUNDARY_TITLE);		// Find Boundary= in Content-Type
+		char *boundary = boundary_begin + BOUNDARY_TITLE_LEN;				// Remove the Boundary=
+#ifdef  HTTPD_DEBUG
+		printf("POST multipart Boundary found: %s\n", boundary);	
+#endif		
+
+		return boundary;
+	}
+	return NULL;
 }
 
-/**
-  * @brief  Opens a file defined in fsdata.c ROM filesystem 
-  * @param  name : pointer to a file name
-  * @param  file : pointer to a fs_file structure  
-  * @retval  1 if success, 0 if fail
-  */
-static int fs_open(char *name, struct fs_file *file)
-{
-  struct fsdata_file_noconst *f;
-
-  for (f = (struct fsdata_file_noconst *)FS_ROOT; f != NULL; f = (struct fsdata_file_noconst *)f->next)
-  {
-    if (!strcmp(name, f->name))
-    {
-      file->data = f->data;
-      file->len = f->len;
-      return 1;
-    }
-  }
-  return 0;
+/* Find Header Key Name in the header. */
+const char *
+find_header_name(const char*header ) {
+	
+	#define HEADER_NAME_TITLE               "name="
+	#define HEADER_NAME_TITLE_LEN           5
+	
+	if(header != NULL) {
+		char *header_name_begin = strstr(header, HEADER_NAME_TITLE);		// Find name= in Header
+		char *header_name = strtok(header_name_begin, "\"");				// Find the first "
+		header_name = strtok(NULL, "\"");									// Go to the last "
+#ifdef  HTTPD_DEBUG
+		printf("POST multipart Header Key found: %s\n", header_name);	
+#endif	
+		
+		return header_name;
+	}
+	return NULL;
 }
-
-/**
-  * @brief  Extract the Content_Length data from HTML data  
-  * @param  data : pointer on receive packet buffer 
-  * @param  len  : buffer length  
-  * @retval size : Content_length in numeric format
-  */
-static uint32_t Parse_Content_Length(char *data, uint32_t len)
-{
-  uint32_t i=0,size=0, S=1;
-  int32_t j=0;
-  char sizestring[6], *ptr;
-   
-  ContentLengthOffset =0;
-  
-  /* find Content-Length data in packet buffer */
-  for (i=0;i<len;i++)
-  {
-    if (strncmp ((char*)(data+i), Content_Length, 16)==0)
-    {
-      ContentLengthOffset = i+16;
-      break;
-    }
-  }
-  /* read Content-Length value */
-  if (ContentLengthOffset)
-  {
-    i=0;
-    ptr = (char*)(data + ContentLengthOffset);
-    while(*(ptr+i)!=0x0d)
-    {
-      sizestring[i] = *(ptr+i);
-      i++;
-      ContentLengthOffset++; 
-    }
-    if (i>0)
-    {
-      /* transform string data into numeric format */
-      for(j=i-1;j>=0;j--)
-      {
-        size += (sizestring[j]-'0')*S;
-        S=S*10;
-      }
-    }
-  }
-  return size;
-}
-
-/**
-  * @brief  writes received data in flash    
-  * @param  ptr: data pointer
-  * @param  len: data length
-  * @retval None 
-  */
-static void IAP_HTTP_writedata(char * ptr, uint32_t len)            
-{
-  uint32_t count, i=0, j=0;
-  
-  /* check if any left bytes from previous packet transfer*/
-  /* if it is the case do a concat with new data to create a 32-bit word */
-  if (LeftBytes)
-  {
-    while(LeftBytes<=3)
-    {
-      if(len>(j+1))
-      {
-        LeftBytesTab[LeftBytes++] = *(ptr+j);
-      }
-      else
-      {
-        LeftBytesTab[LeftBytes++] = 0xFF;
-      }
-      j++;
-    }
-    FLASH_If_Write(&FlashWriteAddress, (uint32_t*)(LeftBytesTab),1);
-    LeftBytes =0;
-    
-    /* update data pointer */
-    ptr = (char*)(ptr+j);
-    len = len -j;
-  }
-  
-  /* write received bytes into flash */
-  count = len/4;
-  
-  /* check if remaining bytes < 4 */
-  i= len%4;
-  if (i>0)
-  {
-    if (TotalReceived != size)
-    {
-      /* store bytes in LeftBytesTab */
-      LeftBytes=0;
-      for(;i>0;i--)
-      LeftBytesTab[LeftBytes++] = *(char*)(ptr+ len-i);  
-    }
-    else count++;
-  }
-  FLASH_If_Write(&FlashWriteAddress, (uint32_t*)ptr ,count);
-}
-#endif
-
-
