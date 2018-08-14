@@ -194,7 +194,7 @@ static void vTaskMsgPro(void *pvParameters)
 #else
 	tcpecho_init();
 	udpecho_init();
-	
+	//ntp_client_init();
 	TFTP_Start();	
 #endif	
 	netbiosns_set_name("gx.lwip");//

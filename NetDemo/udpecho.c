@@ -83,7 +83,7 @@ extern uint32_t Maskaddress;
 extern uint32_t GWaddress;
 static uint8_t cnt;
 static void
-udpebroadcast_thread()
+udpebroadcast_thread()//thread error ?
 {
   struct netconn *conn;
   struct netbuf *buf;
@@ -107,7 +107,7 @@ udpebroadcast_thread()
 	cnt=10;
 
   conn = netconn_new(NETCONN_UDP);
-  netconn_bind(conn, IP_ADDR_ANY, 6000);
+  netconn_bind(conn, IP_ADDR_ANY, 5000);
  netconn_connect(conn,&addr,6000);
 	while(1)
 	{
@@ -135,6 +135,9 @@ udpebroadcast_thread()
 
 			err = netconn_send(conn, buf);
 			netbuf_delete(buf);
+		}
+		else
+		{
 		}
 		vTaskDelay(2000);
 	}
@@ -223,7 +226,7 @@ udpecho_init(void)
 {
   sys_thread_new("udpecho_thread", udpecho_thread, NULL, DEFAULT_THREAD_STACKSIZE, DEFAULT_THREAD_PRIO);
 
-  sys_thread_new("udpebroadcast_thread", udpebroadcast_thread, NULL, DEFAULT_THREAD_STACKSIZE, DEFAULT_THREAD_PRIO);
+//  sys_thread_new("udpebroadcast_thread", udpebroadcast_thread, NULL, DEFAULT_THREAD_STACKSIZE, DEFAULT_THREAD_PRIO);
 }
 
 #endif /* LWIP_NETCONN */
