@@ -161,6 +161,7 @@ udpecho_thread()
 	i=1;
 
   conn = netconn_new(NETCONN_UDP);
+	conn->recv_timeout = 4000;//×èÈûÊ±¼ä  ĞèÒª¶¨Ò åLWIP_SO_RCVTIMEO 1
   netconn_bind(conn, IP_ADDR_ANY, 2222);
 //  netconn_connect(conn,&addr,2222);
 	//²»ĞèÒªÁ¬½Ó£¬¿É½ÓÊÕÒ»ÇĞ£¬°üÀ¨¹ã²¥£¬ÈôÁ¬½Ó£¬ÔòÖ»Õë¶ÔÒ»¸öIP,netbuf°üº¬µØÖ·
@@ -218,6 +219,7 @@ udpecho_thread()
 			netbuf_delete(buf);
 		}
 		vTaskDelay(2000);
+		printf("\r\n\r\n");
 	}
 }
 /*-----------------------------------------------------------------------------------*/

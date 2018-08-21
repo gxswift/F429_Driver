@@ -115,6 +115,7 @@ a lot of data that needs to be copied, this should be set high. */
 #define LWIP_UDP                1
 #define UDP_TTL                 255
 
+#define LWIP_SO_RCVTIMEO 1
 /*----- CHECKSUM_BY_HARDWARE disabled -----*/
 /*
    --------------------------------------
