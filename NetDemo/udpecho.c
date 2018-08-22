@@ -83,7 +83,7 @@ extern uint32_t Maskaddress;
 extern uint32_t GWaddress;
 static uint8_t cnt;
 static void
-udpebroadcast_thread()//thread error ?
+udpebroadcast_thread()//thread error ?–Ë“™…æ≥˝Ω¯≥Ã£¨ªÚ’ﬂ π”√∂Ã¡¥Ω”
 {
   struct netconn *conn;
   struct netbuf *buf;
@@ -107,6 +107,7 @@ udpebroadcast_thread()//thread error ?
 	cnt=10;
 
   conn = netconn_new(NETCONN_UDP);
+	conn->recv_timeout = 40;//◊Ë»˚ ±º‰ 
   netconn_bind(conn, IP_ADDR_ANY, 5000);
  netconn_connect(conn,&addr,6000);
 	while(1)
@@ -133,12 +134,19 @@ udpebroadcast_thread()//thread error ?
 			netbuf_alloc(buf,strlen((char *)buff));
 			memcpy(buf->p->payload,(void*)buff,strlen((char*)buff));	
 
-			err = netconn_send(conn, buf);
+			err = netconn_send(conn, buf);	
 			netbuf_delete(buf);
+			netconn_recv(conn, &buf);
+			netbuf_delete(buf);
+
 		}
 		else
 		{
+			     netconn_delete(conn); 
+           netbuf_delete( buf );
+			vTaskDelete(NULL);
 		}
+
 		vTaskDelay(2000);
 	}
 }
@@ -161,7 +169,7 @@ udpecho_thread()
 	i=1;
 
   conn = netconn_new(NETCONN_UDP);
-	conn->recv_timeout = 4000;//◊Ë»˚ ±º‰  –Ë“™∂®“ ÂLWIP_SO_RCVTIMEO 1
+	conn->recv_timeout = 4000;//◊Ë»˚ ±º‰  –Ë“™∂®“ÂLWIP_SO_RCVTIMEO 1
   netconn_bind(conn, IP_ADDR_ANY, 2222);
 //  netconn_connect(conn,&addr,2222);
 	//≤ª–Ë“™¡¨Ω”£¨ø…Ω” ’“ª«–£¨∞¸¿®π„≤•£¨»Ù¡¨Ω”£¨‘Ú÷ª’Î∂‘“ª∏ˆIP,netbuf∞¸∫¨µÿ÷∑
@@ -228,7 +236,7 @@ udpecho_init(void)
 {
   sys_thread_new("udpecho_thread", udpecho_thread, NULL, DEFAULT_THREAD_STACKSIZE, DEFAULT_THREAD_PRIO);
 
-//  sys_thread_new("udpebroadcast_thread", udpebroadcast_thread, NULL, DEFAULT_THREAD_STACKSIZE, DEFAULT_THREAD_PRIO);
+  sys_thread_new("udpebroadcast_thread", udpebroadcast_thread, NULL, DEFAULT_THREAD_STACKSIZE, DEFAULT_THREAD_PRIO);
 }
 
 #endif /* LWIP_NETCONN */
