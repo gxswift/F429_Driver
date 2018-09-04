@@ -245,6 +245,9 @@ uint32_t testsram2[2500] __attribute__((at(0XD0020000)));
 	
 extern void MainTask_U(void);
 extern void MainTask_ETI(void);
+extern void MainTask(void) ;
+
+
 static void vSD_Task(void *pvParameters)
 {
 	uint8_t ReadBuff[100] = {0};
@@ -326,6 +329,7 @@ static void vSD_Task(void *pvParameters)
 	Display_Test();
 
 	//vTaskDelete(xHandleTaskSD);
+	vTaskDelete(NULL);
 	while(1)
 	{
 		vTaskDelay(1000);
@@ -342,7 +346,8 @@ static void vGUI_Task(void *pvParameters)
 	GUI_VNC_SetProgName("Designed by GX");
 	GUI_VNC_RingBell();
 #endif	
-	GUIDEMO_Main();
+	MainTask();
+//	GUIDEMO_Main();
 //	MainTask_ETI();
 //	Font_Demo();
 	vTaskDelay(1000);	

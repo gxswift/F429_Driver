@@ -715,8 +715,13 @@ uint8_t	Touch_Scan(void)
 	if ( (touchInfo.num ) &&touchData[5]<200 && touchData[3]<200 ) //当触摸数在 1-5 之间时>= 1) && (touchInfo.num <=5
 	{
 		// 取相应的触摸坐标
+		#if LCD7	
 		touchInfo.y[0] = ((touchData[5]<<8) | touchData[4])*0.81+1;
 		touchInfo.x[0] = ((touchData[3]<<8) | touchData[2])*0.78+1;	
+		#else
+		touchInfo.y[0] = (touchData[5]<<8) | touchData[4];
+		touchInfo.x[0] = (touchData[3]<<8) | touchData[2];	
+		#endif
 		return	SUCCESS ;	
 	}
 	else                       
