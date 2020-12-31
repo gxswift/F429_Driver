@@ -269,7 +269,8 @@ void HAL_LTDC_MspInit(LTDC_HandleTypeDef* ltdcHandle)
     HAL_NVIC_SetPriority(LTDC_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(LTDC_IRQn);
   /* USER CODE BEGIN LTDC_MspInit 1 */
-
+	__HAL_LTDC_RELOAD_CONFIG(&hltdc);	//	重新载入参数
+   HAL_LTDC_EnableDither(&hltdc);		// 开启颜色抖动
   /* USER CODE END LTDC_MspInit 1 */
   }
 }

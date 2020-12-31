@@ -346,7 +346,10 @@ static void vGUI_Task(void *pvParameters)
 	GUI_VNC_SetProgName("Designed by GX");
 	GUI_VNC_RingBell();
 #endif	
-	MainTask();
+
+	WM_MULTIBUF_Enable(1);
+	WM_SetCreateFlags(WM_CF_MEMDEV);
+		MainTask();
 //	GUIDEMO_Main();
 //	MainTask_ETI();
 //	Font_Demo();
@@ -359,7 +362,7 @@ static void vGUI_Task(void *pvParameters)
 	}
 }
 
-
+char pWriteBuffer[2048];
 static void vGUIRAM_Task(void *pvParameters)
 {
 	uint32_t Free;
@@ -368,6 +371,11 @@ static void vGUIRAM_Task(void *pvParameters)
 		Free = GUI_ALLOC_GetNumFreeBytes();
 		printf("Free RAM = %d byte\r\n",Free);
 		vTaskDelay(5000);
+		    vTaskList((char *)&pWriteBuffer);
+    printf("[task information]\r\n");
+    printf("task name\tstate\tprior\tstack\tnumber\r\n");
+    printf("------------------------------------------------\r\n");
+    printf("%s\r\n", pWriteBuffer);
 	}
 	
 }
@@ -382,7 +390,7 @@ void AppTaskCreate (void)
 	#else
 	Touch43_Init();
 	#endif
-	TouchScreenTimer = xTimerCreate ("Timer", 50, pdTRUE, ( void * ) 1, vTimerCallback );
+	TouchScreenTimer = xTimerCreate ("Timer", 20, pdTRUE, ( void * ) 1, vTimerCallback );
 	if( TouchScreenTimer != NULL )
   {
     if( xTimerStart( TouchScreenTimer, 0 ) != pdPASS )

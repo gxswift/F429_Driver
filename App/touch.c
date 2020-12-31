@@ -750,13 +750,22 @@ void	GUI_TouchScan(void)
 	Touch_Scan(); //´¥ÃþÉ¨Ãè
 	State.x = touchInfo.x[0];
 	State.y = touchInfo.y[0];
+	#if 0
 	if (touchInfo.x[0]) {
 	State.Pressed = 1;
 	} else {
 	State.Pressed = 0;
 	}
 	GUI_TOUCH_StoreStateEx(&State);
+	#else
+	if (0 == touchInfo.x[0])
+	{
+		State.x = -1;
+		State.y = -1;
+	}		
+	
+	GUI_TOUCH_StoreState(State.x, State.y);
+	#endif
 }
-
 #endif
 

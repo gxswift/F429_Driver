@@ -103,7 +103,7 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
 	  WM_InvalidateWindow(pMsg->hWin);
 	  break;
   case WM_TIMER:
-	  if (Sec++ > 59)
+	  if (++Sec> 59)
 	  {
 		  Min++;
 		  Sec = 0;
@@ -208,7 +208,7 @@ WM_HWIN CreateWinMain(void);
 void MainTask(void) {
 	int i, j;
 
-	GUI_RECT Rect = { 180, 220, 280, 240 };
+	GUI_RECT Rect = { 180, 220, 297, 240 };
 	
 	WM_SetCreateFlags(WM_CF_MEMDEV);
 	GUI_Init();	
@@ -241,12 +241,12 @@ void MainTask(void) {
 	{
 		for (j = 0; j < 65; j++)
 		{
-		//	GUI_DrawGradientV(0, 0, 479, 271, GUI_LIGHTBLUE, GUI_BLUE);
-//			GUI_DispStringHCenterAt("Build software better, together.", 240, 190);
-//			GUI_DrawBitmap(&bmlogo, 120, 100);
-			GUI_FillRect(180, 222, 280, 240);
+	//		GUI_DrawGradientV(0, 0, 479, 271, GUI_LIGHTBLUE, GUI_BLUE);
+	//		GUI_DispStringHCenterAt("Build software better, together.", 240, 190);
+	//		GUI_DrawBitmap(&bmlogo, 120, 100);
+			GUI_FillRect(180, 222, 300, 240);
 	//		GUI_SetColor(GUI_WHITE);
-			GUI_DrawRoundedFrame(180, 220, 280, 240, 10, 2);
+			GUI_DrawRoundedFrame(180, 220, 300, 240, 10, 2);
 			GUI_SetClipRect(&Rect);
 			GUI_DrawBitmap(&bmbar, 180 + j * 4, 225);
 			GUI_SetClipRect(NULL);
